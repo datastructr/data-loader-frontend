@@ -3,7 +3,7 @@ import React, {Component, PropTypes} from 'react';
 class CSVTableCell extends Component {
   render() {
     return (
-        <td className="Uploader-table-cell">
+        <td className="Uploader-table-cell mdl-data-table__cell--non-numeric">
           {this.props.value}
         </td>
     );

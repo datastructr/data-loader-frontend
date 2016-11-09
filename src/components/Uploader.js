@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 
+import '../styles/Uploader.css';
+
 import CSVTable from './uploader/csvTable';
+import TableToolbar from './uploader/tableToolbar';
 
 class Uploader extends Component {
   render() {
@@ -10,8 +13,8 @@ class Uploader extends Component {
     } = this.props;
 
     return (
-      <div className="Uploader col-md-7">
-
+      <div className="Uploader">
+        <TableToolbar />
         <CSVTable
           tableData={csvData.tableData} 
           headerData={csvData.headerData} 

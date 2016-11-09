@@ -19,7 +19,7 @@ class CSVTable extends Component {
     });
 
     return (
-      <table>
+      <table className="Uploader-csvtable mdl-data-table mdl-data-table--selectable mdl-shadow--2dp">
         <thead>
           {header}
         </thead>

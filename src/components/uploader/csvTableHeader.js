@@ -9,7 +9,7 @@ import React, {Component, PropTypes} from 'react';
 class CSVTableHeader extends Component {
   render() {
     return (
-        <th className="Uploader-table-header">
+        <th className="Uploader-table-header mdl-data-table__cell--non-numeric">
           {this.props.value}
         </th>
     );

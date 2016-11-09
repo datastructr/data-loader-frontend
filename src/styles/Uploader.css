@@ -1,0 +1,30 @@
+.Uploader-csvtable {
+  height: 100%;
+  width: 100%;
+}
+
+.Uploader-table-toolbar {
+  background-color: white;
+  height: 60px;
+}
+
+.Uploader-table-header {
+
+}
+
+.Uploader-table-header:hover {
+  color: coral;
+  cursor: pointer;
+}
+
+.Uploader-table-header:active {
+  color: deepskyblue;
+}
+
+.Uploader-table-header-lonely {
+  color: red;
+}
+
+.Uploader-table-header-matched {
+  color: green;
+}
