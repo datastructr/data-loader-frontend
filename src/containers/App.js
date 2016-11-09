@@ -24,10 +24,18 @@ class App extends Component {
     return (
       <div className="App">
         <div className="container-fluid">
-          <div className="row">
-            <Uploader csvData={testData} />
-            <Schemas />
-            <Reporter />
+          <div className="row App-main-view">
+            <div className="App-left-view col-md-7">
+
+              <Uploader csvData={testData} />
+
+            </div>
+            <div className="App-right-view col-md-5">
+
+              <Schemas />
+              <Reporter />
+
+            </div>
           </div>
         </div>
       </div>

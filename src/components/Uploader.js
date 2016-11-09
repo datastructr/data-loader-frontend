@@ -10,7 +10,7 @@ class Uploader extends Component {
     } = this.props;
 
     return (
-      <div className="Uploader">
+      <div className="Uploader col-md-7">
 
         <CSVTable
           tableData={csvData.tableData} 
