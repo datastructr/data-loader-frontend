@@ -8,6 +8,8 @@ import Uploader from '../components/Uploader';
 
 import '../styles/App.css';
 
+import {testCsvData, sampleSchema} from '../tests/App.samples.js';
+
 class App extends Component {
   constructor(props) {
       super(props);
@@ -17,28 +19,6 @@ class App extends Component {
     }
 
   render() {
-
-     let testData = {
-      headerData: ['Field1','Field2','Field3','Field4','Field5','Field6','Field7','Field8'],
-      tableData: [
-        [25,1,4,5,25,1,4,5],
-        [25,1,4,5,25,1,4,5],
-        [25,1,4,5,25,1,4,5],
-        [25,1,4,5,25,1,4,5],
-        [25,1,4,5,25,1,4,5],
-        [25,1,4,5,25,1,4,5],
-        [25,1,4,5,25,1,4,5],
-        [25,1,4,5,25,1,4,5],
-        [25,1,4,5,25,1,4,5],
-        [25,1,4,5,25,1,4,5],
-        [25,1,4,5,25,1,4,5],
-        [25,1,4,5,25,1,4,5],
-        [25,1,4,5,25,1,4,5],
-        [25,1,4,5,25,1,4,5],
-        [25,1,4,5,25,1,4,5],
-        [25,1,4,5,25,1,4,5]
-      ]
-    }
 
     let canvas = this.state.canvasOn
       ? (<canvas id="App-canvas"></canvas>)
@@ -52,7 +32,7 @@ class App extends Component {
             <div className="App-left-view col-md-7 col-sm-6">
 
               <Uploader 
-                csvData={testData} 
+                csvData={testCsvData} 
               />
 
             </div>
