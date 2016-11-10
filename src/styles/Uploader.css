@@ -1,6 +1,7 @@
 .Uploader-csvtable {
   height: 100%;
   width: 100%;
+  overflow: scroll;
 }
 
 .Uploader-table-toolbar {

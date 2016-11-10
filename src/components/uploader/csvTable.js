@@ -12,7 +12,12 @@ class CSVTable extends Component {
 
     var rows = [];
 
-    let header = <CSVTableRow values={headerData} isHeader={true}/>
+    let header = (
+      <CSVTableRow 
+        values={headerData} 
+        isHeader={true}
+      />
+    );
     
     tableData.forEach((row,i) => {
       rows.push(<CSVTableRow key={i} values={row} isHeader={false}/>);

@@ -2,14 +2,34 @@
 .col-md-7 {
   padding: 0px !important;
 }
+.col-md-5 {
+  padding: 0px !important;
+}
+
+.canvas-container { 
+  height: 100vh !important; 
+  width: 100vw !important; 
+  z-index: 9999;
+  display: block;
+  position: fixed !important;
+}
+
+#App-canvas {
+  height: 100vh !important; 
+  width: 100vw !important;
+  position: fixed !important;
+  display: block;
+}
 
 .App-main-view {
   height: 100vh;
+  max-height: 100vh !important; 
+  max-width: 100vw !important; 
 }
 
 .App-right-view {
   height: 100%;
-  background-color: red;
+  border-left: 2px solid lightslategrey;
 }
 
 .App-left-view {
