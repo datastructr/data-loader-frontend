@@ -1,5 +1,5 @@
 /* 
-  Accordian Class
+  Accordion Class
   mdramos
   Dynamic/Recursive a parent->child->child... relationship is required the whole object can be 
   named however you like, but each child object needs to be identified as "children" (to change)
@@ -7,14 +7,15 @@
 
 import React, {Component, PropTypes} from 'react';
 
-class Accordian extends Component {
+class Accordion extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      openLevelRow: "", // this is the current open level row in an accordian
+      openLevelRow: "", // this is the current open level row in an accordion
       selfLevelObject: props.newLevel, // the current level object containing all rows and their data/children
       childSelector: props.childSelector,
-      uniqueSelector: props.uniqueSelector
+      uniqueSelector: props.uniqueSelector,
+      renderBaseFunc: props.renderBaseFunc // the render function a user must define
     };
   }
 
@@ -29,17 +30,18 @@ class Accordian extends Component {
     });
   }
 
-  generateAccordianBody(row) {
+  generateAccordionBody(row) {
     const {
       childSelector,
-      uniqueSelector
+      uniqueSelector,
+      renderBaseFunc
     } = this.state;
 
     if(!row[childSelector]) {
       // this will be whatever body the user wants to pass
-      return (<pre>hey test</pre>);
+      return renderBaseFunc(row);
     } else {
-      return (<Accordian newLevel={row[uniqueSelector][childSelector]} />);
+      return (<Accordion newLevel={row[uniqueSelector][childSelector]} />);
     }
   }
     
@@ -56,10 +58,10 @@ class Accordian extends Component {
       <div>
           {selfLevelObject.map((row, i) =>
 
-              <div className="accordian-hold-self-level" key={i} >
+              <div className="accordion-hold-self-level" key={i} >
                 {/* This is an individual collapsable Row */}
-                <div onClick={this.toggleOpenClose.bind(this, row[uniqueSelector])} className="accordian-title-row">
-                  <p className="accordian-title"> {row[uniqueSelector]}</p>
+                <div onClick={this.toggleOpenClose.bind(this, row[uniqueSelector])} className="accordion-title-row">
+                  <p className="accordion-title"> {row[uniqueSelector]}</p>
                 </div>
                 {/* 
                     When iterating the list, find out if a row has been opened
@@ -71,7 +73,7 @@ class Accordian extends Component {
                       if not, then we are at the bottom, do what ever 
                       you'd like with the bottom row
                     */
-                    this.generateAccordianBody(row)
+                    this.generateAccordionBody(row)
                 }
               </div> 
           )}
@@ -80,10 +82,11 @@ class Accordian extends Component {
   }
 }
 
-Accordian.propTypes = {
+Accordion.propTypes = {
   newLevel: PropTypes.object.isRequired,
   uniqueSelector: PropTypes.string.isRequired,
+  renderBaseFunc: PropTypes.func.isRequired,
   childSelector: PropTypes.string
 };
 
-export default Accordian;
+export default Accordion;

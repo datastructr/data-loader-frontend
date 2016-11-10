@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { DropTarget } from 'react-dnd';
 import { DndTypes } from './shared/Constants';
-import Accordian from './shared/Accordian';
+import Accordion from './shared/Accordion';
 
 const schemaTarget = {
   canDrop(props) {
