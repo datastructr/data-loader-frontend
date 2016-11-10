@@ -28,9 +28,19 @@ class Schemas extends Component {
   
   
   
-  baseViewRender(schemaProperties) {
-    console.log(schemaProperties)
-    return (<h1>hey</h1>)
+  baseViewRender(schema) {
+    return (
+      //column_name":"fid","nullable":"False","primary_key":true,"type":"INTEGER" 
+      <div>
+        {schema.properties.map((field,i) =>
+          <ul>
+            <li><b>Column Name</b> {field.column_name}</li>
+            <li><b>Required</b> {field.nullable}</li>
+            <li><b>Type</b> {field.type}</li>
+          </ul>
+        )}
+      </div>
+    );
   }
   
   render() {
