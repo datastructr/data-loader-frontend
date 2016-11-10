@@ -2,7 +2,9 @@
   Accordion Class
   mdramos
   Dynamic/Recursive a parent->child->child... relationship is required the whole object can be 
-  named however you like, but each child object needs to be identified as "children" (to change)
+  named however you like. User defined how to render a base of each accordian level 
+
+  todo: add onclick events for each levels
 */
 
 import React, {Component, PropTypes} from 'react';
