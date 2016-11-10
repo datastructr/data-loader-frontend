@@ -38,7 +38,9 @@ class Schemas extends Component {
 
     return connectDropTarget(
       <div className="Schemas">
-        <pre>{JSON.stringify(availableSchemas,null,2)}</pre>
+        <div className="Schemas-view">
+          <pre>{JSON.stringify(availableSchemas,null,2)}</pre>
+        </div>
       </div>
     );
   }
