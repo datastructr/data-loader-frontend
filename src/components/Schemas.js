@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-
 import { DropTarget } from 'react-dnd';
 import { DndTypes } from './shared/Constants';
+import Accordian from './shared/Accordian';
 
 const schemaTarget = {
   canDrop(props) {
@@ -39,7 +39,13 @@ class Schemas extends Component {
     return connectDropTarget(
       <div className="Schemas">
         <div className="Schemas-view">
-          <pre>{JSON.stringify(availableSchemas,null,2)}</pre>
+
+          <Accordian 
+            newLevel={availableSchemas}
+            uniqueSelector={"name"}
+            childrenSelector={null}
+          />
+          
         </div>
       </div>
     );
@@ -47,7 +53,7 @@ class Schemas extends Component {
 }
 
 Schemas.propTypes = {
-  availableSchemas: PropTypes.object.isRequired,
+  availableSchemas: PropTypes.array.isRequired,
   activeSchemaId: React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.number

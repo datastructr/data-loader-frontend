@@ -3,7 +3,7 @@
   max-height: 60%;
   overflow-y: scroll;
   background-color: white;
-  border-bottom: 2px solid lightslategrey;
+  border-bottom: 1px solid lightslategrey;
 }
 
 .Schemas-view {

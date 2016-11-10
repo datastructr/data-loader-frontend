@@ -1,8 +1,7 @@
 export const schemaSamples = {
   activeSchemaId: 1,
-  availableSchemas: {
-    "1": {
-      "table": {
+  availableSchemas: [
+    {
         "name": "leads",
         "properties": [
           { "column_name":"fid","nullable":"False","primary_key":true,"type":"INTEGER" },
@@ -28,10 +27,17 @@ export const schemaSamples = {
           { "column_name":"editable","nullable":"True","primary_key":false,"type":"BOOLEAN" },
           { "column_name":"locations","nullable":"True","primary_key":false,"type":"JSON" }
         ]
-      }
-      },
-    "2": 'nothing here'
-  }
+    },
+    {
+      "name": "nothing-here1"
+    },
+    {
+      "name": "nothing-here2"
+    },
+    {
+      "name": "nothing-here3"
+    }
+  ]
   
 }
 
