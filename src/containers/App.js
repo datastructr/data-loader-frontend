@@ -8,7 +8,8 @@ import Uploader from '../components/Uploader';
 
 import '../styles/App.css';
 
-import {testCsvData, sampleSchema} from '../tests/App.samples.js';
+// Sample tests
+import {testCsvData, schemaSamples} from '../tests/App.samples.js';
 
 class App extends Component {
   constructor(props) {
@@ -38,7 +39,11 @@ class App extends Component {
             </div>
             <div className="App-right-view col-md-5 col-sm-6">
 
-              <Schemas />
+              <Schemas 
+                availableSchemas={schemaSamples.availableSchemas}
+                activeSchemaId={schemaSamples.activeSchemaId}
+              />
+
               <Reporter />
 
             </div>

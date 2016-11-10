@@ -27,19 +27,29 @@ import '../styles/Schemas.css';
 class Schemas extends Component {
   render() {
     const {
+      availableSchemas,
+      activeSchemaId,
+
       connectDropTarget,
       isOver
     } = this.props;
 
+    
+
     return connectDropTarget(
       <div className="Schemas">
-
+        <pre>{JSON.stringify(availableSchemas,null,2)}</pre>
       </div>
     );
   }
 }
 
 Schemas.propTypes = {
+  availableSchemas: PropTypes.object.isRequired,
+  activeSchemaId: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.number
+  ]),
 
   // Injected by React DnD:
   connectDropTarget: PropTypes.func.isRequired
