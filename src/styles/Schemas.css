@@ -9,3 +9,17 @@
 .Schemas-view {
   margin: 2.5%;
 }
+
+.Schema-choices {
+  margin-left: 10px;
+  width: 100%;
+}
+
+.Schema-choices > .Schema-field,
+.Schema-choices > .Schema-field-isover{
+  padding: 5px;
+}
+
+.Schema-field-isover {
+  border: 2px solid deepskyblue;
+}

@@ -11,12 +11,15 @@ class Schemas extends Component {
   
   baseViewRender(schema) {
     return(
-      <div>
+      <div className="Schema-choices">
         {schema.properties.map((field,i) =>
+          <span>
           <SchemaField
             key={i}
             field={field}
           />
+          <br/>
+          </span>
         )}
       </div>
     );

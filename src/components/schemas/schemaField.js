@@ -32,7 +32,7 @@ class SchemaField extends Component {
     } = this.props;
 
     return connectDropTarget(
-      <span><b>Column Name</b> {field.column_name}<b>Type</b> {field.type}<b>Required</b> {field.nullable}<br/></span>
+      <span className={isOver ? 'Schema-field-isover' : 'Schema-field' }><b>Column Name</b> {field.column_name}<b>Type</b> {field.type}<b>Required</b> {field.nullable}</span>
     );
   }
 }
