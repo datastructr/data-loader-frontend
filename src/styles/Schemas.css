@@ -15,11 +15,18 @@
   width: 100%;
 }
 
-.Schema-choices > .Schema-field,
-.Schema-choices > .Schema-field-isover{
-  padding: 5px;
+.Schema-field > td,
+.Schema-field-isover > td {
+  height: 12px;
 }
 
+.Schema-field {
+  outline: 2px solid white;
+  z-index: 8;
+}
+
+
 .Schema-field-isover {
-  border: 2px solid deepskyblue;
+  outline: 2px ridge deepskyblue;
+  z-index: 9;
 }
