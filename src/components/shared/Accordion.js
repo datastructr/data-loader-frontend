@@ -17,7 +17,7 @@ class Accordion extends Component {
       selfLevelObject: props.newLevel, // the current level object containing all rows and their data/children
       childSelector: props.childSelector,
       uniqueSelector: props.uniqueSelector,
-      renderBaseFunc: props.renderBaseFunc // the render function a user must define
+      renderBaseFunc: props.renderBaseFunc || (() => '') // the render function a user must define
     };
   }
 

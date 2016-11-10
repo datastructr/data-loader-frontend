@@ -25,6 +25,14 @@ function collect(connect, monitor) {
 import '../styles/Schemas.css';
 
 class Schemas extends Component {
+  
+  
+  
+  baseViewRender(schemaProperties) {
+    console.log(schemaProperties)
+    return (<h1>hey</h1>)
+  }
+  
   render() {
     const {
       availableSchemas,
@@ -40,10 +48,11 @@ class Schemas extends Component {
       <div className="Schemas">
         <div className="Schemas-view">
 
-          <Accordian 
+          <Accordion 
             newLevel={availableSchemas}
             uniqueSelector={"name"}
             childrenSelector={null}
+            renderBaseFunc={this.baseViewRender}
           />
           
         </div>
