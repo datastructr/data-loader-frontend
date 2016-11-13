@@ -8,7 +8,9 @@ import { DndTypes } from '../shared/Constants';
  */
 const headerSource = {
   beginDrag(props) {
-    console.log(props)
+    
+    props.beginHeaderDrag(props.cell);
+
     return {
       text: props.text
     };
@@ -31,10 +33,11 @@ class CSVTableHeader extends Component {
     const {
       connectDragSource
     } = this.props;
-
+    console.log("====================")
+    console.log(this.props)
     return connectDragSource(
         <th className="Uploader-table-header mdl-data-table__cell--non-numeric">
-          {this.props.value}
+          {this.props.cell.id}
         </th>
     );
   }
@@ -46,6 +49,7 @@ CSVTableHeader.propTypes = {
     PropTypes.number,
     PropTypes.bool
   ]),
+  beginHeaderDrag: PropTypes.func.isRequired,
 
   // Injected by React DnD:
   isDragging: PropTypes.bool.isRequired,

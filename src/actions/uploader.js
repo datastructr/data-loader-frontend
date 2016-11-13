@@ -38,3 +38,19 @@ export function beginLoadFileData() {
     dispatch(loadDataSuccess(pcsv.shapeCsvAndRetrieve()));
   };
 }
+
+export const HEADER_BEGIN_DRAG = 'HEADER_BEGIN_DRAG';
+export const HEADER_END_DRAG = 'HEADER_END_DRAG';
+
+
+export function beginHeaderDrag(headerCell) {
+  console.log("asdfwe")
+  return dispatch => {
+    dispatch((() => {
+      return {
+        type: HEADER_BEGIN_DRAG,
+        headerCell: headerCell
+      }
+    })());
+  }
+}

@@ -1,6 +1,6 @@
 import { 
   LOAD_DATA, LOAD_DATA_SUCCESS, LOAD_DATA_FAILED,
-
+  HEADER_BEGIN_DRAG, HEADER_END_DRAG,
   VALIDATE_COLUMN_BEGIN, VALIDATE_COLUMN_END
 } from '../actions/uploader';
 
@@ -12,7 +12,9 @@ const initialState = {
   fileLoading: false,
   fileLoaded: false,
   fileLoadError: false,
-  fileErrorMessage: ''
+  fileErrorMessage: '',
+  headerIsDragging: false,
+  headerBeingDragged: null
 };
 
 export default function uploader(state = initialState, action) {
@@ -40,6 +42,17 @@ export default function uploader(state = initialState, action) {
       fileLoadError: true,
       fileErrorMessage: action.errorMessage
     });
+  case HEADER_BEGIN_DRAG:
+    return Object.assign({}, state, {
+      headerIsDragging: true,
+      headerBeingDragged: action.headerCell
+    });
+  case HEADER_END_DRAG:
+    return Object.assign({}, state, {
+      headerIsDragging: false,
+      headerBeingDragged: null
+    });
+
   default:
     return state;
   }

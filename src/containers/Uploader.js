@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as  SchemaActions from '../actions/uploader';
+import * as  UploaderActions from '../actions/uploader';
 
 import CSVTable from '../components/uploader/csvTable';
 import TableToolbar from '../components/uploader/tableToolbar';
@@ -17,7 +17,10 @@ class Uploader extends Component {
   render() {
     
     const {
-      fileData
+      fileData,
+
+      // actions
+      beginHeaderDrag
     } = this.props;
 
     return (
@@ -25,7 +28,8 @@ class Uploader extends Component {
         <TableToolbar />
         <CSVTable
           tableData={fileData.tableData || []} 
-          headerData={fileData.headerData || []} 
+          headerData={fileData.headerData || []}
+          beginHeaderDrag={beginHeaderDrag}
         />
       
       </div>
@@ -41,20 +45,40 @@ function mapStateToProps(state) {
   let { uploader } = state;
 
   const {
-    fileData
+    fileData,
+    fileLoading,
+    fileLoaded,
+    fileLoadError,
+    fileErrorMessage,
+    headerIsDragging,
+    headerBeingDragged
   } = uploader || {
     fileData: {
       tableData: [],
       headerData: []
-    }
+    },
+    fileLoading: false,
+    fileLoaded: false,
+    fileLoadError: false,
+    fileErrorMessage: '',
+    headerIsDragging: false,
+    headerBeingDragged: null
   };
   return {
-    fileData
+    fileData,
+    fileLoading,
+    fileLoaded,
+    fileLoadError,
+    fileErrorMessage,
+    headerIsDragging,
+    headerBeingDragged
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(SchemaActions, dispatch);
+  return bindActionCreators(UploaderActions, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Uploader);
+
+  
