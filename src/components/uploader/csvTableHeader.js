@@ -8,6 +8,7 @@ import { DndTypes } from '../shared/Constants';
  */
 const headerSource = {
   beginDrag(props) {
+    console.log(props)
     return {
       text: props.text
     };
@@ -41,9 +42,9 @@ class CSVTableHeader extends Component {
 
 CSVTableHeader.propTypes = {
   value: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number,
-    React.PropTypes.bool
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.bool
   ]),
 
   // Injected by React DnD:

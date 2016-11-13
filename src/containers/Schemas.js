@@ -1,7 +1,11 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import Accordion from './shared/Accordion';
-import SchemaField from './schemas/schemaField';
+import * as SchemaActions from '../actions/schemas';
+
+import Accordion from '../components/shared/Accordion';
+import SchemaField from '../components/schemas/schemaField';
 
 import '../styles/Schemas.css';
 
@@ -47,12 +51,24 @@ class Schemas extends Component {
   }
 }
 
-Schemas.propTypes = {
-  availableSchemas: PropTypes.array.isRequired,
-  activeSchemaId: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number
-  ])
-};
+function mapStateToProps(state) {
+  let { schemas } = state;
 
-export default Schemas;
+  const {
+    availableSchemas,
+    activeSchemaId
+  } = schemas || {
+    availableSchemas: [],
+    activeSchemaId: ''
+  };
+  return {
+    availableSchemas,
+    activeSchemaId
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(SchemaActions, dispatch);
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Schemas);

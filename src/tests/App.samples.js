@@ -41,7 +41,7 @@ export const schemaSamples = {
   
 }
 
-export const testCsvData = {
+export const testFileData = {
       headerData: ['Field1','Field2','Field3','Field4','Field5','Field6','Field7','Field8'],
       tableData: [
         [25,1,4,5,25,1,4,5],

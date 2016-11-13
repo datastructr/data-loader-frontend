@@ -28,7 +28,7 @@ class Accordion extends Component {
   toggleOpenClose(uid) {
     // simple ternary assignment
     this.setState({
-      openLevelRow: this.state.openLevelRow != uid ? uid : ""
+      openLevelRow: this.state.openLevelRow !== uid ? uid : ""
     });
   }
 
@@ -68,7 +68,7 @@ class Accordion extends Component {
                 {/* 
                     When iterating the list, find out if a row has been opened
                 */}
-                {this.state.openLevelRow != row[uniqueSelector] ? <span></span> : 
+                {this.state.openLevelRow !== row[uniqueSelector] ? <span></span> : 
                     /* 
                       This code block is called if the current row is opened
                       now we to need to find out if there are children,
@@ -85,7 +85,10 @@ class Accordion extends Component {
 }
 
 Accordion.propTypes = {
-  newLevel: PropTypes.object.isRequired,
+  newLevel: PropTypes.oneOfType([
+    React.PropTypes.object,
+    React.PropTypes.array
+  ]),
   uniqueSelector: PropTypes.string.isRequired,
   renderBaseFunc: PropTypes.func.isRequired,
   childSelector: PropTypes.string
