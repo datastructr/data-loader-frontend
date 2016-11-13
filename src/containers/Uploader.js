@@ -10,8 +10,12 @@ import TableToolbar from '../components/uploader/tableToolbar';
 import '../styles/Uploader.css';
 
 class Uploader extends Component {
+  componentDidMount() {
+    this.props.beginLoadFileData();
+  }
+  
   render() {
-
+    
     const {
       fileData
     } = this.props;
@@ -20,8 +24,8 @@ class Uploader extends Component {
       <div className="Uploader">
         <TableToolbar />
         <CSVTable
-          tableData={fileData.tableData} 
-          headerData={fileData.headerData} 
+          tableData={fileData.tableData || []} 
+          headerData={fileData.headerData || []} 
         />
       
       </div>
@@ -39,7 +43,10 @@ function mapStateToProps(state) {
   const {
     fileData
   } = uploader || {
-    fileData: {}
+    fileData: {
+      tableData: [],
+      headerData: []
+    }
   };
   return {
     fileData

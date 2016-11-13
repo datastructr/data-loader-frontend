@@ -1,12 +1,14 @@
 import { 
-  LOAD_DATA, LOAD_DATA_SUCCESS, LOAD_DATA_FAILED
+  LOAD_DATA, LOAD_DATA_SUCCESS, LOAD_DATA_FAILED,
+
+  VALIDATE_COLUMN_BEGIN, VALIDATE_COLUMN_END
 } from '../actions/uploader';
 
-// Sample tests
-import {testFileData} from '../tests/App.samples.js';
-
 const initialState = {
-  fileData: testFileData,
+  fileData: {
+    tableData: [],
+    headerData: []
+  },
   fileLoading: false,
   fileLoaded: false,
   fileLoadError: false,

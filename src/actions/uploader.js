@@ -1,3 +1,4 @@
+import ParseCsv from './utils/parseCsv';
 
 export const LOAD_DATA = 'LOAD_DATA';
 export const LOAD_DATA_SUCCESS = 'LOAD_DATA_SUCCESS';
@@ -12,7 +13,7 @@ function loadData() {
 function loadDataSuccess(data) {
   return {
     type: LOAD_DATA_SUCCESS,
-    data: data
+    fileData: data
   };
 }
 
@@ -23,11 +24,17 @@ function loadDataFailed(message) {
   };
 }
 
-export function beginLoadData() {
+
+// Sample tests
+import {testFileData} from '../tests/App.samples.js';
+
+export function beginLoadFileData() {
   return dispatch => {
     dispatch(loadData());
-    // TODO
-    let data = {};
-    dispatch(loadDataSuccess(data))
+
+    // TODO load and papaparse
+
+    let pcsv = new ParseCsv(testFileData);
+    dispatch(loadDataSuccess(pcsv.shapeCsvAndRetrieve()));
   };
 }

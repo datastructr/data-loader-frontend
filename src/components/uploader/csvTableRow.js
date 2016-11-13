@@ -12,11 +12,11 @@ class CSVTableRow extends Component {
 
     let cells = [];
 
-    values.forEach((value,i) => {
+    values.forEach((cell,i) => {
       if(isHeader) {
-        cells.push(<CSVTableHeader key={i} value={value} />);
+        cells.push(<CSVTableHeader key={i} value={cell.id} />);
       } else {
-        cells.push(<CSVTableCell key={i} value={value} />);
+        cells.push(<CSVTableCell key={i} value={cell.value} />);
       }  
     });
 
