@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as  UploaderActions from '../actions/uploader';
+import * as  SchemaActions from '../actions/schemas';
 
 import CSVTable from '../components/uploader/csvTable';
 import TableToolbar from '../components/uploader/tableToolbar';
@@ -14,14 +15,18 @@ class Uploader extends Component {
     this.props.beginLoadFileData();
   }
   
+  mapDraggedHeaderToDropTarget(header, dropTarget) {
+    this.props.endHeaderDragDropped(header,dropTarget);
+    this.props.dropTargetRecieveHeader(dropTarget,header);
+  }
+
   render() {
     
     const {
       fileData,
 
       // actions
-      beginHeaderDrag,
-      endHeaderDragDropped
+      beginHeaderDrag
     } = this.props;
 
     return (
@@ -31,7 +36,7 @@ class Uploader extends Component {
           tableData={fileData.tableData || []} 
           headerData={fileData.headerData || []}
           beginHeaderDrag={beginHeaderDrag}
-          endHeaderDragDropped={endHeaderDragDropped}
+          endHeaderDragDropped={this.mapDraggedHeaderToDropTarget.bind(this)}
         />
       
       </div>
@@ -78,7 +83,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(UploaderActions, dispatch);
+  return bindActionCreators(Object.assign({},UploaderActions,SchemaActions), dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Uploader);

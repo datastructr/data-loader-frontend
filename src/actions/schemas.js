@@ -32,3 +32,9 @@ export function getSchemaData() {
     dispatch(getSchemasSuccess(schemas))
   };
 }
+
+
+export function dropTargetRecieveHeader(dropTarget, header) {
+  console.log("===============> 2")
+  console.log(dropTarget, header)
+}

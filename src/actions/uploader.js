@@ -61,7 +61,7 @@ function endHeaderDrag() {
 }
 
 function mapHeaderToField(header, dropTarget) {
-  console.log("YEAAAAAAAAAA")
+  console.log("===============> 1")
   console.log(header, dropTarget)
 }
 
@@ -70,7 +70,7 @@ export function endHeaderDragDropped(header, dropTarget) {
     if(!dropTarget) {
       dispatch(endHeaderDrag());
     } else {
-      dispatch(mapHeaderToField(header,dropTarget));
+      mapHeaderToField(header,dropTarget);
     }
   }
 }
