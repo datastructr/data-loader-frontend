@@ -19,10 +19,6 @@
   cursor: pointer;
 }
 
-.Uploader-table-header:active {
-  color: deepskyblue;
-}
-
 .Uploader-table-header-lonely {
   color: red;
 }

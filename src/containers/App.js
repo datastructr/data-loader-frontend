@@ -7,6 +7,7 @@ import Schemas from '../containers/Schemas';
 import Uploader from '../containers/Uploader';
 
 import '../styles/App.css';
+import '../styles/ColorMapScheme.css';
 
 class App extends Component {
   constructor(props) {

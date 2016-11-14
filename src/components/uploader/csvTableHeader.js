@@ -14,6 +14,9 @@ const headerSource = {
     return {
       text: props.text
     };
+  },
+  endDrag(props) {
+    //props.endHeaderDrag(props.cell);
   }
 };
 
@@ -31,13 +34,13 @@ class CSVTableHeader extends Component {
   
   render() {
     const {
-      connectDragSource
+      connectDragSource,
+      cell
     } = this.props;
-    console.log("====================")
-    console.log(this.props)
+
     return connectDragSource(
-        <th className="Uploader-table-header mdl-data-table__cell--non-numeric">
-          {this.props.cell.id}
+        <th className={`Uploader-table-header mdl-data-table__cell--non-numeric active-${cell.colorScheme.name}`}>
+          {cell.id}
         </th>
     );
   }
