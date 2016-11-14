@@ -15,8 +15,7 @@ export default class ParseSchema {
     let self = this;
 
     // use the first object to determine the headers
-    self.parsedData.availableSchemas = 
-    self.initialRead.availableSchemas
+    self.parsedData.availableSchemas = self.initialRead.availableSchemas
       .reduce( (newList,schema) => {
           newList = newList || [];
           newList.push({
@@ -30,8 +29,7 @@ export default class ParseSchema {
             }) 
           });
           return newList;
-        }, [])
-
+      }, [])
   }
 
   shapeSchemasAndRetrieve(){

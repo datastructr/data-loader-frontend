@@ -33,19 +33,20 @@ class Schemas extends Component {
   render() {
     const {
       availableSchemas,
-      activeSchemaId
+      activeSchemaId,
+      schemasLoaded
     } = this.props;
 
     return (
       <div className="Schemas">
         <div className="Schemas-view">
 
-          <Accordion 
+          {schemasLoaded && <Accordion 
             newLevel={availableSchemas}
             uniqueSelector={"name"}
             childrenSelector={null}
             renderBaseFunc={this.baseViewRender}
-          />
+          />}
           
         </div>
       </div>
@@ -53,19 +54,26 @@ class Schemas extends Component {
   }
 }
 
+Schemas.propTypes = {
+  availableSchemas: PropTypes.array.isRequired,
+};
+
 function mapStateToProps(state) {
   let { schemas } = state;
 
   const {
     availableSchemas,
-    activeSchemaId
+    activeSchemaId,
+    schemasLoaded
   } = schemas || {
     availableSchemas: [],
-    activeSchemaId: ''
+    activeSchemaId: '',
+    schemasLoaded: false
   };
   return {
     availableSchemas,
-    activeSchemaId
+    activeSchemaId,
+    schemasLoaded
   };
 }
 

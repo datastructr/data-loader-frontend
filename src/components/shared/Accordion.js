@@ -40,7 +40,7 @@ class Accordion extends Component {
     } = this.state;
 
     if(!row[childSelector]) {
-      // this will be whatever body the user wants to pass
+      // this will be whatever body the user wants to pass 
       return renderBaseFunc(row);
     } else {
       return (<Accordion newLevel={row[uniqueSelector][childSelector]} />);
@@ -55,7 +55,7 @@ class Accordion extends Component {
       uniqueSelector,
       childSelector
     } = this.state;
-    
+
     return (
       <div>
           {selfLevelObject.map((row, i) =>

@@ -17,12 +17,12 @@ export default function schemas(state = initialState, action) {
     return Object.assign({}, state, {
       schemasLoading: true,
       schemasLoaded: false,
-      schemas: [],
+      schavailableSchemasemas: [],
       schemasErrorMessage: ''
     });
   case GET_SCHEMAS_SUCCESS:
     return Object.assign({}, state, {
-      schemas: action.schemas,
+      availableSchemas: action.schemaData.availableSchemas,
       schemasLoading: false,
       schemasLoaded: true,
       schemasLoadError: false,
@@ -30,7 +30,7 @@ export default function schemas(state = initialState, action) {
     });
   case GET_SCHEMAS_FAILED:
     return Object.assign({}, state, {
-      schemas: [],
+      availableSchemas: [],
       schemasLoading: false,
       schemasLoaded: false,
       schemasLoadError: true,

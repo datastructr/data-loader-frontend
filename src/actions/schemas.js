@@ -10,12 +10,10 @@ function getSchemas() {
   };
 }
 
-function getSchemasSuccess(schemas) {
-  console.log("sfqdgqefeew==---=-=-")
-  console.log(schemas)
+function getSchemasSuccess(schemaData) {
   return {
     type: GET_SCHEMAS_SUCCESS,
-    schemas: schemas
+    schemaData: schemaData
   };
 }
 
