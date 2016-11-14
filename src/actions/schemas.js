@@ -1,4 +1,4 @@
-
+import ParseSchema from './utils/parseSchema';
 
 export const GET_SCHEMAS = 'GET_SCHEMAS';
 export const GET_SCHEMAS_SUCCESS = 'GET_SCHEMAS_SUCCESS';
@@ -11,6 +11,8 @@ function getSchemas() {
 }
 
 function getSchemasSuccess(schemas) {
+  console.log("sfqdgqefeew==---=-=-")
+  console.log(schemas)
   return {
     type: GET_SCHEMAS_SUCCESS,
     schemas: schemas
@@ -24,12 +26,16 @@ function getSchemasFailed(message) {
   };
 }
 
+
+// Sample tests
+import {schemaSamples} from '../tests/App.samples.js';
+
 export function getSchemaData() {
   return dispatch => {
     dispatch(getSchemas());
     // TODO
-    let schemas = {};
-    dispatch(getSchemasSuccess(schemas))
+    let psch = new ParseSchema(schemaSamples);
+    dispatch(getSchemasSuccess(psch.shapeSchemasAndRetrieve()));
   };
 }
 

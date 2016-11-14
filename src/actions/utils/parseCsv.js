@@ -4,7 +4,7 @@ import colors from './colors';
 
 export default class ParseCSV {
   constructor(data) {
-    this.initialRead = data; // data to apply weights and averages on
+    this.initialRead = data;
     this.parsedData = {
       tableData: [],
       headerData: []
@@ -31,8 +31,8 @@ export default class ParseCSV {
         rowsPassedFailed: 0,
         valueDefinedType: '',
         colorScheme: self._generateColorForHeader(),
-        fieldMapped: false,
-        fieldMapping: {}
+        headerMapped: false,
+        headerMapping: {}
       });
     });
 

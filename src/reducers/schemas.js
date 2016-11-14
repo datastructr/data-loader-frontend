@@ -2,15 +2,13 @@ import {
   GET_SCHEMAS, GET_SCHEMAS_SUCCESS, GET_SCHEMAS_FAILED
 } from '../actions/schemas';
 
-import {schemaSamples} from '../tests/App.samples.js';
-
 const initialState = {
-  availableSchemas: schemaSamples.availableSchemas,
+  availableSchemas: [],
   schemasLoading: false,
   schemasLoaded: false,
   schemasLoadError: false,
   schemasErrorMessage: '',
-  activeSchemaId: schemaSamples.activeSchemaId
+  activeSchemaId: null
 };
 
 export default function schemas(state = initialState, action) {

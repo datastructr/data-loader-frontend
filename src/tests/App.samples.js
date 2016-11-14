@@ -1,5 +1,4 @@
 export const schemaSamples = {
-  activeSchemaId: 1,
   availableSchemas: [
     {
         "name": "leads",

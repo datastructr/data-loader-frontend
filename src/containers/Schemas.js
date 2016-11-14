@@ -10,7 +10,9 @@ import SchemaField from '../components/schemas/schemaField';
 import '../styles/Schemas.css';
 
 class Schemas extends Component {
-  
+  componentDidMount() {
+    this.props.getSchemaData();
+  }
   
   
   baseViewRender(schema) {
