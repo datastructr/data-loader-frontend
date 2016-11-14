@@ -44,7 +44,6 @@ export const HEADER_END_DRAG = 'HEADER_END_DRAG';
 
 
 export function beginHeaderDrag(headerCell) {
-  console.log("asdfwe")
   return dispatch => {
     dispatch((() => {
       return {
@@ -52,5 +51,26 @@ export function beginHeaderDrag(headerCell) {
         headerCell: headerCell
       }
     })());
+  }
+}
+
+function endHeaderDrag() {
+  return {
+    type: HEADER_END_DRAG
+  }
+}
+
+function mapHeaderToField(header, dropTarget) {
+  console.log("YEAAAAAAAAAA")
+  console.log(header, dropTarget)
+}
+
+export function endHeaderDragDropped(header, dropTarget) {
+  return dispatch => {
+    if(!dropTarget) {
+      dispatch(endHeaderDrag());
+    } else {
+      dispatch(mapHeaderToField(header,dropTarget));
+    }
   }
 }

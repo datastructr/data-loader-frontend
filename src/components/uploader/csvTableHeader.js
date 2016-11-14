@@ -8,15 +8,13 @@ import { DndTypes } from '../shared/Constants';
  */
 const headerSource = {
   beginDrag(props) {
-    
     props.beginHeaderDrag(props.cell);
-
     return {
       text: props.text
     };
   },
-  endDrag(props) {
-    //props.endHeaderDrag(props.cell);
+  endDrag(props,monitor) {
+    props.endHeaderDragDropped(props.cell,monitor.getDropResult());
   }
 };
 
@@ -53,6 +51,7 @@ CSVTableHeader.propTypes = {
     PropTypes.bool
   ]),
   beginHeaderDrag: PropTypes.func.isRequired,
+  endHeaderDragDropped: PropTypes.func.isRequired,
 
   // Injected by React DnD:
   isDragging: PropTypes.bool.isRequired,

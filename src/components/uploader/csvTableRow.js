@@ -10,14 +10,21 @@ class CSVTableRow extends Component {
       values,
       
       // actions
-      beginHeaderDrag
+      beginHeaderDrag,
+      endHeaderDragDropped
     } = this.props;
 
     let cells = [];
     
     values.forEach((cell,i) => {
       if(isHeader) {
-        cells.push(<CSVTableHeader key={i} beginHeaderDrag={beginHeaderDrag} cell={cell} />);
+        cells.push(
+          <CSVTableHeader 
+            key={i}
+            cell={cell} 
+            beginHeaderDrag={beginHeaderDrag}
+            endHeaderDragDropped={endHeaderDragDropped}
+          />);
       } else {
         cells.push(<CSVTableCell key={i} value={cell.value} />);
       }  

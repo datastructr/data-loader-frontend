@@ -7,7 +7,6 @@
 .scheme-cyan{color: #00ffff;}
 .scheme-darkblue{color: #00008b;}
 .scheme-darkcyan{color: #008b8b;}
-.scheme-darkgrey{color: #a9a9a9;}
 .scheme-darkgreen{color: #006400;}
 .scheme-darkkhaki{color: #bdb76b;}
 .scheme-darkmagenta{color: #8b008b;}
@@ -22,12 +21,6 @@
 .scheme-green{color: #008000;}
 .scheme-indigo{color: #4b0082;}
 .scheme-khaki{color: #f0e68c;}
-.scheme-lightblue{color: #add8e6;}
-.scheme-lightcyan{color: #e0ffff;}
-.scheme-lightgreen{color: #90ee90;}
-.scheme-lightgrey{color: #d3d3d3;}
-.scheme-lightpink{color: #ffb6c1;}
-.scheme-lightyellow{color: #ffffe0;}
 .scheme-lime{color: #00ff00;}
 .scheme-magenta{color: #ff00ff;}
 .scheme-maroon{color: #800000;}
@@ -50,7 +43,6 @@
 .active-scheme-cyan:active{color: #00ffff;}
 .active-scheme-darkblue:active{color: #00008b;}
 .active-scheme-darkcyan:active{color: #008b8b;}
-.active-scheme-darkgrey:active{color: #a9a9a9;}
 .active-scheme-darkgreen:active{color: #006400;}
 .active-scheme-darkkhaki:active{color: #bdb76b;}
 .active-scheme-darkmagenta:active{color: #8b008b;}
@@ -65,12 +57,6 @@
 .active-scheme-green:active{color: #008000;}
 .active-scheme-indigo:active{color: #4b0082;}
 .active-scheme-khaki:active{color: #f0e68c;}
-.active-scheme-lightblue:active{color: #add8e6;}
-.active-scheme-lightcyan:active{color: #e0ffff;}
-.active-scheme-lightgreen:active{color: #90ee90;}
-.active-scheme-lightgrey:active{color: #d3d3d3;}
-.active-scheme-lightpink:active{color: #ffb6c1;}
-.active-scheme-lightyellow:active{color: #ffffe0;}
 .active-scheme-lime:active{color: #00ff00;}
 .active-scheme-magenta:active{color: #ff00ff;}
 .active-scheme-maroon:active{color: #800000;}

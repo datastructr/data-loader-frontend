@@ -10,7 +10,8 @@ class CSVTable extends Component {
       headerData,
 
       // actions
-      beginHeaderDrag
+      beginHeaderDrag,
+      endHeaderDragDropped
     } = this.props;
 
     var rows = [];
@@ -20,6 +21,7 @@ class CSVTable extends Component {
         values={headerData} 
         isHeader={true}
         beginHeaderDrag={beginHeaderDrag}
+        endHeaderDragDropped={endHeaderDragDropped}
       />
     );
     

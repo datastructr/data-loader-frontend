@@ -5,12 +5,13 @@ import { DndTypes } from '../shared/Constants';
 
 const schemaTarget = {
   canDrop(props) {
-    // STUB (will rely on schema rules)
+    // STUB
     return true;
   },
 
-  drop(props) {
-    console.log(props)
+  drop(props) { 
+    // gets picked up by endDrag of dragSource
+    return props.field;
   }
 };
 

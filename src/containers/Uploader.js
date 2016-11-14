@@ -20,7 +20,8 @@ class Uploader extends Component {
       fileData,
 
       // actions
-      beginHeaderDrag
+      beginHeaderDrag,
+      endHeaderDragDropped
     } = this.props;
 
     return (
@@ -30,6 +31,7 @@ class Uploader extends Component {
           tableData={fileData.tableData || []} 
           headerData={fileData.headerData || []}
           beginHeaderDrag={beginHeaderDrag}
+          endHeaderDragDropped={endHeaderDragDropped}
         />
       
       </div>
