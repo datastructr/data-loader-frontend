@@ -37,9 +37,24 @@
   outline: 2px ridge $secondaryAppColor;
   color: $tertiaryAppColor;
 }
+
 .Uploader-table-header:hover {
  
   
+}
+
+.Uploader-table-header-mapped,
+.Uploader-table-header-neglet {
+  margin-left: 10px;
+  color: white !important;
+}
+
+.Uploader-table-header-neglet {
+  color: white !important;
+}
+
+.Uploader-table-header-mapped {
+  color: dodgerblue !important;
 }
 
 .Uploader-table-cell {

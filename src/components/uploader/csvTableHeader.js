@@ -36,9 +36,13 @@ class CSVTableHeader extends Component {
       cell
     } = this.props;
 
+    let headerIconClassName = cell.headerMapping 
+      ? "Uploader-table-header-mapped"
+      : "Uploader-table-header-neglet";
+
     return connectDragSource(
-        <th className={`Uploader-table-header active-${cell.colorScheme.name}`}>
-          {cell.id}
+        <th className={`Uploader-table-header`}>
+          {cell.id} <span className={`${headerIconClassName} pt-icon-standard pt-icon-ungroup-objects`}></span>
         </th>
     );
   }

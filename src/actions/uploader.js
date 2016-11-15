@@ -54,9 +54,10 @@ export function beginHeaderDrag(headerCell) {
   }
 }
 
-function endHeaderDrag() {
+function endHeaderDrag(headerCell) {
   return {
-    type: HEADER_END_DRAG
+    type: HEADER_END_DRAG,
+    headerCell: headerCell
   }
 }
 
@@ -65,12 +66,14 @@ function mapHeaderToField(header, dropTarget) {
   console.log(header, dropTarget)
 }
 
-export function endHeaderDragDropped(header, dropTarget) {
+export function endHeaderDragDropped(header) {
   return dispatch => {
-    if(!dropTarget) {
-      dispatch(endHeaderDrag());
-    } else {
-      mapHeaderToField(header,dropTarget);
-    }
+    dispatch(endHeaderDrag(header));
+  }
+}
+
+export function endHeaderDragDroppedMapped(header, dropTarget) {
+  return dispatch => {
+    mapHeaderToField(header,dropTarget);
   }
 }

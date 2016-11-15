@@ -13,9 +13,12 @@ class Uploader extends Component {
     this.props.beginLoadFileData();
   }
   
-  mapDraggedHeaderToDropTarget(header, dropTarget) {
-    this.props.endHeaderDragDropped(header,dropTarget);
-    this.props.dropTargetRecieveHeader(dropTarget,header);
+  evaluateDraggedHeader(header, dropTarget) {
+      this.props.endHeaderDragDropped(header);
+      if(dropTarget) {
+        this.props.endHeaderDragDroppedMapped(header,dropTarget);
+        this.props.dropTargetRecieveHeader(dropTarget,header);
+      }
   }
 
   render() {
@@ -35,7 +38,7 @@ class Uploader extends Component {
             tableData={fileData.tableData || []} 
             headerData={fileData.headerData || []}
             beginHeaderDrag={beginHeaderDrag}
-            endHeaderDragDropped={this.mapDraggedHeaderToDropTarget.bind(this)}
+            endHeaderDragDropped={this.evaluateDraggedHeader.bind(this)}
           />
         </div>
       
@@ -57,8 +60,6 @@ function mapStateToProps(state) {
     fileLoaded,
     fileLoadError,
     fileErrorMessage,
-    headerIsDragging,
-    headerBeingDragged
   } = present || {
     fileData: {
       tableData: [],
@@ -68,8 +69,6 @@ function mapStateToProps(state) {
     fileLoaded: false,
     fileLoadError: false,
     fileErrorMessage: '',
-    headerIsDragging: false,
-    headerBeingDragged: null
   };
   return {
     fileData,
@@ -77,8 +76,6 @@ function mapStateToProps(state) {
     fileLoaded,
     fileLoadError,
     fileErrorMessage,
-    headerIsDragging,
-    headerBeingDragged
   };
 }
 

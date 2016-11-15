@@ -12,10 +12,47 @@ const initialState = {
   fileLoading: false,
   fileLoaded: false,
   fileLoadError: false,
-  fileErrorMessage: '',
-  headerIsDragging: false,
-  headerBeingDragged: null
+  fileErrorMessage: ''
 };
+
+
+const header = (state = {id:null}, action) => {
+  switch (action.type) {
+  case HEADER_BEGIN_DRAG:
+    if (state.id !== action.headerCell.id) {
+      return state;
+    }
+    return Object.assign({}, state,{
+      headerMapping: true
+    });
+  case HEADER_END_DRAG:
+    if (state.id !== action.headerCell.id) {
+      return state;
+    }
+    return Object.assign({}, state,{
+      headerMapping: false
+    });
+  default:
+    return state;
+    
+  }
+}
+
+const headerReducer = (state = [], action) => {
+  switch (action.type) {
+  case HEADER_BEGIN_DRAG:
+    return state.map(h =>
+      header(h, action)
+    );
+  case HEADER_END_DRAG:
+    return state.map(h =>
+      header(h, action)
+    );
+  default:
+    return state;
+    
+  }
+}
 
 export default function uploader(state = initialState, action) {
   switch (action.type) {
@@ -44,15 +81,16 @@ export default function uploader(state = initialState, action) {
     });
   case HEADER_BEGIN_DRAG:
     return Object.assign({}, state, {
-      headerIsDragging: true,
-      headerBeingDragged: action.headerCell
+      fileData: Object.assign({}, state.fileData, {
+        headerData: headerReducer(state.fileData.headerData, action) 
+      })
     });
   case HEADER_END_DRAG:
     return Object.assign({}, state, {
-      headerIsDragging: false,
-      headerBeingDragged: null
+      fileData: Object.assign({}, state.fileData, {
+        headerData: headerReducer(state.fileData.headerData, action) 
+      })
     });
-
   default:
     return state;
   }
