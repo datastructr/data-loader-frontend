@@ -37,7 +37,7 @@ class CSVTableHeader extends Component {
     } = this.props;
 
     return connectDragSource(
-        <th className={`Uploader-table-header mdl-data-table__cell--non-numeric active-${cell.colorScheme.name}`}>
+        <th className={`Uploader-table-header active-${cell.colorScheme.name}`}>
           {cell.id}
         </th>
     );

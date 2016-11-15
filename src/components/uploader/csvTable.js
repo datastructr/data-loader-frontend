@@ -26,11 +26,11 @@ class CSVTable extends Component {
     );
     
     tableData.forEach((row,i) => {
-      rows.push(<CSVTableRow key={i} values={row} isHeader={false}/>);
+      rows.push(<CSVTableRow key={i} count={i} values={row} isHeader={false}/>);
     });
 
     return (
-      <table className="Uploader-csvtable mdl-data-table mdl-data-table--selectable mdl-shadow--2dp">
+      <table className="Uploader-csvtable pt-table pt-bordered">
         <thead>
           {header}
         </thead>

@@ -8,13 +8,16 @@ class CSVTableRow extends Component {
     const {
       isHeader,
       values,
+      count,
       
       // actions
       beginHeaderDrag,
       endHeaderDragDropped
     } = this.props;
 
-    let cells = [];
+    let cells = [
+      <CSVTableCell isCount={true} value={isHeader ? null : count} />
+    ];
     
     values.forEach((cell,i) => {
       if(isHeader) {

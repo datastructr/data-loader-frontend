@@ -2,8 +2,12 @@ import React, {Component, PropTypes} from 'react';
 
 class CSVTableCell extends Component {
   render() {
+    const {
+      isCount
+    } = this.props;
+
     return (
-        <td className="Uploader-table-cell mdl-data-table__cell--non-numeric">
+        <td className={isCount ? 'Uploader-table-cell-count' : 'Uploader-table-cell'}>
           {this.props.value}
         </td>
     );
@@ -11,11 +15,12 @@ class CSVTableCell extends Component {
 }
 
 CSVTableCell.propTypes = {
-  value: React.PropTypes.oneOfType([
+  value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
     PropTypes.bool
-  ])
+  ]),
+  isCount: PropTypes.bool
 };
 
 export default CSVTableCell;
