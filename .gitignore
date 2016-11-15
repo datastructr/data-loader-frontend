@@ -8,7 +8,7 @@ coverage
 
 # production
 build
-/src/styles/index.css
+src/styles/index.css
 
 # misc
 .DS_Store
