@@ -49,8 +49,8 @@ Uploader.propTypes = {
 };
 
 function mapStateToProps(state) {
-  let { uploader } = state;
-
+  let { uploader: {present} } = state;
+  
   const {
     fileData,
     fileLoading,
@@ -59,7 +59,7 @@ function mapStateToProps(state) {
     fileErrorMessage,
     headerIsDragging,
     headerBeingDragged
-  } = uploader || {
+  } = present || {
     fileData: {
       tableData: [],
       headerData: []
