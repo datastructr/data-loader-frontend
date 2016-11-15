@@ -30,12 +30,14 @@ class Uploader extends Component {
     return (
       <div className="Uploader">
         <TableToolbar />
-        <CSVTable
-          tableData={fileData.tableData || []} 
-          headerData={fileData.headerData || []}
-          beginHeaderDrag={beginHeaderDrag}
-          endHeaderDragDropped={this.mapDraggedHeaderToDropTarget.bind(this)}
-        />
+        <div className="Uploader-table-container">
+          <CSVTable
+            tableData={fileData.tableData || []} 
+            headerData={fileData.headerData || []}
+            beginHeaderDrag={beginHeaderDrag}
+            endHeaderDragDropped={this.mapDraggedHeaderToDropTarget.bind(this)}
+          />
+        </div>
       
       </div>
     );
