@@ -17,12 +17,18 @@ class Accordion extends Component {
       selfLevelObject: props.newLevel, // the current level object containing all rows and their data/children
       childSelector: props.childSelector,
       uniqueSelector: props.uniqueSelector,
-      renderBaseFunc: props.renderBaseFunc || (() => ''), // the render function a user must define
+      BaseComponent: props.BaseComponent || (() => ''), // the render function a user must define
       rowClassName: props.rowClassName || "",
       rowIconClassName: props.rowIconClassName || "",
       rowOpenClassName: props.rowOpenClassName || "",
       rowCloseClassName: props.rowCloseClassName || ""
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState(Object.assign({},this.state, {
+      selfLevelObject: nextProps.newLevel || this.state.selfLevelObject, // the current level object containing all rows and their data/children
+    }));
   }
 
   // This is our toggle open/close method
@@ -40,12 +46,12 @@ class Accordion extends Component {
     const {
       childSelector,
       uniqueSelector,
-      renderBaseFunc
+      BaseComponent
     } = this.state;
 
     if(!row[childSelector]) {
       // this will be whatever body the user wants to pass 
-      return renderBaseFunc(row);
+      return (<BaseComponent base={row} />);
     } else {
       return (<Accordion newLevel={row[uniqueSelector][childSelector]} />);
     }
@@ -67,7 +73,8 @@ class Accordion extends Component {
     return (
       <div>
           {selfLevelObject.map((row, i) => {
-
+            console.log(">>>>>>>>>>>>>>>>")
+            console.log(selfLevelObject)
             let rowOpen = this.state.openLevelRow === row[uniqueSelector];
 
             return (
@@ -108,7 +115,7 @@ Accordion.propTypes = {
     React.PropTypes.array
   ]),
   uniqueSelector: PropTypes.string.isRequired,
-  renderBaseFunc: PropTypes.func.isRequired,
+  BaseComponent: PropTypes.func.isRequired,
   childSelector: PropTypes.string,
   rowClassName: PropTypes.string,
   rowIconClassName: PropTypes.string,

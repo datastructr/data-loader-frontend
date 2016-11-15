@@ -33,16 +33,14 @@
   background-color: $secondaryFillColor;
   cursor: pointer;
 }
-.Uploader-table-header:active {
-  color: $dragMapColor !important;
-}
 
 .Uploader-table-header:hover {
  
   
 }
 
-.Uploader-table-header-mapped,
+.Uploader-table-header-mapping,
+.Uploader-table-header-validating,
 .Uploader-table-header-neglet {
   margin-left: 10px;
 }
@@ -51,8 +49,12 @@
   color: white !important;
 }
 
-.Uploader-table-header-mapped {
+.Uploader-table-header-mapping {
   color: $dragMapColor !important;
+}
+
+.Uploader-table-header-validating{
+  color: orange !important;
 }
 
 .Uploader-table-cell {

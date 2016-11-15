@@ -24,6 +24,17 @@ function collect(connect, monitor) {
 }
 
 class SchemaField extends Component {
+  
+  generateIconClass(isOver, mapping) {
+    if(mapping) {
+      return "Schema-field-mapping";
+    } else if(isOver) {
+      return "Schema-field-premapping"
+    } else {
+      return "Schema-field-neglet";
+    }
+  }
+  
   render() {
     const {
       field,
@@ -33,9 +44,8 @@ class SchemaField extends Component {
       canDrop
     } = this.props;
 
-    let fieldIconClassName = isOver 
-      ? "Schema-field-mapped"
-      : "Schema-field-neglet";
+    console.log(field.fieldMapping)
+    let fieldIconClassName = this.generateIconClass(isOver, field.fieldMapping)
 
     return connectDropTarget(
       <tr className={isOver ? 'Schema-field-isover' : 'Schema-field' }>

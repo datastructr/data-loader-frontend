@@ -7,25 +7,23 @@ import * as SchemaActions from '../actions/schemas';
 import Accordion from '../components/shared/Accordion';
 import SchemaField from '../components/schemas/schemaField';
 
+
+const SchemaFieldBase = ({base}) => (
+  <table className="Schema-choices">
+  <tbody>
+    {base.properties.map((field,i) =>
+      <SchemaField
+        key={i}
+        field={field}
+      />
+    )}
+    </tbody>
+  </table>
+);
+
 class Schemas extends Component {
   componentDidMount() {
     this.props.getSchemaData();
-  }
-  
-  
-  baseViewRender(schema) {
-    return(
-      <table className="Schema-choices">
-      <tbody>
-        {schema.properties.map((field,i) =>
-          <SchemaField
-            key={i}
-            field={field}
-          />
-        )}
-        </tbody>
-      </table>
-    );
   }
   
   render() {
@@ -34,7 +32,8 @@ class Schemas extends Component {
       activeSchemaId,
       schemasLoaded
     } = this.props;
-
+    console.log("=====")
+    console.log(availableSchemas)
     return (
       <div className="Schemas">
         <div className="Schemas-view">
@@ -48,7 +47,7 @@ class Schemas extends Component {
             rowOpenClassName={"pt-tree-node-caret pt-tree-node-caret-open pt-icon-standard"}
             rowCloseClassName={"pt-tree-node-caret pt-icon-standard"}
             childrenSelector={null}
-            renderBaseFunc={this.baseViewRender}
+            BaseComponent={SchemaFieldBase}
           />}
           
         </div>

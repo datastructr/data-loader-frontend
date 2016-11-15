@@ -23,7 +23,9 @@ export default class ParseSchema {
             properties: _.map(schema.properties, (prop) => {
               return Object.assign({}, prop, {
                 fieldMapped: false,
-                fieldMapping: {}
+                fieldMapping: false,
+                fieldMap: {},
+                belongsTo: schema.name
               });
             }) 
           });

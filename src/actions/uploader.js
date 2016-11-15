@@ -61,19 +61,26 @@ function endHeaderDrag(headerCell) {
   }
 }
 
-function mapHeaderToField(header, dropTarget) {
-  console.log("===============> 1")
-  console.log(header, dropTarget)
-}
-
 export function endHeaderDragDropped(header) {
   return dispatch => {
     dispatch(endHeaderDrag(header));
   }
 }
 
+
+export const HEADER_ATTEMPT_MAP = 'HEADER_ATTEMPT_MAP';
+
+function attemptMapping(headerCell, dropTarget) {
+  return {
+    type: HEADER_ATTEMPT_MAP,
+    headerCell: headerCell,
+    dropTarget: dropTarget
+  }
+}
+
 export function endHeaderDragDroppedMapped(header, dropTarget) {
   return dispatch => {
-    mapHeaderToField(header,dropTarget);
+    dispatch(attemptMapping(header,dropTarget));
+   
   }
 }

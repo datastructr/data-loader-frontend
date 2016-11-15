@@ -1,7 +1,7 @@
 import { 
   LOAD_DATA, LOAD_DATA_SUCCESS, LOAD_DATA_FAILED,
   HEADER_BEGIN_DRAG, HEADER_END_DRAG,
-  VALIDATE_COLUMN_BEGIN, VALIDATE_COLUMN_END
+  HEADER_ATTEMPT_MAP
 } from '../actions/uploader';
 
 const initialState = {
@@ -32,6 +32,19 @@ const header = (state = {id:null}, action) => {
     return Object.assign({}, state,{
       headerMapping: false
     });
+  case HEADER_ATTEMPT_MAP:
+    if (state.id !== action.headerCell.id) {
+      return state;
+    }
+    return Object.assign({}, state,{
+      validated: false,
+      validating: true,
+      validatePass: false,
+      validateFail: false,
+      validateMessage: '',
+      rowsPassedCount: 0,
+      rowsPassedFailed: 0,
+    });
   default:
     return state;
     
@@ -45,6 +58,10 @@ const headerReducer = (state = [], action) => {
       header(h, action)
     );
   case HEADER_END_DRAG:
+    return state.map(h =>
+      header(h, action)
+    );
+  case HEADER_ATTEMPT_MAP:
     return state.map(h =>
       header(h, action)
     );
@@ -86,6 +103,12 @@ export default function uploader(state = initialState, action) {
       })
     });
   case HEADER_END_DRAG:
+    return Object.assign({}, state, {
+      fileData: Object.assign({}, state.fileData, {
+        headerData: headerReducer(state.fileData.headerData, action) 
+      })
+    });
+  case HEADER_ATTEMPT_MAP: 
     return Object.assign({}, state, {
       fileData: Object.assign({}, state.fileData, {
         headerData: headerReducer(state.fileData.headerData, action) 

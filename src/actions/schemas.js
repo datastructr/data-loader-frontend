@@ -38,7 +38,18 @@ export function getSchemaData() {
 }
 
 
+export const FIELD_ATTEMPT_MAP = 'FIELD_ATTEMPT_MAP';
+
+function attemptMapping(dropTarget, headerCell) {
+  return {
+    type: FIELD_ATTEMPT_MAP,
+    headerCell: headerCell,
+    dropTarget: dropTarget
+  }
+}
+
 export function dropTargetRecieveHeader(dropTarget, header) {
-  console.log("===============> 2")
-  console.log(dropTarget, header)
+  return dispatch => {
+    dispatch(attemptMapping(dropTarget,header));
+  }
 }

@@ -30,15 +30,23 @@ function collect(connect, monitor) {
 
 class CSVTableHeader extends Component {
   
+  generateIconClass(mapping, validating) {
+    if(mapping) {
+      return "Uploader-table-header-mapping";
+    } else if(validating) {
+      return "Uploader-table-header-validating"
+    } else {
+      return "Uploader-table-header-neglet";
+    }
+  }
+
   render() {
     const {
       connectDragSource,
       cell
     } = this.props;
 
-    let headerIconClassName = cell.headerMapping 
-      ? "Uploader-table-header-mapped"
-      : "Uploader-table-header-neglet";
+    let headerIconClassName = this.generateIconClass(cell.headerMapping, cell.validating);
 
     return connectDragSource(
         <th className={`Uploader-table-header`}>
