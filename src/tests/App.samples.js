@@ -25,6 +25,13 @@ export const schemaSamples = {
           { "column_name":"the_geom","nullable":"True","primary_key":false,"type":"geometry(POINT,4326)" },
           { "column_name":"editable","nullable":"True","primary_key":false,"type":"BOOLEAN" },
           { "column_name":"locations","nullable":"True","primary_key":false,"type":"JSON" }
+        ],
+        "junctions": [
+          { "column_name":"country_name","nullable":"True","primary_key":false,"type":"geometry(POINT,4326)" },
+          { "column_name":"regions_name","nullable":"True","primary_key":false,"type":"BOOLEAN" },
+        ],
+        "rules": [
+          {"oneOf": ["country_name","region_name"]}
         ]
     },
     {

@@ -39,9 +39,14 @@ class Schemas extends Component {
       <div className="Schemas">
         <div className="Schemas-view">
 
-          {schemasLoaded && <Accordion 
+          {schemasLoaded && 
+          <Accordion 
             newLevel={availableSchemas}
             uniqueSelector={"name"}
+            rowClassName={"Schema-list-row"}
+            rowIconClassName={"pt-icon-standard pt-icon-database"}
+            rowOpenClassName={"pt-tree-node-caret pt-tree-node-caret-open pt-icon-standard"}
+            rowCloseClassName={"pt-tree-node-caret pt-icon-standard"}
             childrenSelector={null}
             renderBaseFunc={this.baseViewRender}
           />}

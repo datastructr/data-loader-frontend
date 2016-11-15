@@ -17,7 +17,11 @@ class Accordion extends Component {
       selfLevelObject: props.newLevel, // the current level object containing all rows and their data/children
       childSelector: props.childSelector,
       uniqueSelector: props.uniqueSelector,
-      renderBaseFunc: props.renderBaseFunc || (() => '') // the render function a user must define
+      renderBaseFunc: props.renderBaseFunc || (() => ''), // the render function a user must define
+      rowClassName: props.rowClassName || "",
+      rowIconClassName: props.rowIconClassName || "",
+      rowOpenClassName: props.rowOpenClassName || "",
+      rowCloseClassName: props.rowCloseClassName || ""
     };
   }
 
@@ -53,32 +57,46 @@ class Accordion extends Component {
       selfLevelObject, 
       openLevelRow, 
       uniqueSelector,
-      childSelector
+      childSelector,
+      rowClassName,
+      rowIconClassName,
+      rowOpenClassName,
+      rowCloseClassName
     } = this.state;
 
     return (
       <div>
-          {selfLevelObject.map((row, i) =>
+          {selfLevelObject.map((row, i) => {
 
-              <div className="accordion-hold-self-level" key={i} >
-                {/* This is an individual collapsable Row */}
-                <div onClick={this.toggleOpenClose.bind(this, row[uniqueSelector])} className="accordion-title-row">
-                  <p className="accordion-title"> {row[uniqueSelector]}</p>
-                </div>
-                {/* 
-                    When iterating the list, find out if a row has been opened
-                */}
-                {this.state.openLevelRow !== row[uniqueSelector] ? <span></span> : 
-                    /* 
-                      This code block is called if the current row is opened
-                      now we to need to find out if there are children,
-                      if not, then we are at the bottom, do what ever 
-                      you'd like with the bottom row
-                    */
-                    this.generateAccordionBody(row)
-                }
+            let rowOpen = this.state.openLevelRow === row[uniqueSelector];
+
+            return (
+              <div>
+                <div className={rowClassName} key={i} >
+                  {/* This is an individual collapsable Row */}
+                  <div className="accordion-title-row" onClick={this.toggleOpenClose.bind(this, row[uniqueSelector])}>
+                    <div> 
+                      <span className={rowOpen ? rowOpenClassName : rowCloseClassName }></span>
+                      <span className={rowIconClassName}></span> 
+                      {' ' + row[uniqueSelector]}
+                    </div>
+                  </div>
+                </div> 
+                  {/* 
+                      When iterating the list, find out if a row has been opened
+                  */}
+                  {rowOpen &&
+                      /* 
+                        This code block is called if the current row is opened
+                        now we to need to find out if there are children,
+                        if not, then we are at the bottom, do what ever 
+                        you'd like with the bottom row
+                      */
+                      this.generateAccordionBody(row)
+                  }
               </div> 
-          )}
+            );
+            })}
         </div>
     );
   }
@@ -91,7 +109,11 @@ Accordion.propTypes = {
   ]),
   uniqueSelector: PropTypes.string.isRequired,
   renderBaseFunc: PropTypes.func.isRequired,
-  childSelector: PropTypes.string
+  childSelector: PropTypes.string,
+  rowClassName: PropTypes.string,
+  rowIconClassName: PropTypes.string,
+  rowOpenClassName: PropTypes.string,
+  rowCloseClassName: PropTypes.string
 };
 
 export default Accordion;
