@@ -1,0 +1,37 @@
+.Uploader-csvtable {
+  height: 95%;
+  width: 99%;
+  margin: .5%;
+  overflow: scroll;
+}
+
+.Uploader-table-toolbar {
+  height: 60px;
+  box-shadow: 0 1px 4px 1px #777;
+}
+
+.Uploader-table-header {
+  background-color: $secondaryFillColor;
+  cursor: pointer;
+}
+.Uploader-table-header:active {
+  outline: 2px ridge $secondaryAppColor;
+  color: $tertiaryAppColor;
+}
+.Uploader-table-header:hover {
+ 
+  
+}
+
+.Uploader-table-cell {
+  cursor: pointer;
+}
+.Uploader-table-cell:hover{
+  background-color: $tertiaryFillColor;
+  color: $secondaryAppColor;
+}
+.Uploader-table-cell-count {
+  font-size: .7em;
+  font-weight: bold;
+  background-color: $secondaryFillColor;
+}

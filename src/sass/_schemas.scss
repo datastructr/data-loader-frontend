@@ -2,8 +2,7 @@
   height: 60%;
   max-height: 60%;
   overflow-y: scroll;
-  background-color: white;
-  border-bottom: 1px solid lightslategrey;
+  border-bottom: 1px solid $primaryFillColor;
 }
 
 .Schemas-view {
@@ -27,6 +26,6 @@
 
 
 .Schema-field-isover {
-  outline: 2px ridge grey;
+  outline: 2px ridge $tertiaryAppColor;
   z-index: 9;
 }

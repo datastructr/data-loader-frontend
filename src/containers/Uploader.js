@@ -8,8 +8,6 @@ import * as  SchemaActions from '../actions/schemas';
 import CSVTable from '../components/uploader/csvTable';
 import TableToolbar from '../components/uploader/tableToolbar';
 
-import '../styles/Uploader.css';
-
 class Uploader extends Component {
   componentDidMount() {
     this.props.beginLoadFileData();

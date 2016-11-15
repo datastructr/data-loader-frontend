@@ -32,6 +32,5 @@ export default [
     {name: "scheme-purple",value: "#800080",free: true},
     {name: "scheme-violet", value: "#800080",free: true},
     {name: "scheme-red", value: "#ff0000",free: true},
-    {name: "scheme-silver", value:  "#c0c0c0",free: true},
-    {name: "scheme-yellow", value: "#ffff00",free: true}
+    {name: "scheme-silver", value:  "#c0c0c0",free: true}
 ]

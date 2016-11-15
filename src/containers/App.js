@@ -6,8 +6,7 @@ import Reporter from '../containers/Reporter';
 import Schemas from '../containers/Schemas';
 import Uploader from '../containers/Uploader';
 
-import '../styles/App.css';
-import '../styles/ColorMapScheme.css';
+import '../styles/index.css';
 
 class App extends Component {
   constructor(props) {

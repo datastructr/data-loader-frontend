@@ -7,8 +7,6 @@ import * as SchemaActions from '../actions/schemas';
 import Accordion from '../components/shared/Accordion';
 import SchemaField from '../components/schemas/schemaField';
 
-import '../styles/Schemas.css';
-
 class Schemas extends Component {
   componentDidMount() {
     this.props.getSchemaData();
