@@ -22,7 +22,6 @@ export default class ParseSchema {
             name: schema.name,
             properties: _.map(schema.properties, (prop) => {
               return Object.assign({}, prop, {
-                colorScheme: false,
                 fieldMapped: false,
                 fieldMapping: {}
               });

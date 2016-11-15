@@ -1,211 +1,6 @@
 /* global variables */
 /* main color base */
 /* fills */
-/* addins */
-.scheme-aqua {
-  background-color: #00ffff; }
-
-.scheme-azur {
-  background-color: #f0ffff; }
-
-.scheme-beig {
-  background-color: #f5f5dc; }
-
-.scheme-black {
-  background-color: #000000; }
-
-.scheme-blue {
-  background-color: #0000ff; }
-
-.scheme-brow {
-  background-color: #a52a2a; }
-
-.scheme-cyan {
-  background-color: #00ffff; }
-
-.scheme-darkblue {
-  background-color: #00008b; }
-
-.scheme-darkcyan {
-  background-color: #008b8b; }
-
-.scheme-darkgreen {
-  background-color: #006400; }
-
-.scheme-darkkhaki {
-  background-color: #bdb76b; }
-
-.scheme-darkmagenta {
-  background-color: #8b008b; }
-
-.scheme-darkolivegreen {
-  background-color: #556b2f; }
-
-.scheme-darkorange {
-  background-color: #ff8c00; }
-
-.scheme-darkorchid {
-  background-color: #9932cc; }
-
-.scheme-darkred {
-  background-color: #8b0000; }
-
-.scheme-darksalmon {
-  background-color: #e9967a; }
-
-.scheme-darkviolet {
-  background-color: #9400d3; }
-
-.scheme-fuchsia {
-  background-color: #ff00ff; }
-
-.scheme-gold {
-  background-color: #ffd700; }
-
-.scheme-green {
-  background-color: #008000; }
-
-.scheme-indigo {
-  background-color: #4b0082; }
-
-.scheme-khaki {
-  background-color: #f0e68c; }
-
-.scheme-lime {
-  background-color: #00ff00; }
-
-.scheme-magenta {
-  background-color: #ff00ff; }
-
-.scheme-maroon {
-  background-color: #800000; }
-
-.scheme-navy {
-  background-color: #000080; }
-
-.scheme-olive {
-  background-color: #808000; }
-
-.scheme-orange {
-  background-color: #ffa500; }
-
-.scheme-pink {
-  background-color: #ffc0cb; }
-
-.scheme-purple {
-  background-color: #800080; }
-
-.scheme-violet {
-  background-color: #800080; }
-
-.scheme-red {
-  background-color: #ff0000; }
-
-.scheme-silver {
-  background-color: #c0c0c0; }
-
-.active-scheme-aqua:active {
-  background-color: #00ffff; }
-
-.active-scheme-azur:active {
-  background-color: #f0ffff; }
-
-.active-scheme-beig:active {
-  background-color: #f5f5dc; }
-
-.active-scheme-black:active {
-  background-color: #000000; }
-
-.active-scheme-blue:active {
-  background-color: #0000ff; }
-
-.active-scheme-brow:active {
-  background-color: #a52a2a; }
-
-.active-scheme-cyan:active {
-  background-color: #00ffff; }
-
-.active-scheme-darkblue:active {
-  background-color: #00008b; }
-
-.active-scheme-darkcyan:active {
-  background-color: #008b8b; }
-
-.active-scheme-darkgreen:active {
-  background-color: #006400; }
-
-.active-scheme-darkkhaki:active {
-  background-color: #bdb76b; }
-
-.active-scheme-darkmagenta:active {
-  background-color: #8b008b; }
-
-.active-scheme-darkolivegreen:active {
-  background-color: #556b2f; }
-
-.active-scheme-darkorange:active {
-  background-color: #ff8c00; }
-
-.active-scheme-darkorchid:active {
-  background-color: #9932cc; }
-
-.active-scheme-darkred:active {
-  background-color: #8b0000; }
-
-.active-scheme-darksalmon:active {
-  background-color: #e9967a; }
-
-.active-scheme-darkviolet:active {
-  background-color: #9400d3; }
-
-.active-scheme-fuchsia:active {
-  background-color: #ff00ff; }
-
-.active-scheme-gold:active {
-  background-color: #ffd700; }
-
-.active-scheme-green:active {
-  background-color: #008000; }
-
-.active-scheme-indigo:active {
-  background-color: #4b0082; }
-
-.active-scheme-khaki:active {
-  background-color: #f0e68c; }
-
-.active-scheme-lime:active {
-  background-color: #00ff00; }
-
-.active-scheme-magenta:active {
-  background-color: #ff00ff; }
-
-.active-scheme-maroon:active {
-  background-color: #800000; }
-
-.active-scheme-navy:active {
-  background-color: #000080; }
-
-.active-scheme-olive:active {
-  background-color: #808000; }
-
-.active-scheme-orange:active {
-  background-color: #ffa500; }
-
-.active-scheme-pink:active {
-  background-color: #ffc0cb; }
-
-.active-scheme-purple:active {
-  background-color: #800080; }
-
-.active-scheme-violet:active {
-  background-color: #800080; }
-
-.active-scheme-red:active {
-  background-color: #ff0000; }
-
-.active-scheme-silver:active {
-  background-color: #c0c0c0; }
-
 /* main */
 /* bootstrap overrides */
 .col-md-7 {
@@ -269,6 +64,17 @@ body {
   outline: 2px ridge #5b616b;
   color: #d6d7d9; }
 
+.Uploader-table-header-mapped,
+.Uploader-table-header-neglet {
+  margin-left: 10px;
+  color: white !important; }
+
+.Uploader-table-header-neglet {
+  color: white !important; }
+
+.Uploader-table-header-mapped {
+  color: dodgerblue !important; }
+
 .Uploader-table-cell {
   cursor: pointer; }
 
@@ -293,6 +99,15 @@ body {
 .Schema-choices {
   margin-left: 10px;
   width: 100%; }
+
+.Schema-list-row {
+  cursor: default;
+  color: lightslategray;
+  min-height: 35px; }
+
+.Schema-list-row:hover {
+  background-color: #d6d7d9;
+  min-height: 35px; }
 
 .Schema-field > td,
 .Schema-field-isover > td {

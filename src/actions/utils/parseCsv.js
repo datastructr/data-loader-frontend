@@ -1,7 +1,5 @@
 import _ from 'lodash';
 
-import colors from './colors';
-
 export default class ParseCSV {
   constructor(data) {
     this.initialRead = data;
@@ -9,7 +7,6 @@ export default class ParseCSV {
       tableData: [],
       headerData: []
     };
-    this.colorScheme = colors; // availible color scheme to generate coloring
   }
 
   /**
@@ -30,9 +27,9 @@ export default class ParseCSV {
         rowsPassedCount: 0,
         rowsPassedFailed: 0,
         valueDefinedType: '',
-        colorScheme: self._generateColorForHeader(),
         headerMapped: false,
-        headerMapping: {}
+        headerMapping: false,
+        headerMap: {},
       });
     });
 
@@ -55,20 +52,6 @@ export default class ParseCSV {
       return rowList;
     });
     
-  }
-
-  _generateColorForHeader() {
-    let self = this;
-    let result = false;
-    while(!result){
-    let rnd = Math.floor(Math.random()*self.colorScheme.length)
-      if(self.colorScheme[rnd].free) {
-        self.colorScheme[rnd].free = false;
-        result = self.colorScheme[rnd];
-      }
-    }
-
-    return result;
   }
 
   shapeCsvAndRetrieve(){
