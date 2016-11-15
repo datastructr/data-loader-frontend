@@ -30,13 +30,15 @@
   height: 12px;
 }
 
-.Schema-field {
-  outline: 2px solid white;
-  z-index: 8;
+.Schema-field-mapped,
+.Schema-field-neglet {
+  margin-right: 10px;
 }
 
+.Schema-field-neglet {
+  color: white !important;
+}
 
-.Schema-field-isover {
-  outline: 2px ridge $tertiaryAppColor;
-  z-index: 9;
+.Schema-field-mapped {
+  color: $dragMapColor !important;
 }

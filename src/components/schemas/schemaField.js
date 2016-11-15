@@ -29,12 +29,17 @@ class SchemaField extends Component {
       field,
       
       connectDropTarget,
-      isOver
+      isOver,
+      canDrop
     } = this.props;
+
+    let fieldIconClassName = isOver 
+      ? "Schema-field-mapped"
+      : "Schema-field-neglet";
 
     return connectDropTarget(
       <tr className={isOver ? 'Schema-field-isover' : 'Schema-field' }>
-        <td>{field.column_name}</td>
+        <td><span className={`${fieldIconClassName} pt-icon-standard pt-icon-ungroup-objects`}></span>{' ' + field.column_name}</td>
         <td>{field.type}</td>
         <td><b>{field.nullable == "False" ? 'Required' : ''}</b></td>
       </tr>

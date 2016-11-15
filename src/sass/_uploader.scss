@@ -34,8 +34,7 @@
   cursor: pointer;
 }
 .Uploader-table-header:active {
-  outline: 2px ridge $secondaryAppColor;
-  color: $tertiaryAppColor;
+  color: $dragMapColor !important;
 }
 
 .Uploader-table-header:hover {
@@ -46,7 +45,6 @@
 .Uploader-table-header-mapped,
 .Uploader-table-header-neglet {
   margin-left: 10px;
-  color: white !important;
 }
 
 .Uploader-table-header-neglet {
@@ -54,7 +52,7 @@
 }
 
 .Uploader-table-header-mapped {
-  color: dodgerblue !important;
+  color: $dragMapColor !important;
 }
 
 .Uploader-table-cell {
