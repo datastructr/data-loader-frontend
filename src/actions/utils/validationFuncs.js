@@ -1,13 +1,14 @@
-"use strict";
-
-import _ from 'lodash';
-
-const _NUMBER_    = () => { return {"type": 'number'};};
-const _BOOLEAN_   = () => { return {"type": 'boolean'};};
-const _DATE_      = () => { return {"type": 'date'};};
-const _TIMESTAMP_ = () => { return {"type": 'date'};};
-const _OBJECT_    = () => { return {"type": 'object'};};
-const _STRING_    = (limit) => { return {"type": 'string', "max": limit.max};};
+const NUMBER  = 'number',
+      BOOLEAN = 'boolean',
+      DATE    = 'date',
+      STRING  = 'boolean',
+      OBJECT  = 'object',
+      _NUMBER_    = () => { return {"type": NUMBER};},
+      _BOOLEAN_   = () => { return {"type": BOOLEAN};},
+      _DATE_      = () => { return {"type": DATE};},
+      _TIMESTAMP_ = () => { return {"type": DATE};},
+      _OBJECT_    = () => { return {"type": OBJECT};},
+      _STRING_    = (limit) => { return {"type": STRING, "max": limit.max};};
 
 function _determineRequired(field, schemaType) {
   switch(schemaType) {
@@ -52,39 +53,44 @@ function _determineTypeMatch(field, schemaType) {
   }
 }
 
-
-
 function getGeneratedRules(field, schemaType) {
   let rules = [];
   schemaType = schemaType ? schemaType : "pg";
   // take field and generate some rules
 
   // required field
-  if(_determineRequired(field)) {
-    rules.push("required");
+  if(_determineRequired(field, schemaType)) {
+    rules.push({"check": 'required'});
   }
 
   // determine type required
-  rules.push(_determineTypeMatch(field)) 
-
+  rules.push({"check": 'dataType', "dataType": _determineTypeMatch(field, schemaType)}); 
+  
+  return rules;
 }
-// :
-// "False"
-// primary_key
-// :
-// true
-// type
-// :
-// "INTEGER"
-//   return rules;
-// }
 
-function checkPassRule() {
-  let valid = true;
-  let message = 'All checks pass';
+function _validateOrConvertDataType() {
+  return {valid:true};
+}
 
+function _validateRequired(cell) {
+  if(!cell.value || typeof(cell.value) === undefined || cell.value === null || cell.length === 0) {
+    return {"valid": false, "message": `Field ${cell.column_name} is required, please insert a value`};
+  } else {
+    return {"valid": true}
+  }
+}
 
-  return {"valid": valid, "message": message};
+function checkPassRule(cell, rule) {
+  switch(rule.check) {
+    case 'required':
+      return _validateRequired(cell);
+    case 'dataType':
+      return _validateOrConvertDataType(cell, rule.dataType);
+    default:
+      console.log("default switch executed, check pass rule");
+      return null;
+  }
 }
 
 
@@ -93,20 +99,3 @@ export default {
  getGeneratedRules,
  checkPassRule
 };
-
-
-// function _checkRequired(field, schemaType) {
-//   switch(schemaType) {
-//     case "pg": 
-//       return field.nullable === "True" 
-//         ? {"valid": true} 
-//         : {"valid": false, "message": `Field ${field.column_name} is required, please insert a value`};
-//     case "mysql": 
-//       return {"valid": false} 
-//     default:
-//       console.log("default switch executed, required check");
-//       return field.nullable === "True" 
-//         ? {"valid": true} 
-//         : {"valid": false, "message": `Field ${field.column_name} is required, please insert a value`};
-//   }
-// }

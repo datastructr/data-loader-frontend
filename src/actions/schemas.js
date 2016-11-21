@@ -50,8 +50,6 @@ function dispatchAttemptMapping(dropTarget, headerCell) {
 
 export function dropTargetRecieveHeader(dropTarget, header) {
   return dispatch => {
-    console.log(">>>>>>>>>>>>>>>>>>>>>")
-    console.log(dropTarget)
     dispatch(dispatchAttemptMapping(dropTarget,header));
   }
 }

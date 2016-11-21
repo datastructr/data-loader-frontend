@@ -92,7 +92,15 @@ function dispatchAttemptMapping(headerCell, dropTarget) {
 
 function dispatchAttemptMappingFinish(headerCell) {}
 
-function dispatchValidateCellPass(cell, rule) {}
+function dispatchValidateCellPass(cell, rule) {
+  
+  return {
+    type: CELL_VALIDATE_PASS,
+    cell: cell,
+    rule: rule
+  }
+}
+
 function dispatchValidateCellFail(cell, rule) {}
 
 /**
@@ -111,22 +119,23 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
   return (dispatch, getState) => {
     dispatch(dispatchAttemptMapping(header,dropTarget));
     // get the uploaded data
-    _.map(getState().uploader.present.fieldData, (row,i) => {
+    _.map(getState().uploader.present.fileData.tableData, (row) => {
       // for each row, get the cell in question
-      const cell = row[dropTarget.column_name];
+      let index = _.findIndex(row, (r) => { return r.column === header.id; });
+      const cell  = row[index];
       // figure out the rules the cell needs to pass
       let rules = validationFuncs.getGeneratedRules(dropTarget);
-      
       _.each(rules, (rule,i) => {
         // for each rule, validate the cell
-        if(validationFuncs.checkPassRule(cell, rule)) {
-          dispatchValidateCellPass(cell, rule)
+        let result = validationFuncs.checkPassRule(cell, rule);
+        if(result.valid) {
+          dispatch(dispatchValidateCellPass(cell, rule));
         } else {
-          dispatchValidateCellFail(cell, rule)
+          dispatch(dispatchValidateCellFail(cell, rule));
         }
       })
     });
 
-    dispatch(dispatchAttemptMappingFinish(header));
+    //dispatch(dispatchAttemptMappingFinish(header));
   }
 }

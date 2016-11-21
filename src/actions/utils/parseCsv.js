@@ -38,14 +38,18 @@ export default class ParseCSV {
       let rowList = [];
       _.forIn(row, (value, column) => {
         rowList.push({
-          id: `${column}:row:${i}`,
+          id: `c:${column}-r:${i}`,
+          column: column,
+          row: i,
           value: value,
           validated: false,
           validating: false,
           validateFail: false,
           validatePass: false,
           validateMessage: '',
-          contentEditing: false
+          contentEditing: false,
+          rulesPassed: [],
+          rulesFailed: []
         });
       });
 

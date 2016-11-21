@@ -16,8 +16,10 @@ class Uploader extends Component {
   evaluateDraggedHeader(header, dropTarget) {
       this.props.endHeaderDragDropped(header);
       if(dropTarget) {
-        this.props.endHeaderDragDroppedMapped(header,dropTarget);
+        /** FOR NOW THIS HAPPENS FIRST */
         this.props.dropTargetRecieveHeader(dropTarget,header);
+
+        this.props.endHeaderDragDroppedMapped(header,dropTarget);
       }
   }
 
