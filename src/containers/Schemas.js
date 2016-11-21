@@ -32,8 +32,7 @@ class Schemas extends Component {
       activeSchemaId,
       schemasLoaded
     } = this.props;
-    console.log("=====")
-    console.log(availableSchemas)
+
     return (
       <div className="Schemas">
         <div className="Schemas-view">

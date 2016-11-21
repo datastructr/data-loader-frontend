@@ -23,14 +23,14 @@ const header = (state = {id:null}, action) => {
       return state;
     }
     return Object.assign({}, state,{
-      headerMapping: true
+      headerDragging: true
     });
   case HEADER_END_DRAG:
     if (state.id !== action.headerCell.id) {
       return state;
     }
     return Object.assign({}, state,{
-      headerMapping: false
+      headerDragging: false
     });
   case HEADER_ATTEMPT_MAP:
     if (state.id !== action.headerCell.id) {
@@ -44,6 +44,7 @@ const header = (state = {id:null}, action) => {
       validateMessage: '',
       rowsPassedCount: 0,
       rowsPassedFailed: 0,
+      headerMap: action.dropTarget
     });
   default:
     return state;

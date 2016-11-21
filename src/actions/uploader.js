@@ -1,23 +1,26 @@
+import _ from 'lodash';
+
 import ParseCsv from './utils/parseCsv';
+import validationFuncs from './utils/validationFuncs';
 
 export const LOAD_DATA = 'LOAD_DATA';
 export const LOAD_DATA_SUCCESS = 'LOAD_DATA_SUCCESS';
 export const LOAD_DATA_FAILED = 'LOAD_DATA_FAILED';
 
-function loadData() {
+function dispatchLoadData() {
   return {
     type: LOAD_DATA
   };
 }
 
-function loadDataSuccess(data) {
+function dispatchLoadDataSuccess(data) {
   return {
     type: LOAD_DATA_SUCCESS,
     fileData: data
   };
 }
 
-function loadDataFailed(message) {
+function dispatchLoadDataFailed(message) {
   return {
     type: LOAD_DATA_FAILED,
     errorMessage: message
@@ -30,12 +33,12 @@ import {testFileData} from '../tests/App.samples.js';
 
 export function beginLoadFileData() {
   return dispatch => {
-    dispatch(loadData());
+    dispatch(dispatchLoadData());
 
     // TODO load and papaparse
 
     let pcsv = new ParseCsv(testFileData);
-    dispatch(loadDataSuccess(pcsv.shapeCsvAndRetrieve()));
+    dispatch(dispatchLoadDataSuccess(pcsv.shapeCsvAndRetrieve()));
   };
 }
 
@@ -54,7 +57,7 @@ export function beginHeaderDrag(headerCell) {
   }
 }
 
-function endHeaderDrag(headerCell) {
+function dispatchEndHeaderDrag(headerCell) {
   return {
     type: HEADER_END_DRAG,
     headerCell: headerCell
@@ -63,14 +66,23 @@ function endHeaderDrag(headerCell) {
 
 export function endHeaderDragDropped(header) {
   return dispatch => {
-    dispatch(endHeaderDrag(header));
+    dispatch(dispatchEndHeaderDrag(header));
   }
 }
 
 
+/**
+ * Mapping actions
+ * 
+ * mapping header to drop target fields, validating each cell associated with the header column
+ * 
+ */
 export const HEADER_ATTEMPT_MAP = 'HEADER_ATTEMPT_MAP';
+export const HEADER_ATTEMPT_FINISH = 'HEADER_ATTEMPT_MAP';
+export const CELL_VALIDATE_PASS = 'CELL_VALIDATE_PASS';
+export const CELL_VALIDATE_FAIL = 'CELL_VALIDATE_FAIL';
 
-function attemptMapping(headerCell, dropTarget) {
+function dispatchAttemptMapping(headerCell, dropTarget) {
   return {
     type: HEADER_ATTEMPT_MAP,
     headerCell: headerCell,
@@ -78,9 +90,43 @@ function attemptMapping(headerCell, dropTarget) {
   }
 }
 
+function dispatchAttemptMappingFinish(headerCell) {}
+
+function dispatchValidateCellPass(cell, rule) {}
+function dispatchValidateCellFail(cell, rule) {}
+
+/**
+ * called after a header has been mapped. When done so, each cell in that column needs
+ * to be validated
+ */
+function validateColumnCell(cell, dropTarget) {
+  // use drop target to validate the cell
+
+  // dispatch success 
+
+  // or dispatch failure
+}
+
 export function endHeaderDragDroppedMapped(header, dropTarget) {
-  return dispatch => {
-    dispatch(attemptMapping(header,dropTarget));
-   
+  return (dispatch, getState) => {
+    dispatch(dispatchAttemptMapping(header,dropTarget));
+    // get the uploaded data
+    _.map(getState().uploader.present.fieldData, (row,i) => {
+      // for each row, get the cell in question
+      const cell = row[dropTarget.column_name];
+      // figure out the rules the cell needs to pass
+      let rules = validationFuncs.getGeneratedRules(dropTarget);
+      
+      _.each(rules, (rule,i) => {
+        // for each rule, validate the cell
+        if(validationFuncs.checkPassRule(cell, rule)) {
+          dispatchValidateCellPass(cell, rule)
+        } else {
+          dispatchValidateCellFail(cell, rule)
+        }
+      })
+    });
+
+    dispatch(dispatchAttemptMappingFinish(header));
   }
 }

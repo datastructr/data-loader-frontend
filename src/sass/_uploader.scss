@@ -34,12 +34,7 @@
   cursor: pointer;
 }
 
-.Uploader-table-header:hover {
- 
-  
-}
-
-.Uploader-table-header-mapping,
+.Uploader-table-header-dragging,
 .Uploader-table-header-validating,
 .Uploader-table-header-neglet {
   margin-left: 10px;
@@ -49,7 +44,7 @@
   color: white !important;
 }
 
-.Uploader-table-header-mapping {
+.Uploader-table-header-dragging {
   color: $dragMapColor !important;
 }
 

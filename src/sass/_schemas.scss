@@ -30,8 +30,8 @@
   height: 12px;
 }
 
-.Schema-field-premapping,
-.Schema-field-mapping,
+.Schema-field-dropping,
+.Schema-field-validating,
 .Schema-field-neglet {
   margin-right: 10px;
 }
@@ -40,9 +40,10 @@
   color: white !important;
 }
 
-.Schema-field-mapping {
+.Schema-field-validating {
   color: orange !important;
 }
-.Schema-field-premapping {
+.Schema-field-dropping {
   color: $dragMapColor !important;
 }
+

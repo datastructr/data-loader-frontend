@@ -73,8 +73,6 @@ class Accordion extends Component {
     return (
       <div>
           {selfLevelObject.map((row, i) => {
-            console.log(">>>>>>>>>>>>>>>>")
-            console.log(selfLevelObject)
             let rowOpen = this.state.openLevelRow === row[uniqueSelector];
 
             return (

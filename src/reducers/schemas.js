@@ -20,7 +20,8 @@ const property = (state = {id:null}, action) => {
       return state;
     }
     return Object.assign({}, state,{
-      fieldMapping: true
+      fieldValidating: true,
+      fieldMap: action.dropTarget
     });
   default:
     return state;

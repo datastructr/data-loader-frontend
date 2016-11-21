@@ -27,8 +27,8 @@ export default class ParseCSV {
         rowsPassedCount: 0,
         rowsPassedFailed: 0,
         valueDefinedType: '',
+        headerDragging: false,
         headerMapped: false,
-        headerMapping: false,
         headerMap: {},
       });
     });

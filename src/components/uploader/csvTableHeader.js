@@ -30,9 +30,9 @@ function collect(connect, monitor) {
 
 class CSVTableHeader extends Component {
   
-  generateIconClass(mapping, validating) {
-    if(mapping) {
-      return "Uploader-table-header-mapping";
+  generateIconClass(dragging, validating) {
+    if(dragging) {
+      return "Uploader-table-header-dragging";
     } else if(validating) {
       return "Uploader-table-header-validating"
     } else {
@@ -46,7 +46,7 @@ class CSVTableHeader extends Component {
       cell
     } = this.props;
 
-    let headerIconClassName = this.generateIconClass(cell.headerMapping, cell.validating);
+    let headerIconClassName = this.generateIconClass(cell.headerDragging, cell.validating);
 
     return connectDragSource(
         <th className={`Uploader-table-header`}>
