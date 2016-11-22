@@ -119,7 +119,7 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
   return (dispatch, getState) => {
     dispatch(dispatchAttemptMapping(header,dropTarget));
     // get the uploaded data
-    _.map(getState().uploader.present.fileData.tableData, (row) => {
+    _.map(getState().uploader.present.fileData.tableData, (row, rowdex) => {
       // for each row, get the cell in question
       let index = _.findIndex(row, (r) => { return r.column === header.id; });
       const cell  = row[index];
@@ -127,12 +127,19 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
       let rules = validationFuncs.getGeneratedRules(dropTarget);
       _.each(rules, (rule,i) => {
         // for each rule, validate the cell
-        let result = validationFuncs.checkPassRule(cell, rule);
-        if(result.valid) {
-          dispatch(dispatchValidateCellPass(cell, rule));
-        } else {
-          dispatch(dispatchValidateCellFail(cell, rule));
-        }
+        
+            let result = validationFuncs.checkPassRule(cell, rule);
+            if(result.valid) {
+              (function(index) {
+                setTimeout(function() {
+                  dispatch(dispatchValidateCellPass(cell, rule));
+                }, 50 * (rowdex*2));
+              })(i)
+            } else {
+              dispatch(dispatchValidateCellFail(cell, rule));
+            }
+          
+        
       })
     });
 
