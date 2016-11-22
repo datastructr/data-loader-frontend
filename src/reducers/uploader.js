@@ -2,7 +2,7 @@ import {
   LOAD_DATA, LOAD_DATA_SUCCESS, LOAD_DATA_FAILED,
   HEADER_BEGIN_DRAG, HEADER_END_DRAG,
   HEADER_ATTEMPT_MAP,
-  CELL_VALIDATE_PASS
+  CELL_VALIDATE_PASS, CELL_VALIDATE_FAIL
 } from '../actions/uploader';
 
 const initialState = {
@@ -82,6 +82,13 @@ const column = (state = {id:null}, action) => {
     return Object.assign({}, state, {
       rulesPassed: [action.rule].concat(state.rulesPassed)
     });
+  case CELL_VALIDATE_FAIL:
+    if (state.id !== action.cell.id) {
+      return state;
+    }
+    return Object.assign({}, state, {
+      rulesFailed: [action.rule].concat(state.rulesFailed)
+    });
   default:
     return state; 
   }
@@ -93,6 +100,10 @@ const rowReducer = (state = [], action) => {
     return state.map(c => {
      return  column(c, action)
     });
+  case CELL_VALIDATE_FAIL:
+    return state.map(c => {
+     return  column(c, action)
+    });
   default:
     return state; 
   }
@@ -101,6 +112,10 @@ const rowReducer = (state = [], action) => {
 const tableReducer = (state = [], action) => {
   switch (action.type) {
   case CELL_VALIDATE_PASS:
+    return state.map(row =>
+      rowReducer(row, action)
+    );
+  case CELL_VALIDATE_FAIL:
     return state.map(row =>
       rowReducer(row, action)
     );
@@ -154,6 +169,12 @@ export default function uploader(state = initialState, action) {
       })
     });
   case CELL_VALIDATE_PASS: 
+    return Object.assign({}, state, {
+      fileData: Object.assign({}, state.fileData, {
+        tableData: tableReducer(state.fileData.tableData, action) 
+      })
+    });
+  case CELL_VALIDATE_FAIL: 
     return Object.assign({}, state, {
       fileData: Object.assign({}, state.fileData, {
         tableData: tableReducer(state.fileData.tableData, action) 

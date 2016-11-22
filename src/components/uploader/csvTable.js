@@ -26,7 +26,14 @@ class CSVTable extends Component {
     );
     
     tableData.forEach((row,i) => {
-      rows.push(<CSVTableRow key={i} count={i} values={row} isHeader={false}/>);
+      rows.push(
+        <CSVTableRow 
+          key={i} 
+          count={i} 
+          values={row} 
+          isHeader={false}
+        />
+      );
     });
 
     return (

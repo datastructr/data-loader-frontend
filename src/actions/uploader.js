@@ -90,10 +90,10 @@ function dispatchAttemptMapping(headerCell, dropTarget) {
   }
 }
 
+// TODO
 function dispatchAttemptMappingFinish(headerCell) {}
 
 function dispatchValidateCellPass(cell, rule) {
-  
   return {
     type: CELL_VALIDATE_PASS,
     cell: cell,
@@ -101,8 +101,15 @@ function dispatchValidateCellPass(cell, rule) {
   }
 }
 
-function dispatchValidateCellFail(cell, rule) {}
+function dispatchValidateCellFail(cell, rule) {
+  return {
+    type: CELL_VALIDATE_FAIL,
+    cell: cell,
+    rule: rule
+  }
+}
 
+// TODO
 /**
  * called after a header has been mapped. When done so, each cell in that column needs
  * to be validated
@@ -126,20 +133,22 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
       // figure out the rules the cell needs to pass
       let rules = validationFuncs.getGeneratedRules(dropTarget);
       _.each(rules, (rule,i) => {
-        // for each rule, validate the cell
         
+        // shows the iterative effect
+        (function(index) {
+          setTimeout(function() {
+            
+            // for each rule, validate the cell
             let result = validationFuncs.checkPassRule(cell, rule);
-            if(result.valid) {
-              (function(index) {
-                setTimeout(function() {
-                  dispatch(dispatchValidateCellPass(cell, rule));
-                }, 50 * (rowdex*2));
-              })(i)
+            if(result.valid) { 
+              dispatch(dispatchValidateCellPass(cell, rule));
             } else {
               dispatch(dispatchValidateCellFail(cell, rule));
             }
-          
-        
+
+          }, 50 * (rowdex*1.5));
+        })(i)
+           
       })
     });
 

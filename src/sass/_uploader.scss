@@ -68,3 +68,7 @@
 .Uploader-table-cell-valid {
     background-color: $intentSuccess;
 }
+
+.Uploader-table-cell-invalid {
+    background-color: $intentFailure;
+}

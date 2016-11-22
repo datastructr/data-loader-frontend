@@ -17,7 +17,7 @@ class CSVTableRow extends Component {
     } = this.props;
 
     let cells = [
-      <CSVTableCell isCount={true} value={isHeader ? null : count} />
+      <CSVTableCell key={+(new Date())} isCount={true} value={isHeader ? null : count} />
     ];
 
     values.forEach((cell,i) => {
@@ -30,7 +30,14 @@ class CSVTableRow extends Component {
             endHeaderDragDropped={endHeaderDragDropped}
           />);
       } else {
-        cells.push(<CSVTableCellSmart key={i} value={cell.value} rulesPassed={cell.rulesPassed}  />);
+        cells.push(
+          <CSVTableCellSmart 
+            key={i} 
+            value={cell.value} 
+            rulesPassed={cell.rulesPassed}
+            rulesFailed={cell.rulesFailed}  
+          />
+        );
       }  
     });
 

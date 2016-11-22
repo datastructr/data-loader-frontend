@@ -1,7 +1,9 @@
+import validator from 'validator';
+
 const NUMBER  = 'number',
       BOOLEAN = 'boolean',
       DATE    = 'date',
-      STRING  = 'boolean',
+      STRING  = 'string',
       OBJECT  = 'object',
       _NUMBER_    = () => { return {"type": NUMBER};},
       _BOOLEAN_   = () => { return {"type": BOOLEAN};},
@@ -69,12 +71,54 @@ function getGeneratedRules(field, schemaType) {
   return rules;
 }
 
-function _validateOrConvertDataType() {
-  return {valid:true};
+function _validateOrConvertDataType(cell, dataType) {
+  
+  
+  function validateString(value) {
+    // STUB
+    return {"valid":true};;
+  }
+
+  function validateNumber(val) {
+    let value = validator
+                  .escape(validator
+                  .trim(value))
+    
+    if(!validator.isInt(value) && !validator.isFloat(value)) {
+      return {"valid":false, "message": `Field ${cell.column_name} is not in a proper number format`}
+    } else {
+      return {"valid":true};
+    }
+  }
+
+  function validateBoolean(val) {
+    let value = validator
+                  .escape(validator
+                  .trim(val))
+                  
+    if(!validator.isBoolean(value)) {
+      return {"valid":false, "message": `Field ${cell.column_name} is not in a proper boolean`}
+    } else {
+      return {"valid":true};
+    }
+  }
+
+  let value = '' + cell.value;
+
+  switch(dataType.type) {
+    case STRING: 
+      return validateString(value);
+    case NUMBER:
+      return validateNumber(value);
+    case BOOLEAN:
+      return validateBoolean(value);
+    default:
+      return {"valid":true};
+  }
 }
 
 function _validateRequired(cell) {
-  if(!cell.value || typeof(cell.value) === undefined || cell.value === null || cell.length === 0) {
+  if(!cell.value || typeof(cell.value) === undefined || cell.value === null || validator.isEmpty('' + cell.value)) {
     return {"valid": false, "message": `Field ${cell.column_name} is required, please insert a value`};
   } else {
     return {"valid": true}

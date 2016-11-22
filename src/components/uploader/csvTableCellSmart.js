@@ -2,8 +2,10 @@ import React, {Component, PropTypes} from 'react';
 
 class CSVTableCellSmart extends Component {
   
-  generateCellColor(rulesPassed) {
-    if(rulesPassed > 0) {
+  generateCellColor(passCount, failCount) {
+    if(failCount > 0) {
+      return 'Uploader-table-cell-invalid';
+    } else if (passCount > 0){
       return 'Uploader-table-cell-valid';
     } else {
       return '';
@@ -12,11 +14,15 @@ class CSVTableCellSmart extends Component {
 
   render() {
     const {
-      rulesPassed
+      rulesPassed,
+      rulesFailed
     } = this.props;
 
     let passedRulesCount = rulesPassed.length;
-    let colorClass = this.generateCellColor(passedRulesCount)
+    let failedRulesCount = rulesFailed.length;
+
+    let colorClass = this.generateCellColor(passedRulesCount, failedRulesCount);
+
     return (
         <td className={`Uploader-table-cell ${colorClass}`}>
           {this.props.value}
@@ -30,7 +36,9 @@ CSVTableCellSmart.propTypes = {
     PropTypes.string,
     PropTypes.number,
     PropTypes.bool
-  ])
+  ]),
+  rulesPassed: PropTypes.array.isRequired,
+  rulesFailed: PropTypes.array.isRequired
 };
 
 export default CSVTableCellSmart;

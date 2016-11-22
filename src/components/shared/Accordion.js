@@ -76,8 +76,8 @@ class Accordion extends Component {
             let rowOpen = this.state.openLevelRow === row[uniqueSelector];
 
             return (
-              <div>
-                <div className={rowClassName} key={i} >
+              <div  key={i}>
+                <div className={rowClassName}>
                   {/* This is an individual collapsable Row */}
                   <div className="accordion-title-row" onClick={this.toggleOpenClose.bind(this, row[uniqueSelector])}>
                     <div> 
