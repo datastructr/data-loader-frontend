@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 
 import CSVTableHeader from './csvTableHeader';
 import CSVTableCell from './csvTableCell';
+import CSVTableCellSmart from './csvTableCellSmart';
 
 class CSVTableRow extends Component {
   render() {
@@ -18,6 +19,7 @@ class CSVTableRow extends Component {
     let cells = [
       <CSVTableCell isCount={true} value={isHeader ? null : count} />
     ];
+
     values.forEach((cell,i) => {
       if(isHeader) {
         cells.push(
@@ -28,7 +30,7 @@ class CSVTableRow extends Component {
             endHeaderDragDropped={endHeaderDragDropped}
           />);
       } else {
-        cells.push(<CSVTableCell key={i} value={cell.value} rulesPassed={cell.rulesPassed.length}  />);
+        cells.push(<CSVTableCellSmart key={i} value={cell.value} rulesPassed={cell.rulesPassed}  />);
       }  
     });
 

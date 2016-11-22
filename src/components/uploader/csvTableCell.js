@@ -3,9 +3,9 @@ import React, {Component, PropTypes} from 'react';
 class CSVTableCell extends Component {
   render() {
     const {
-      isCount,
-      rulesPassed
-    } = this.props;
+      isCount
+    } = this.props
+
     return (
         <td className={isCount ? 'Uploader-table-cell-count' : 'Uploader-table-cell'}>
           {this.props.value}
