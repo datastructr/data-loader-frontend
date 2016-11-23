@@ -15,7 +15,7 @@ const NUMBER  = 'number',
 function _determineRequired(field, schemaType) {
   switch(schemaType) {
     case "pg": 
-      return field.nullable === "True" ? true : false;
+      return field.nullable === "False" ? true : false;
     case "mysql": 
       return false;
     default:
@@ -36,6 +36,7 @@ function _matchPgType(type) {
       return _BOOLEAN_();
     case "DATE":
       return _DATE_();
+      // TODO VALIDATION
     case "JSON":
       return _OBJECT_();
     default:
@@ -82,9 +83,10 @@ function _validateOrConvertDataType(cell, dataType) {
   function validateNumber(val) {
     let value = validator
                   .escape(validator
-                  .trim(value))
+                  .trim(val))
     
     if(!validator.isInt(value) && !validator.isFloat(value)) {
+
       return {"valid":false, "message": `Field ${cell.column_name} is not in a proper number format`}
     } else {
       return {"valid":true};
@@ -95,7 +97,7 @@ function _validateOrConvertDataType(cell, dataType) {
     let value = validator
                   .escape(validator
                   .trim(val))
-                  
+
     if(!validator.isBoolean(value)) {
       return {"valid":false, "message": `Field ${cell.column_name} is not in a proper boolean`}
     } else {
