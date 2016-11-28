@@ -5,6 +5,11 @@ import CSVTableCell from './csvTableCell';
 import CSVTableCellSmart from './csvTableCellSmart';
 
 class CSVTableRow extends Component {
+  
+  cellValueChange(newVal, cell) {
+    console.log(newVal, cell)
+  }
+  
   render() {
     const {
       isHeader,
@@ -35,7 +40,9 @@ class CSVTableRow extends Component {
             key={i} 
             value={cell.value} 
             rulesPassed={cell.rulesPassed}
-            rulesFailed={cell.rulesFailed}  
+            rulesFailed={cell.rulesFailed}
+            cellData={cell}
+            handleChangeAction={this.cellValueChange.bind(this)}
           />
         );
       }  
