@@ -50,7 +50,7 @@ class SchemaField extends Component {
       <tr className={isOver ? 'Schema-field-isover' : 'Schema-field' }>
         <td><span className={`${fieldIconClassName} pt-icon-standard pt-icon-ungroup-objects`}></span>{' ' + field.column_name}</td>
         <td>{field.type}</td>
-        <td><b>{field.nullable == "False" ? 'Required' : ''}</b></td>
+        <td><b>{field.nullable === "False" ? 'Required' : ''}</b></td>
       </tr>
     );
   }

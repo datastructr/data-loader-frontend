@@ -6,10 +6,6 @@ import CSVTableCellSmart from './csvTableCellSmart';
 
 class CSVTableRow extends Component {
   
-  cellValueChange(newVal, cell) {
-    console.log(newVal, cell)
-  }
-  
   render() {
     const {
       isHeader,
@@ -18,7 +14,8 @@ class CSVTableRow extends Component {
       
       // actions
       beginHeaderDrag,
-      endHeaderDragDropped
+      endHeaderDragDropped,
+      handleCellChangeAction
     } = this.props;
 
     let cells = [
@@ -42,7 +39,7 @@ class CSVTableRow extends Component {
             rulesPassed={cell.rulesPassed}
             rulesFailed={cell.rulesFailed}
             cellData={cell}
-            handleChangeAction={this.cellValueChange.bind(this)}
+            handleCellChangeAction={handleCellChangeAction}
           />
         );
       }  

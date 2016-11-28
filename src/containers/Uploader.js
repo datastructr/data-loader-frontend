@@ -23,6 +23,10 @@ class Uploader extends Component {
       }
   }
 
+  cellValueChange(newVal, cell) {
+    this.props.revalidateSingleCell(newVal, cell)
+  }
+
   render() {
     
     const {
@@ -41,6 +45,7 @@ class Uploader extends Component {
             headerData={fileData.headerData || []}
             beginHeaderDrag={beginHeaderDrag}
             endHeaderDragDropped={this.evaluateDraggedHeader.bind(this)}
+            handleCellChangeAction={this.cellValueChange.bind(this)}
           />
         </div>
       

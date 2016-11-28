@@ -37,6 +37,9 @@ class InputField extends Component {
 }
 
 
+/**
+ * 
+ */
 class CSVTableCellSmart extends Component {
   
   generateCellColor(passCount, failCount) {
@@ -66,7 +69,7 @@ class CSVTableCellSmart extends Component {
       ? (
         <InputField 
           cellData={cellData}
-          handleChangeAction={this.props.handleChangeAction} 
+          handleChangeAction={this.props.handleCellChangeAction} 
         />
       )
       : (value)
@@ -88,7 +91,7 @@ CSVTableCellSmart.propTypes = {
   ]),
   rulesPassed: PropTypes.array.isRequired,
   rulesFailed: PropTypes.array.isRequired,
-  handleChangeAction: PropTypes.func.isRequired
+  handleCellChangeAction: PropTypes.func.isRequired
 };
 
 export default CSVTableCellSmart;

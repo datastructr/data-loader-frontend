@@ -81,6 +81,8 @@ export const HEADER_ATTEMPT_MAP = 'HEADER_ATTEMPT_MAP';
 export const HEADER_ATTEMPT_FINISH = 'HEADER_ATTEMPT_MAP';
 export const CELL_VALIDATE_PASS = 'CELL_VALIDATE_PASS';
 export const CELL_VALIDATE_FAIL = 'CELL_VALIDATE_FAIL';
+export const CELL_REVALIDATE_PASS = 'CELL_REVALIDATE_PASS';
+export const CELL_REVALIDATE_FAIL = 'CELL_REVALIDATE_FAIL';
 
 function dispatchAttemptMapping(headerCell, dropTarget) {
   return {
@@ -154,4 +156,45 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
 
     //dispatch(dispatchAttemptMappingFinish(header));
   }
+}
+
+function revalidateSingleCellPass(newVal, cell, rule) {
+  return {
+    type: CELL_REVALIDATE_PASS,
+    cell: cell,
+    rule: rule
+  }
+}
+
+function revalidateSingleCellFail(newVal, cell, rule) {
+  return {
+    type: CELL_REVALIDATE_FAIL,
+    cell: cell,
+    rule: rule
+  }
+}
+
+export function revalidateSingleCell(newVal, cell) {
+  return (dispatch, getState) => {
+
+    // dispatch a new value
+
+    let headers = getState().uploader.present.fileData.headerData;
+    let col = 
+      _.findIndex( 
+        headers,
+        (c) => {return c.id = cell.column;}
+      );
+
+    let rules = validationFuncs.getGeneratedRules(headers[col].headerMap);
+    _.each(rules, (rule,i) => {
+      // for each rule, validate the cell
+      let result = validationFuncs.checkPassRule(cell, rule);
+      if(result.valid) { 
+        dispatch(dispatchValidateCellPass(cell, rule));
+      } else {
+        dispatch(dispatchValidateCellFail(cell, rule));
+      }
+    });
+  };
 }
