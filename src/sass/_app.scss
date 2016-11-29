@@ -11,6 +11,18 @@ body {
   background-color: $primaryBackground;
 }
 
+.App-success-text {
+  color: $intentSuccess !important;
+}
+
+.App-warning-text {
+  color: $intentWarning !important;
+}
+
+.App-failure-text {
+  color: $intentFailure !important;
+}
+
 .canvas-container { 
   height: 100vh !important; 
   width: 100vw !important; 
@@ -31,4 +43,27 @@ body {
   height: 100vh;
   max-height: 100vh !important;
   position: absolute;
+}
+
+
+.App-toolbar {
+  width:100%;
+  background: $tertiaryAppColor;
+  border-bottom: 1px solid $primaryFillColor;
+}
+
+.App-toolbar-item {
+  display: inline-block;
+  margin: 20px 10px 5px 10px;
+  cursor: pointer;
+} 
+
+.App-toolbar-item-text {
+  font-size: .9em;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.App-toolbar-item-icon {
+  font-size: 24px !important;
 }

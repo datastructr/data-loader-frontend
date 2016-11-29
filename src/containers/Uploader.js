@@ -7,7 +7,6 @@ import * as  SchemaActions from '../actions/schemas';
 
 import FileUploader from '../components/uploader/fileUploader';
 import CSVTable from '../components/uploader/csvTable';
-import TableToolbar from '../components/uploader/tableToolbar';
 
 class Uploader extends Component {
   componentDidMount() {
@@ -46,7 +45,6 @@ class Uploader extends Component {
 
     return (
       <div className="Uploader">
-        <TableToolbar />
         <div className="Uploader-table-container">
         {fileLoaded && !fileLoading &&
           <CSVTable

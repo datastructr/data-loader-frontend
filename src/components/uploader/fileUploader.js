@@ -16,11 +16,14 @@ class FileUploader extends Component {
     } = this.props;
 
     return (
-      <div>
-        <Dropzone onDrop={this.onDrop}>
+        <Dropzone 
+          onDrop={this.onDrop}
+          accept=".csv"
+          disableClick={false}
+          className="Uploader-dropzone"
+          >
           <div>Try dropping some files here, or click to select files to upload.</div>
         </Dropzone>
-      </div>
     );
   }
 }

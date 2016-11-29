@@ -6,6 +6,8 @@ import Reporter from '../containers/Reporter';
 import Schemas from '../containers/Schemas';
 import Uploader from '../containers/Uploader';
 
+import AppToolbar from '../components/app/appToolbar';
+
 import '../styles/index.css';
 
 class App extends Component {
@@ -19,6 +21,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+      
+      <AppToolbar />
+
         <div className="container-fluid">
           <div className="row App-main-view">
             <div className="App-left-view col-md-7 col-sm-6">

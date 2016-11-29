@@ -11,6 +11,16 @@
   overflow: scroll;
 }
 
+.Uploader-dropzone {
+    height: 600px;
+    background: $tertiaryAppColor;
+    border-width: 2px;
+    border-color: black;
+    border-style: dashed;
+    border-radius: 4px;
+    margin: 10px;
+}
+
 .Uploader-csvtable {
   width: 100%;
   height: 100%;
@@ -20,13 +30,6 @@
 .Uploader-csvtable > thead,
 .Uploader-csvtable > tbody {
   width: 100%;
-}
-
-.Uploader-table-toolbar {
-  width:100%;
-  background-color: #fff;
-  box-shadow: 0 1px 4px 1px #777;
-  margin-bottom: 10px;
 }
 
 .Uploader-table-header {
