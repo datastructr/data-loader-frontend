@@ -5,12 +5,13 @@ import { bindActionCreators } from 'redux';
 import * as  UploaderActions from '../actions/uploader';
 import * as  SchemaActions from '../actions/schemas';
 
+import FileUploader from '../components/uploader/fileUploader';
 import CSVTable from '../components/uploader/csvTable';
 import TableToolbar from '../components/uploader/tableToolbar';
 
 class Uploader extends Component {
   componentDidMount() {
-    this.props.beginLoadFileData();
+    //this.props.beginLoadFileData();
   }
   
   evaluateDraggedHeader(header, dropTarget) {
@@ -35,6 +36,9 @@ class Uploader extends Component {
     
     const {
       fileData,
+      fileLoading,
+      fileLoaded,
+      fileLoadError,
 
       // actions
       beginHeaderDrag
@@ -44,6 +48,7 @@ class Uploader extends Component {
       <div className="Uploader">
         <TableToolbar />
         <div className="Uploader-table-container">
+        {fileLoaded && !fileLoading &&
           <CSVTable
             tableData={fileData.tableData || []} 
             headerData={fileData.headerData || []}
@@ -52,6 +57,10 @@ class Uploader extends Component {
             handleCellChangeAction={this.cellValueChange.bind(this)}
             handleCellBlurAction={this.cellValueBlur.bind(this)}
           />
+        }
+        {!fileLoaded &&
+          <FileUploader />  
+        }
         </div>
       
       </div>
