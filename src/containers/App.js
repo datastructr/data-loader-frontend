@@ -11,12 +11,6 @@ import AppToolbar from '../components/app/appToolbar';
 import '../styles/index.css';
 
 class App extends Component {
-  constructor(props) {
-      super(props);
-      this.state = {
-        canvasOn: false
-      }
-    }
 
   render() {
     return (

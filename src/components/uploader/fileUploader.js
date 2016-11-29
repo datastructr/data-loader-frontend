@@ -1,13 +1,22 @@
 import React, {Component, PropTypes} from 'react';
 
 import Dropzone from 'react-dropzone';
+import Papa from 'papaparse';
 
 
 class FileUploader extends Component {
 
   onDrop(acceptedFiles, rejectedFiles) {
     console.log('Accepted files: ', acceptedFiles);
-    console.log('Rejected files: ', rejectedFiles);
+    if(acceptedFiles.length > 0) {
+      let file = acceptedFiles[0];
+      Papa.parse(file, {
+        header:true,
+        complete: function(results) {
+          console.log("Finished:", results.data);
+        }
+      });
+    }
   }
 
   render() {

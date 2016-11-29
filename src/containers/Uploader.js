@@ -10,8 +10,9 @@ import CSVTable from '../components/uploader/csvTable';
 
 class Uploader extends Component {
   componentDidMount() {
-    this.props.beginLoadFileData();
+    //this.props.beginLoadFileData();
   }
+
   
   evaluateDraggedHeader(header, dropTarget) {
       this.props.endHeaderDragDropped(header);
