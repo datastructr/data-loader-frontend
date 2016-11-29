@@ -70,6 +70,25 @@ export function endHeaderDragDropped(header) {
   }
 }
 
+/**
+ * Cell actions
+ * 
+ */
+export const CELL_UPDATE_VALUE = 'CELL_UPDATE_VALUE';
+
+function updateCellValue(newVal, cell) {
+  return {
+    type: CELL_UPDATE_VALUE,
+    cell: cell,
+    newVal: newVal
+  }
+}
+
+export function dispatchUpdateCellValue(newVal,cell) {
+  return dispatch => {
+    dispatch(updateCellValue(newVal,cell));
+  };
+}
 
 /**
  * Mapping actions
@@ -79,10 +98,10 @@ export function endHeaderDragDropped(header) {
  */
 export const HEADER_ATTEMPT_MAP = 'HEADER_ATTEMPT_MAP';
 export const HEADER_ATTEMPT_FINISH = 'HEADER_ATTEMPT_MAP';
+export const CELL_VALIDATE_BEGIN = 'CELL_VALIDATE_BEGIN';
 export const CELL_VALIDATE_PASS = 'CELL_VALIDATE_PASS';
 export const CELL_VALIDATE_FAIL = 'CELL_VALIDATE_FAIL';
-export const CELL_REVALIDATE_PASS = 'CELL_REVALIDATE_PASS';
-export const CELL_REVALIDATE_FAIL = 'CELL_REVALIDATE_FAIL';
+
 
 function dispatchAttemptMapping(headerCell, dropTarget) {
   return {
@@ -158,34 +177,22 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
   }
 }
 
-function revalidateSingleCellPass(newVal, cell, rule) {
+function dispatchValidateCellBegin(cell) {
   return {
-    type: CELL_REVALIDATE_PASS,
-    cell: cell,
-    rule: rule
+    type: CELL_VALIDATE_BEGIN,
+    cell: cell
   }
 }
 
-function revalidateSingleCellFail(newVal, cell, rule) {
-  return {
-    type: CELL_REVALIDATE_FAIL,
-    cell: cell,
-    rule: rule
-  }
-}
-
-export function revalidateSingleCell(newVal, cell) {
+export function revalidateSingleCell(cell) {
   return (dispatch, getState) => {
-
-    // dispatch a new value
-
     let headers = getState().uploader.present.fileData.headerData;
     let col = 
       _.findIndex( 
         headers,
-        (c) => {return c.id = cell.column;}
+        (c) => {return c.id === cell.column;}
       );
-
+    dispatch(dispatchValidateCellBegin(cell));
     let rules = validationFuncs.getGeneratedRules(headers[col].headerMap);
     _.each(rules, (rule,i) => {
       // for each rule, validate the cell

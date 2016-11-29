@@ -8,29 +8,35 @@ class InputField extends Component {
     super(props);
 
     this.state = {
-      cellValue: props.cellData.value,
       cellData: props.cellData
     }
   }
 
-  handleChange(e, cell) {
+  componentWillReceiveProps(props) {
     this.setState({
-      cellData: this.state.cellData,
-      cellValue: e.target.value
-    }, () => {
-      this.props.handleChangeAction(this.state.cellValue,this.state.cellData);
+      cellData: props.cellData
     })
+  }
+
+  handleChange(e) {
+    this.props.handleChangeAction(e.target.value,this.state.cellData);
+  }
+
+  handleBlur(e) {
+    this.props.handleBlurAction(this.state.cellData);
   }
 
   render() {
     const {
-      cellData
+      cellData,
+      handleChangeAction
     } = this.props;
 
     return (
       <input 
-        value={this.state.cellValue || ''} 
+        value={cellData.value || ''} 
         onChange={this.handleChange.bind(this)} 
+        onBlur={this.handleBlur.bind(this)}
       />
     );
   }
@@ -52,6 +58,7 @@ class CSVTableCellSmart extends Component {
     }
   }
 
+
   render() {
     const {
       rulesPassed,
@@ -69,7 +76,8 @@ class CSVTableCellSmart extends Component {
       ? (
         <InputField 
           cellData={cellData}
-          handleChangeAction={this.props.handleCellChangeAction} 
+          handleChangeAction={this.props.handleCellChangeAction}
+          handleBlurAction={this.props.handleBlurAction} 
         />
       )
       : (value)

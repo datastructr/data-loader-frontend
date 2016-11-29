@@ -73,8 +73,6 @@ function getGeneratedRules(field, schemaType) {
 }
 
 function _validateOrConvertDataType(cell, dataType) {
-  
-  
   function validateString(value) {
     // STUB
     return {"valid":true};;

@@ -12,7 +12,8 @@ class CSVTable extends Component {
       // actions
       beginHeaderDrag,
       endHeaderDragDropped,
-      handleCellChangeAction
+      handleCellChangeAction,
+      handleCellBlurAction
     } = this.props;
 
     var rows = [];
@@ -34,6 +35,7 @@ class CSVTable extends Component {
           values={row} 
           isHeader={false}
           handleCellChangeAction={handleCellChangeAction}
+          handleCellBlurAction={handleCellBlurAction}
         />
       );
     });

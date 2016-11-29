@@ -15,7 +15,8 @@ class CSVTableRow extends Component {
       // actions
       beginHeaderDrag,
       endHeaderDragDropped,
-      handleCellChangeAction
+      handleCellChangeAction,
+      handleCellBlurAction
     } = this.props;
 
     let cells = [
@@ -40,6 +41,7 @@ class CSVTableRow extends Component {
             rulesFailed={cell.rulesFailed}
             cellData={cell}
             handleCellChangeAction={handleCellChangeAction}
+            handleBlurAction={handleCellBlurAction} 
           />
         );
       }  

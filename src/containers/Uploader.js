@@ -24,7 +24,11 @@ class Uploader extends Component {
   }
 
   cellValueChange(newVal, cell) {
-    this.props.revalidateSingleCell(newVal, cell)
+    this.props.dispatchUpdateCellValue(newVal, cell)
+  }
+
+  cellValueBlur(cell) {
+    this.props.revalidateSingleCell(cell)
   }
 
   render() {
@@ -46,6 +50,7 @@ class Uploader extends Component {
             beginHeaderDrag={beginHeaderDrag}
             endHeaderDragDropped={this.evaluateDraggedHeader.bind(this)}
             handleCellChangeAction={this.cellValueChange.bind(this)}
+            handleCellBlurAction={this.cellValueBlur.bind(this)}
           />
         </div>
       
