@@ -1,32 +1,23 @@
 import React, {Component, PropTypes} from 'react';
 
 import Dropzone from 'react-dropzone';
-import Papa from 'papaparse';
-
 
 class FileUploader extends Component {
 
   onDrop(acceptedFiles, rejectedFiles) {
-    console.log('Accepted files: ', acceptedFiles);
     if(acceptedFiles.length > 0) {
       let file = acceptedFiles[0];
-      Papa.parse(file, {
-        header:true,
-        complete: function(results) {
-          console.log("Finished:", results.data);
-        }
-      });
+      this.props.beginLoadFileData(file);
+    } else {
+      // TODO report error
+      console.log("DID NOT ACCEPT FILE")
     }
   }
 
   render() {
-    const {
-
-    } = this.props;
-
     return (
         <Dropzone 
-          onDrop={this.onDrop}
+          onDrop={this.onDrop.bind(this)}
           accept=".csv"
           disableClick={false}
           className="Uploader-dropzone"
@@ -38,7 +29,7 @@ class FileUploader extends Component {
 }
 
 FileUploader.propTypes = {
-
+  beginLoadFileData: PropTypes.func.isRequired
 };
 
 export default FileUploader;

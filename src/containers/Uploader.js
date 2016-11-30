@@ -41,7 +41,8 @@ class Uploader extends Component {
       fileLoadError,
 
       // actions
-      beginHeaderDrag
+      beginHeaderDrag,
+      beginLoadFileData
     } = this.props;
 
     return (
@@ -58,7 +59,9 @@ class Uploader extends Component {
           />
         }
         {!fileLoaded &&
-          <FileUploader />  
+          <FileUploader
+            beginLoadFileData={beginLoadFileData}
+          />  
         }
         </div>
       

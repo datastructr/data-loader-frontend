@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import Papa from 'papaparse';
 
 import ParseCsv from './utils/parseCsv';
 import validationFuncs from './utils/validationFuncs';
@@ -31,14 +32,20 @@ function dispatchLoadDataFailed(message) {
 // Sample tests
 import {testFileData} from '../tests/App.samples.js';
 
-export function beginLoadFileData() {
+export function beginLoadFileData(file) {
   return dispatch => {
     dispatch(dispatchLoadData());
 
-    // TODO load and papaparse
+    Papa.parse(file, {
+        header:true,
+        complete: function(results) {
+          console.log("Finished:", results.data);
+          let pcsv = new ParseCsv(results.data);
+          //console.log(pcsv.shapeCsvAndRetrieve())
+          dispatch(dispatchLoadDataSuccess(pcsv.shapeCsvAndRetrieve()));
+        }
+      });
 
-    let pcsv = new ParseCsv(testFileData);
-    dispatch(dispatchLoadDataSuccess(pcsv.shapeCsvAndRetrieve()));
   };
 }
 
