@@ -165,7 +165,7 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
           let rules = validationFuncs.getGeneratedRules(dropTarget);
           _.each(rules, (rule,i) => {
             
-            // shows the iterative effect
+            // // shows the iterative effect
             (function(index) {
               setTimeout(function() {
                 
@@ -177,7 +177,7 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
                   dispatch(dispatchValidateCellFail(cell, rule));
                 }
 
-              }, 50 * (rowdex*1.5));
+              }, 100 * (rowdex*1.5));
             })(i)
               
           })

@@ -3,7 +3,7 @@ import React, {Component, PropTypes} from 'react';
 import CSVTableRow from './csvTableRow';
 
 
-class CSVTableHeaderContain extends Component {
+class CSVTableHeaderSection extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     if (!this.props.headerData.equals(nextProps.headerData)) {
       return true;
@@ -21,19 +21,19 @@ class CSVTableHeaderContain extends Component {
 
     return (
       <thead>
-      <CSVTableRow 
-        values={headerData} 
-        isHeader={true}
-        beginHeaderDrag={beginHeaderDrag}
-        headerDroppedAction={headerDroppedAction}
-      />
+        <CSVTableRow 
+          values={headerData} 
+          isHeader={true}
+          beginHeaderDrag={beginHeaderDrag}
+          headerDroppedAction={headerDroppedAction}
+        />
       </thead>
     );
   }
 
 }
 
-class CSVTableBodyContain extends Component {
+class CSVTableBodySection extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     if (!this.props.tableData.equals(nextProps.tableData)) {
       return true;
@@ -48,9 +48,6 @@ class CSVTableBodyContain extends Component {
       handleCellChangeAction,
       handleCellBlurAction
     } = this.props;
-
-    let rows = [];
-    
 
     return (
       <tbody>
@@ -73,6 +70,15 @@ class CSVTableBodyContain extends Component {
 
 
 class CSVTable extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    if (!this.props.tableData.equals(nextProps.tableData)) {
+      return true;
+    }
+    if (!this.props.headerData.equals(nextProps.tableData)) {
+      return true;
+    }
+    return false;
+  }
 
   render() {
     const {
@@ -89,10 +95,8 @@ class CSVTable extends Component {
 
     return (
       <table className="Uploader-csvtable pt-table pt-bordered">
-        
-          <CSVTableHeaderContain {...this.props} />
-        
-          <CSVTableBodyContain {...this.props} />
+          <CSVTableHeaderSection {...this.props} />
+          <CSVTableBodySection {...this.props} />
       </table>
     );
   }

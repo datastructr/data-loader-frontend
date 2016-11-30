@@ -44,7 +44,7 @@ const rowReducer = (state, action) => {
   case CELL_VALIDATE_FAIL:
   case CELL_UPDATE_VALUE:
     return state
-            .set(action.cell.get('columnIndex'), cell(action.cell, action));
+            .set(action.cell.get('columnIndex'), cell(state.get(action.cell.get('columnIndex')), action));
   default:
     return state; 
   }
@@ -96,7 +96,7 @@ const headerReducer = (state, action) => {
   case HEADER_END_DRAG:
   case HEADER_ATTEMPT_MAP:
     return state
-            .set(action.headerCell.get('rowIndex'), header(action.headerCell, action));
+            .set(action.headerCell.get('rowIndex'), header(state.get(action.headerCell.get('rowIndex')), action));
   default:
     return state;
   }

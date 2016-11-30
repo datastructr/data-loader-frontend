@@ -53,11 +53,13 @@ class CSVTableCellSmart extends Component {
       return true;
     }
     if (this.props.rulesPassed !== nextProps.rulesPassed) {
+      console.log("rendering")
       return true;
     }
     if (this.props.rulesFailed !== nextProps.rulesFailed) {
       return true;
     }
+
     return false;
   }
 
@@ -80,8 +82,8 @@ class CSVTableCellSmart extends Component {
       value
     } = this.props;
 
-    let passedRulesCount = rulesPassed.length;
-    let failedRulesCount = rulesFailed.length;
+    let passedRulesCount = rulesPassed.size;
+    let failedRulesCount = rulesFailed.size;
 
     let colorClass = this.generateCellColor(passedRulesCount, failedRulesCount);
     

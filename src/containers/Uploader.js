@@ -15,13 +15,11 @@ class Uploader extends Component {
 
   
   evaluateDraggedHeader(header, dropTarget) {
-      this.props.endHeaderDragDropped(header);
-      if(dropTarget) {
-        /** FOR NOW THIS HAPPENS FIRST */
-        this.props.dropTargetRecieveHeader(dropTarget,header);
-
-        this.props.endHeaderDragDroppedMapped(header,dropTarget);
-      }
+    this.props.endHeaderDragDropped(header);
+    if(dropTarget) {
+      this.props.dropTargetRecieveHeader(dropTarget,header);
+      this.props.endHeaderDragDroppedMapped(header,dropTarget);
+    }  
   }
 
   cellValueChange(newVal, cell) {
@@ -51,8 +49,8 @@ class Uploader extends Component {
         <div className="Uploader-table-container">
         {fileLoaded && !fileLoading &&
           <CSVTable
-            tableData={tableData || []} 
-            headerData={headerData || []}
+            tableData={tableData} 
+            headerData={headerData}
             beginHeaderDrag={beginHeaderDrag}
             headerDroppedAction={this.evaluateDraggedHeader.bind(this)}
             handleCellChangeAction={this.cellValueChange.bind(this)}
@@ -84,7 +82,7 @@ function mapStateToProps(state) {
     fileLoading  = present.get('fileLoading'),
     fileLoaded  = present.get('fileLoaded'),
     fileLoadError = present.get('fileLoadError'),
-    fileErrorMessage = present.get('fileErrorMessage')
+    fileErrorMessage = present.get('fileErrorMessage');
 
   return {
     tableData,
