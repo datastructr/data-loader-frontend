@@ -4,8 +4,8 @@ export default class ParseCSV {
   constructor(data) {
     this.initialRead = data;
     this.parsedData = {
-      tableData: [],
-      headerData: []
+      tableData: {},
+      headerData: {}
     };
   }
 
@@ -14,10 +14,11 @@ export default class ParseCSV {
    **/
   _parseDataFromLoadedCsv() {
     let self = this;
-
+    let rowIndex = 0;
     // use the first object to determine the headers
     _.forIn(self.initialRead[0], (value,column) => {
-      self.parsedData.headerData.push({
+      // create a header object
+      self.parsedData.headerData[rowIndex++] = {
         id: column,
         validated: false,
         validating: false,
@@ -30,14 +31,16 @@ export default class ParseCSV {
         headerDragging: false,
         headerMapped: false,
         headerMap: {},
-      });
+      };
     });
 
     // restructure each table cell
-    self.parsedData.tableData = _.map(self.initialRead, (row,i) => {
-      let rowList = [];
+    _.each(self.initialRead, (row,i) => {
+      // init row map
+      self.parsedData.tableData[i] = {};
+      // add cells to row
       _.forIn(row, (value, column) => {
-        rowList.push({
+        self.parsedData.tableData[i][`c:${column}-r:${i}`] = {
           id: `c:${column}-r:${i}`,
           column: column,
           row: i,
@@ -50,10 +53,10 @@ export default class ParseCSV {
           contentEditing: false,
           rulesPassed: [],
           rulesFailed: []
-        });
+        }
       });
 
-      return rowList;
+      return self.parsedData.tableData;
     });
     
   }
