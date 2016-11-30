@@ -53,7 +53,6 @@ class CSVTableCellSmart extends Component {
       return true;
     }
     if (this.props.rulesPassed !== nextProps.rulesPassed) {
-      console.log("rendering")
       return true;
     }
     if (this.props.rulesFailed !== nextProps.rulesFailed) {

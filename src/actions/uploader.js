@@ -156,35 +156,42 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
   return (dispatch, getState) => {
     dispatch(dispatchAttemptMapping(header,dropTarget));
     // get the uploaded data
-    getState().uploader.present
-      .get('tableData')
-      .map((row, rowdex) => {
-          // for each row, get the cell in question using its row index id
-          const cell = row.get(header.get('rowIndex'));
-          // figure out the rules the cell needs to pass
-          let rules = validationFuncs.getGeneratedRules(dropTarget);
-          _.each(rules, (rule,i) => {
-            
-            // // shows the iterative effect
-            (function(index) {
-              setTimeout(function() {
-                
-                // for each rule, validate the cell
-                let result = validationFuncs.checkPassRule(cell, rule);
-                if(result.valid) { 
-                  dispatch(dispatchValidateCellPass(cell, rule));
-                } else {
-                  dispatch(dispatchValidateCellFail(cell, rule));
-                }
+    let iterables = 
+      getState().uploader.present
+        .get('tableData')
+        .values();
 
-              }, 100 * (rowdex*1.5));
-            })(i)
-              
-          })
-        });
+    let done = false;
+    // figure out the rules the cell needs to pass
+    let rules = validationFuncs.getGeneratedRules(dropTarget);
+
+    function validateSingleCell() {
+ 
+      let itr = iterables.next();
+      let row = itr.value;
+      const cell = row.get(header.get('rowIndex'));
+
+      // for each rule, validate the cell
+      _.each(rules, (rule,i) => {
+        let result = validationFuncs.checkPassRule(cell, rule);
+        if(result.valid) { 
+          dispatch(dispatchValidateCellPass(cell, rule));
+        } else {
+          dispatch(dispatchValidateCellFail(cell, rule));
+        }
+      });
+
+      if(!itr.done) {
+         setTimeout(function() {
+           validateSingleCell()
+          }, 0);
+      }
+    }
+
+    validateSingleCell();
 
     //dispatch(dispatchAttemptMappingFinish(header));
-  }
+    }    
 }
 
 function dispatchValidateCellBegin(cell) {
