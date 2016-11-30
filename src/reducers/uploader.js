@@ -1,3 +1,6 @@
+import Immutable from 'immutable';
+const { Map, List, fromJS } = Immutable
+
 import { 
   LOAD_DATA, LOAD_DATA_SUCCESS, LOAD_DATA_FAILED,
   HEADER_BEGIN_DRAG, HEADER_END_DRAG,
@@ -6,73 +9,15 @@ import {
   CELL_UPDATE_VALUE
 } from '../actions/uploader';
 
-const initialState = {
-  fileData: {
-    tableData: [],
-    headerData: []
-  },
+const initialState = Map({
+  tableData: Immutable.Map(),
+  headerData: Immutable.Map(),
   fileLoading: false,
   fileLoaded: false,
   fileLoadError: false,
   fileErrorMessage: ''
-};
+});
 
-
-const header = (state = {id:null}, action) => {
-  switch (action.type) {
-  case HEADER_BEGIN_DRAG:
-    if (state.id !== action.headerCell.id) {
-      return state;
-    }
-    return Object.assign({}, state,{
-      headerDragging: true
-    });
-  case HEADER_END_DRAG:
-    if (state.id !== action.headerCell.id) {
-      return state;
-    }
-    return Object.assign({}, state,{
-      headerDragging: false
-    });
-  case HEADER_ATTEMPT_MAP:
-    if (state.id !== action.headerCell.id) {
-      return state;
-    }
-    return Object.assign({}, state,{
-      validated: false,
-      validating: true,
-      validatePass: false,
-      validateFail: false,
-      validateMessage: '',
-      rowsPassedCount: 0,
-      rowsPassedFailed: 0,
-      headerMap: action.dropTarget
-    });
-  default:
-    return state;
-    
-  }
-}
-
-const headerReducer = (state = [], action) => {
-  switch (action.type) {
-  case HEADER_BEGIN_DRAG:
-    return state.map(h =>
-      header(h, action)
-    );
-  case HEADER_END_DRAG:
-    return state.map(h =>
-      header(h, action)
-    );
-  case HEADER_ATTEMPT_MAP:
-    return state.map(h =>
-      header(h, action)
-    );
-  default:
-    return state;
-    
-  }
-}
 
 const cell = (state = {id:null}, action) => {
   switch (action.type) {
@@ -132,6 +77,8 @@ const rowReducer = (state = [], action) => {
     return state; 
   }
 }
+// if(t.get('id') === action.payload) {
+//       return t.update('isDone', isDone => !isDone);
 
 const tableReducer = (state = [], action) => {
   switch (action.type) {
@@ -157,42 +104,72 @@ const tableReducer = (state = [], action) => {
   }
 }
 
+const headerReducer = (state, action) => {
+  switch (action.type) {
+  case HEADER_BEGIN_DRAG:
+    return state
+            .setIn([
+              action.headerCell.get('rowIndex'), 'headerDragging'
+            ], true);
+  case HEADER_END_DRAG:
+    return state
+            .setIn([
+              action.headerCell.get('rowIndex'), 'headerDragging'
+            ], false);
+  case HEADER_ATTEMPT_MAP:
+    if (state.id !== action.headerCell.id) {
+      return state;
+    }
+    return Object.assign({}, state,{
+      validated: false,
+      validating: true,
+      validatePass: false,
+      validateFail: false,
+      validateMessage: '',
+      rowsPassedCount: 0,
+      rowsPassedFailed: 0,
+      headerMap: action.dropTarget
+    });
+  default:
+    return state;
+    
+  }
+}
+
 export default function uploader(state = initialState, action) {
   switch (action.type) {
   case LOAD_DATA:
-    return Object.assign({}, state, {
-      fileLoading: true,
-      fileLoaded: false,
-      fileData: [],
-      fileErrorMessage: ''
+    return state.withMutations(state => {
+        state
+          .set('fileLoading', true)
+          .set('fileLoaded', false)
+          .set('fileErrorMessage', '')
     });
   case LOAD_DATA_SUCCESS:
-    return Object.assign({}, state, {
-      fileData: action.fileData,
-      fileLoading: false,
-      fileLoaded: true,
-      fileLoadError: false,
-      fileErrorMessage: ''
+    return state.withMutations(state => {
+        state
+          .set('fileLoading', false)
+          .set('fileLoaded', true)
+          .set('fileLoadError', false)
+          .set('fileErrorMessage', '')
+          .set('tableData', fromJS(action.tableData))
+          .set('headerData', fromJS(action.headerData))
     });
   case LOAD_DATA_FAILED:
-    return Object.assign({}, state, {
-      fileData: [],
-      fileLoading: false,
-      fileLoaded: false,
-      fileLoadError: true,
-      fileErrorMessage: action.errorMessage
+    return state.withMutations(state => {
+        state
+          .set('fileLoading', false)
+          .set('fileLoaded', false)
+          .set('fileLoadError', true)
+          .set('fileErrorMessage', action.errorMessage)
     });
   case HEADER_BEGIN_DRAG:
-    return Object.assign({}, state, {
-      fileData: Object.assign({}, state.fileData, {
-        headerData: headerReducer(state.fileData.headerData, action) 
-      })
+    return state.mergeDeep({ 
+      'headerData': headerReducer(state.get('headerData'), action) 
     });
   case HEADER_END_DRAG:
-    return Object.assign({}, state, {
-      fileData: Object.assign({}, state.fileData, {
-        headerData: headerReducer(state.fileData.headerData, action) 
-      })
+    return state.mergeDeep({ 
+      'headerData': headerReducer(state.get('headerData'), action) 
     });
   case HEADER_ATTEMPT_MAP: 
     return Object.assign({}, state, {

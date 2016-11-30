@@ -14,7 +14,7 @@ const headerSource = {
     };
   },
   endDrag(props,monitor) {
-    props.endHeaderDragDropped(props.cell,monitor.getDropResult());
+    props.endHeaderDragDropped(props.cell);
   }
 };
 
@@ -30,7 +30,7 @@ function collect(connect, monitor) {
 
 class CSVTableHeader extends Component {
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.cell !== nextProps.cell) {
+    if (!this.props.cell.equals(nextProps.cell)) {
       return true;
     }
     return false;
@@ -52,11 +52,11 @@ class CSVTableHeader extends Component {
       cell
     } = this.props;
 
-    let headerIconClassName = this.generateIconClass(cell.headerDragging, cell.validating);
+    let headerIconClassName = this.generateIconClass(cell.get('headerDragging'), cell.get('validating'));
 
     return connectDragSource(
         <th className={`Uploader-table-header`}>
-          {cell.id} <span className={`${headerIconClassName} pt-icon-standard pt-icon-ungroup-objects`}></span>
+          {cell.get('id')} <span className={`${headerIconClassName} pt-icon-standard pt-icon-ungroup-objects`}></span>
         </th>
     );
   }

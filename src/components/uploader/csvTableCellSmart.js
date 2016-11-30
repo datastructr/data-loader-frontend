@@ -29,12 +29,13 @@ class InputField extends Component {
   render() {
     const {
       cellData,
+      value,
       handleChangeAction
     } = this.props;
 
     return (
       <input 
-        value={cellData.value || ''} 
+        value={value || ''} 
         onChange={this.handleChange.bind(this)} 
         onBlur={this.handleBlur.bind(this)}
       />
@@ -109,8 +110,8 @@ CSVTableCellSmart.propTypes = {
     PropTypes.number,
     PropTypes.bool
   ]),
-  rulesPassed: PropTypes.array.isRequired,
-  rulesFailed: PropTypes.array.isRequired,
+  rulesPassed: PropTypes.object.isRequired,
+  rulesFailed: PropTypes.object.isRequired,
   handleCellChangeAction: PropTypes.func.isRequired
 };
 

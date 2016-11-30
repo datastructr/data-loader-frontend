@@ -14,10 +14,11 @@ function dispatchLoadData() {
   };
 }
 
-function dispatchLoadDataSuccess(data) {
+function dispatchLoadDataSuccess(headerData, tableData) {
   return {
     type: LOAD_DATA_SUCCESS,
-    fileData: data
+    headerData: headerData,
+    tableData: tableData
   };
 }
 
@@ -39,10 +40,11 @@ export function beginLoadFileData(file) {
     Papa.parse(file, {
         header:true,
         complete: function(results) {
-          console.log("Finished:", results.data);
-          let pcsv = new ParseCsv(results.data);
-          //console.log(pcsv.shapeCsvAndRetrieve())
-          dispatch(dispatchLoadDataSuccess(pcsv.shapeCsvAndRetrieve()));
+          const {
+            headerData, 
+            tableData
+          } = (new ParseCsv(results.data)).shapeCsvAndRetrieve();
+          dispatch(dispatchLoadDataSuccess(headerData, tableData));
         }
       });
 

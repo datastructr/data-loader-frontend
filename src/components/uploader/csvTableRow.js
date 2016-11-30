@@ -23,11 +23,11 @@ class CSVTableRow extends Component {
       <CSVTableCell key={+(new Date())} isCount={true} value={isHeader ? null : count} />
     ];
 
-    values.forEach((cell,i) => {
+    values.map((cell,i) => {
       if(isHeader) {
         cells.push(
           <CSVTableHeader 
-            key={i}
+            key={i.toString()}
             cell={cell} 
             beginHeaderDrag={beginHeaderDrag}
             endHeaderDragDropped={endHeaderDragDropped}
@@ -35,10 +35,10 @@ class CSVTableRow extends Component {
       } else {
         cells.push(
           <CSVTableCellSmart 
-            key={i} 
-            value={cell.value} 
-            rulesPassed={cell.rulesPassed}
-            rulesFailed={cell.rulesFailed}
+            key={i.toString()} 
+            value={cell.get('value')} 
+            rulesPassed={cell.get('rulesPassed')}
+            rulesFailed={cell.get('rulesFailed')}
             cellData={cell}
             handleCellChangeAction={handleCellChangeAction}
             handleBlurAction={handleCellBlurAction} 
@@ -57,7 +57,7 @@ class CSVTableRow extends Component {
 
 CSVTableRow.propTypes = {
   isHeader: PropTypes.bool.isRequired,
-  values: PropTypes.array.isRequired
+  values: PropTypes.object.isRequired
 };
 
 export default CSVTableRow;

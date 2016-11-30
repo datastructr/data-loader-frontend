@@ -35,7 +35,8 @@ class Uploader extends Component {
   render() {
     
     const {
-      fileData,
+      headerData,
+      tableData,
       fileLoading,
       fileLoaded,
       fileLoadError,
@@ -50,8 +51,8 @@ class Uploader extends Component {
         <div className="Uploader-table-container">
         {fileLoaded && !fileLoading &&
           <CSVTable
-            tableData={fileData.tableData || []} 
-            headerData={fileData.headerData || []}
+            tableData={tableData || []} 
+            headerData={headerData || []}
             beginHeaderDrag={beginHeaderDrag}
             endHeaderDragDropped={this.evaluateDraggedHeader.bind(this)}
             handleCellChangeAction={this.cellValueChange.bind(this)}
@@ -71,34 +72,27 @@ class Uploader extends Component {
 }
 
 Uploader.propTypes = {
-  fileData: PropTypes.object.isRequired,
+  // TODO proptypes
 };
 
 function mapStateToProps(state) {
   let { uploader: {present} } = state;
   
-  const {
-    fileData,
-    fileLoading,
-    fileLoaded,
-    fileLoadError,
-    fileErrorMessage,
-  } = present || {
-    fileData: {
-      tableData: [],
-      headerData: []
-    },
-    fileLoading: false,
-    fileLoaded: false,
-    fileLoadError: false,
-    fileErrorMessage: '',
-  };
+  const 
+    tableData = present.get('tableData'),
+    headerData  = present.get('headerData'),
+    fileLoading  = present.get('fileLoading'),
+    fileLoaded  = present.get('fileLoaded'),
+    fileLoadError = present.get('fileLoadError'),
+    fileErrorMessage = present.get('fileErrorMessage')
+
   return {
-    fileData,
+    tableData,
+    headerData,
     fileLoading,
     fileLoaded,
     fileLoadError,
-    fileErrorMessage,
+    fileErrorMessage
   };
 }
 
