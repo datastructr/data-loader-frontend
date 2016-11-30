@@ -29,6 +29,12 @@ function collect(connect, monitor) {
 }
 
 class CSVTableHeader extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.cell !== nextProps.cell) {
+      return true;
+    }
+    return false;
+  }
   
   generateIconClass(dragging, validating) {
     if(dragging) {

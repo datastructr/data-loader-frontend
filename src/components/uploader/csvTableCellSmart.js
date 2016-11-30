@@ -47,7 +47,19 @@ class InputField extends Component {
  * 
  */
 class CSVTableCellSmart extends Component {
-  
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.value !== nextProps.value) {
+      return true;
+    }
+    if (this.props.rulesPassed !== nextProps.rulesPassed) {
+      return true;
+    }
+    if (this.props.rulesFailed !== nextProps.rulesFailed) {
+      return true;
+    }
+    return false;
+  }
+
   generateCellColor(passCount, failCount) {
     if(failCount > 0) {
       return 'Uploader-table-cell-invalid';

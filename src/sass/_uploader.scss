@@ -27,10 +27,12 @@
   display: table;
 }
 
+/*
 .Uploader-csvtable > thead,
 .Uploader-csvtable > tbody {
   width: 100%;
 }
+*/
 
 .Uploader-table-header {
   background-color: $secondaryFillColor;
@@ -59,10 +61,12 @@
 .Uploader-table-cell {
   cursor: pointer;
 }
+/*
 .Uploader-table-cell:hover{
   background-color: $tertiaryFillColor;
   color: $secondaryAppColor;
 }
+*/
 .Uploader-table-cell-count {
   font-size: .7em;
   font-weight: bold;
