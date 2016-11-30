@@ -54,7 +54,7 @@ class Uploader extends Component {
             tableData={tableData || []} 
             headerData={headerData || []}
             beginHeaderDrag={beginHeaderDrag}
-            endHeaderDragDropped={this.evaluateDraggedHeader.bind(this)}
+            headerDroppedAction={this.evaluateDraggedHeader.bind(this)}
             handleCellChangeAction={this.cellValueChange.bind(this)}
             handleCellBlurAction={this.cellValueBlur.bind(this)}
           />

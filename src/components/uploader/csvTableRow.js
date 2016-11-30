@@ -14,7 +14,7 @@ class CSVTableRow extends Component {
       
       // actions
       beginHeaderDrag,
-      endHeaderDragDropped,
+      headerDroppedAction,
       handleCellChangeAction,
       handleCellBlurAction
     } = this.props;
@@ -30,7 +30,7 @@ class CSVTableRow extends Component {
             key={i.toString()}
             cell={cell} 
             beginHeaderDrag={beginHeaderDrag}
-            endHeaderDragDropped={endHeaderDragDropped}
+            headerDroppedAction={headerDroppedAction}
           />);
       } else {
         cells.push(

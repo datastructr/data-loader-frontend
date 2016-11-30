@@ -156,31 +156,32 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
   return (dispatch, getState) => {
     dispatch(dispatchAttemptMapping(header,dropTarget));
     // get the uploaded data
-    _.map(getState().uploader.present.fileData.tableData, (row, rowdex) => {
-      // for each row, get the cell in question
-      let index = _.findIndex(row, (r) => { return r.column === header.id; });
-      const cell  = row[index];
-      // figure out the rules the cell needs to pass
-      let rules = validationFuncs.getGeneratedRules(dropTarget);
-      _.each(rules, (rule,i) => {
-        
-        // shows the iterative effect
-        (function(index) {
-          setTimeout(function() {
+    getState().uploader.present
+      .get('tableData')
+      .map((row, rowdex) => {
+          // for each row, get the cell in question using its row index id
+          const cell = row.get(header.get('rowIndex'));
+          // figure out the rules the cell needs to pass
+          let rules = validationFuncs.getGeneratedRules(dropTarget);
+          _.each(rules, (rule,i) => {
             
-            // for each rule, validate the cell
-            let result = validationFuncs.checkPassRule(cell, rule);
-            if(result.valid) { 
-              dispatch(dispatchValidateCellPass(cell, rule));
-            } else {
-              dispatch(dispatchValidateCellFail(cell, rule));
-            }
+            // shows the iterative effect
+            (function(index) {
+              setTimeout(function() {
+                
+                // for each rule, validate the cell
+                let result = validationFuncs.checkPassRule(cell, rule);
+                if(result.valid) { 
+                  dispatch(dispatchValidateCellPass(cell, rule));
+                } else {
+                  dispatch(dispatchValidateCellFail(cell, rule));
+                }
 
-          }, 50 * (rowdex*1.5));
-        })(i)
-           
-      })
-    });
+              }, 50 * (rowdex*1.5));
+            })(i)
+              
+          })
+        });
 
     //dispatch(dispatchAttemptMappingFinish(header));
   }

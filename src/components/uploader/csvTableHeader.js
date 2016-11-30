@@ -14,7 +14,8 @@ const headerSource = {
     };
   },
   endDrag(props,monitor) {
-    props.endHeaderDragDropped(props.cell);
+    // dropResults aren't guarenteed
+    props.headerDroppedAction(props.cell,monitor.getDropResult());
   }
 };
 
@@ -69,7 +70,7 @@ CSVTableHeader.propTypes = {
     PropTypes.bool
   ]),
   beginHeaderDrag: PropTypes.func.isRequired,
-  endHeaderDragDropped: PropTypes.func.isRequired,
+  headerDroppedAction: PropTypes.func.isRequired,
 
   // Injected by React DnD:
   isDragging: PropTypes.bool.isRequired,

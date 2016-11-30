@@ -16,7 +16,7 @@ class CSVTableHeaderContain extends Component {
       headerData,
       // actions
       beginHeaderDrag,
-      endHeaderDragDropped,
+      headerDroppedAction,
     } = this.props;
 
     return (
@@ -25,7 +25,7 @@ class CSVTableHeaderContain extends Component {
         values={headerData} 
         isHeader={true}
         beginHeaderDrag={beginHeaderDrag}
-        endHeaderDragDropped={endHeaderDragDropped}
+        headerDroppedAction={headerDroppedAction}
       />
       </thead>
     );
@@ -81,7 +81,7 @@ class CSVTable extends Component {
 
       // actions
       beginHeaderDrag,
-      endHeaderDragDropped,
+      headerDroppedAction,
       handleCellChangeAction,
       handleCellBlurAction
     } = this.props;

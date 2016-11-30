@@ -35,8 +35,10 @@ export default class ParseCSV {
       };
     });
 
+    
     // restructure each table cell
     _.each(self.initialRead, (row,i) => {
+      let columnIndex = 0;
       // init row map
       self.parsedData.tableData[self.parsedData.tableData.length] = [];
       // add cells to row
@@ -44,6 +46,7 @@ export default class ParseCSV {
         self.parsedData.tableData[i][self.parsedData.tableData[i].length] = {
           id: `c:${column}-r:${i}`,
           column: column,
+          columnIndex: columnIndex++,
           row: i,
           value: value,
           validated: false,
