@@ -12,6 +12,13 @@ class InputField extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.value !== nextProps.value) {
+      return true;
+    }
+    return false;
+  }
+
   componentWillReceiveProps(props) {
     this.setState({
       cellData: props.cellData
@@ -28,13 +35,12 @@ class InputField extends Component {
 
   render() {
     const {
-      cellData,
-      handleChangeAction
+      value
     } = this.props;
 
     return (
       <input 
-        value={cellData.value || ''} 
+        value={value} 
         onChange={this.handleChange.bind(this)} 
         onBlur={this.handleBlur.bind(this)}
       />
@@ -47,7 +53,19 @@ class InputField extends Component {
  * 
  */
 class CSVTableCellSmart extends Component {
-  
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.value !== nextProps.value) {
+      return true;
+    }
+    if (this.props.rulesPassed !== nextProps.rulesPassed) {
+      return true;
+    }
+    if (this.props.rulesFailed !== nextProps.rulesFailed) {
+      return true;
+    }
+    return false;
+  }
+
   generateCellColor(passCount, failCount) {
     if(failCount > 0) {
       return 'Uploader-table-cell-invalid';
@@ -67,8 +85,8 @@ class CSVTableCellSmart extends Component {
       value
     } = this.props;
 
-    let passedRulesCount = rulesPassed.length;
-    let failedRulesCount = rulesFailed.length;
+    let passedRulesCount = rulesPassed.size;
+    let failedRulesCount = rulesFailed.size;
 
     let colorClass = this.generateCellColor(passedRulesCount, failedRulesCount);
     
@@ -97,8 +115,8 @@ CSVTableCellSmart.propTypes = {
     PropTypes.number,
     PropTypes.bool
   ]),
-  rulesPassed: PropTypes.array.isRequired,
-  rulesFailed: PropTypes.array.isRequired,
+  rulesPassed: PropTypes.object.isRequired,
+  rulesFailed: PropTypes.object.isRequired,
   handleCellChangeAction: PropTypes.func.isRequired
 };
 

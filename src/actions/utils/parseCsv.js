@@ -14,11 +14,13 @@ export default class ParseCSV {
    **/
   _parseDataFromLoadedCsv() {
     let self = this;
-
+    let rowIndex = 0;
     // use the first object to determine the headers
     _.forIn(self.initialRead[0], (value,column) => {
-      self.parsedData.headerData.push({
+      // create a header object
+      self.parsedData.headerData[self.parsedData.headerData.length] = {
         id: column,
+        rowIndex: rowIndex++,
         validated: false,
         validating: false,
         validatePass: false,
@@ -30,16 +32,21 @@ export default class ParseCSV {
         headerDragging: false,
         headerMapped: false,
         headerMap: {},
-      });
+      };
     });
 
+    
     // restructure each table cell
-    self.parsedData.tableData = _.map(self.initialRead, (row,i) => {
-      let rowList = [];
+    _.each(self.initialRead, (row,i) => {
+      let columnIndex = 0;
+      // init row map
+      self.parsedData.tableData[self.parsedData.tableData.length] = [];
+      // add cells to row
       _.forIn(row, (value, column) => {
-        rowList.push({
+        self.parsedData.tableData[i][self.parsedData.tableData[i].length] = {
           id: `c:${column}-r:${i}`,
           column: column,
+          columnIndex: columnIndex++,
           row: i,
           value: value,
           validated: false,
@@ -50,10 +57,10 @@ export default class ParseCSV {
           contentEditing: false,
           rulesPassed: [],
           rulesFailed: []
-        });
+        }
       });
 
-      return rowList;
+      return self.parsedData.tableData;
     });
     
   }

@@ -14,7 +14,8 @@ const headerSource = {
     };
   },
   endDrag(props,monitor) {
-    props.endHeaderDragDropped(props.cell,monitor.getDropResult());
+    // dropResults aren't guarenteed
+    props.headerDroppedAction(props.cell,monitor.getDropResult());
   }
 };
 
@@ -29,6 +30,12 @@ function collect(connect, monitor) {
 }
 
 class CSVTableHeader extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    if (!this.props.cell.equals(nextProps.cell)) {
+      return true;
+    }
+    return false;
+  }
   
   generateIconClass(dragging, validating) {
     if(dragging) {
@@ -46,11 +53,11 @@ class CSVTableHeader extends Component {
       cell
     } = this.props;
 
-    let headerIconClassName = this.generateIconClass(cell.headerDragging, cell.validating);
+    let headerIconClassName = this.generateIconClass(cell.get('headerDragging'), cell.get('validating'));
 
     return connectDragSource(
         <th className={`Uploader-table-header`}>
-          {cell.id} <span className={`${headerIconClassName} pt-icon-standard pt-icon-ungroup-objects`}></span>
+          {cell.get('id')} <span className={`${headerIconClassName} pt-icon-standard pt-icon-ungroup-objects`}></span>
         </th>
     );
   }
@@ -63,7 +70,7 @@ CSVTableHeader.propTypes = {
     PropTypes.bool
   ]),
   beginHeaderDrag: PropTypes.func.isRequired,
-  endHeaderDragDropped: PropTypes.func.isRequired,
+  headerDroppedAction: PropTypes.func.isRequired,
 
   // Injected by React DnD:
   isDragging: PropTypes.bool.isRequired,

@@ -28,7 +28,8 @@ class TableToolbar extends Component {
 }
 
 TableToolbar.propTypes = {
-
+  // TODO
+  someAction: PropTypes.func
 };
 
 export default TableToolbar;

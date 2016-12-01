@@ -15,13 +15,11 @@ class Uploader extends Component {
 
   
   evaluateDraggedHeader(header, dropTarget) {
-      this.props.endHeaderDragDropped(header);
-      if(dropTarget) {
-        /** FOR NOW THIS HAPPENS FIRST */
-        this.props.dropTargetRecieveHeader(dropTarget,header);
-
-        this.props.endHeaderDragDroppedMapped(header,dropTarget);
-      }
+    this.props.endHeaderDragDropped(header);
+    if(dropTarget) {
+      this.props.dropTargetRecieveHeader(dropTarget,header);
+      this.props.endHeaderDragDroppedMapped(header,dropTarget);
+    }  
   }
 
   cellValueChange(newVal, cell) {
@@ -35,7 +33,8 @@ class Uploader extends Component {
   render() {
     
     const {
-      fileData,
+      headerData,
+      tableData,
       fileLoading,
       fileLoaded,
       fileLoadError,
@@ -48,12 +47,12 @@ class Uploader extends Component {
     return (
       <div className="Uploader">
         <div className="Uploader-table-container">
-        {fileLoaded && !fileLoading &&
+        {fileLoaded && !fileLoading && !fileLoadError &&
           <CSVTable
-            tableData={fileData.tableData || []} 
-            headerData={fileData.headerData || []}
+            tableData={tableData} 
+            headerData={headerData}
             beginHeaderDrag={beginHeaderDrag}
-            endHeaderDragDropped={this.evaluateDraggedHeader.bind(this)}
+            headerDroppedAction={this.evaluateDraggedHeader.bind(this)}
             handleCellChangeAction={this.cellValueChange.bind(this)}
             handleCellBlurAction={this.cellValueBlur.bind(this)}
           />
@@ -61,6 +60,7 @@ class Uploader extends Component {
         {!fileLoaded &&
           <FileUploader
             beginLoadFileData={beginLoadFileData}
+            fileLoadError={fileLoadError}
           />  
         }
         </div>
@@ -71,34 +71,29 @@ class Uploader extends Component {
 }
 
 Uploader.propTypes = {
-  fileData: PropTypes.object.isRequired,
+  fileLoaded: PropTypes.bool.isRequired,
+  fileLoading: PropTypes.bool.isRequired,
+  fileLoadError: PropTypes.bool.isRequired
 };
 
 function mapStateToProps(state) {
   let { uploader: {present} } = state;
   
-  const {
-    fileData,
-    fileLoading,
-    fileLoaded,
-    fileLoadError,
-    fileErrorMessage,
-  } = present || {
-    fileData: {
-      tableData: [],
-      headerData: []
-    },
-    fileLoading: false,
-    fileLoaded: false,
-    fileLoadError: false,
-    fileErrorMessage: '',
-  };
+  const 
+    tableData = present.get('tableData'),
+    headerData  = present.get('headerData'),
+    fileLoading  = present.get('fileLoading'),
+    fileLoaded  = present.get('fileLoaded'),
+    fileLoadError = present.get('fileLoadError'),
+    fileErrorMessage = present.get('fileErrorMessage');
+
   return {
-    fileData,
+    tableData,
+    headerData,
     fileLoading,
     fileLoaded,
     fileLoadError,
-    fileErrorMessage,
+    fileErrorMessage
   };
 }
 

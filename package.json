@@ -5,8 +5,8 @@
   "dependencies": {
     "@blueprintjs/core": "^1.0.1",
     "bootstrap": "^3.3.7",
+    "immutable": "^3.8.1",
     "lodash": "^4.16.6",
-    "material-design-lite": "^1.2.1",
     "papaparse": "^4.1.2",
     "react": "^15.3.2",
     "react-addons-css-transition-group": "^15.3.2",
@@ -22,11 +22,13 @@
   },
   "devDependencies": {
     "node-sass": "^3.12.5",
+    "pushstate-server": "^2.1.0",
     "react-scripts": "0.7.0",
     "redux-logger": "^2.7.4"
   },
   "scripts": {
     "start": "npm run watch-css & react-scripts start",
+    "prod": "npm run build && NODE_ENV=production pushstate-server build",
     "build": "npm run build-css && react-scripts build",
     "build-css": "node-sass src/sass/base.scss src/styles/index.css",
     "watch-css": "npm run build-css && node-sass src/sass/base.scss src/styles/index.css -w",

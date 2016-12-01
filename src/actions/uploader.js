@@ -14,23 +14,24 @@ function dispatchLoadData() {
   };
 }
 
-function dispatchLoadDataSuccess(data) {
+function dispatchLoadDataSuccess(headerData, tableData) {
   return {
     type: LOAD_DATA_SUCCESS,
-    fileData: data
+    headerData: headerData,
+    tableData: tableData
   };
 }
 
-function dispatchLoadDataFailed(message) {
-  return {
-    type: LOAD_DATA_FAILED,
-    errorMessage: message
-  };
-}
+// function dispatchLoadDataFailed(message) {
+//   return {
+//     type: LOAD_DATA_FAILED,
+//     errorMessage: message
+//   };
+// }
 
 
 // Sample tests
-import {testFileData} from '../tests/App.samples.js';
+//import {testFileData} from '../tests/App.samples.js';
 
 export function beginLoadFileData(file) {
   return dispatch => {
@@ -39,10 +40,11 @@ export function beginLoadFileData(file) {
     Papa.parse(file, {
         header:true,
         complete: function(results) {
-          console.log("Finished:", results.data);
-          let pcsv = new ParseCsv(results.data);
-          //console.log(pcsv.shapeCsvAndRetrieve())
-          dispatch(dispatchLoadDataSuccess(pcsv.shapeCsvAndRetrieve()));
+          const {
+            headerData, 
+            tableData
+          } = (new ParseCsv(results.data)).shapeCsvAndRetrieve();
+          dispatch(dispatchLoadDataSuccess(headerData, tableData));
         }
       });
 
@@ -119,7 +121,7 @@ function dispatchAttemptMapping(headerCell, dropTarget) {
 }
 
 // TODO
-function dispatchAttemptMappingFinish(headerCell) {}
+//function dispatchAttemptMappingFinish(headerCell) {}
 
 function dispatchValidateCellPass(cell, rule) {
   return {
@@ -137,51 +139,45 @@ function dispatchValidateCellFail(cell, rule) {
   }
 }
 
-// TODO
-/**
- * called after a header has been mapped. When done so, each cell in that column needs
- * to be validated
- */
-function validateColumnCell(cell, dropTarget) {
-  // use drop target to validate the cell
-
-  // dispatch success 
-
-  // or dispatch failure
-}
-
 export function endHeaderDragDroppedMapped(header, dropTarget) {
   return (dispatch, getState) => {
     dispatch(dispatchAttemptMapping(header,dropTarget));
     // get the uploaded data
-    _.map(getState().uploader.present.fileData.tableData, (row, rowdex) => {
-      // for each row, get the cell in question
-      let index = _.findIndex(row, (r) => { return r.column === header.id; });
-      const cell  = row[index];
-      // figure out the rules the cell needs to pass
-      let rules = validationFuncs.getGeneratedRules(dropTarget);
-      _.each(rules, (rule,i) => {
-        
-        // shows the iterative effect
-        (function(index) {
-          setTimeout(function() {
-            
-            // for each rule, validate the cell
-            let result = validationFuncs.checkPassRule(cell, rule);
-            if(result.valid) { 
-              dispatch(dispatchValidateCellPass(cell, rule));
-            } else {
-              dispatch(dispatchValidateCellFail(cell, rule));
-            }
+    let iterables = 
+      getState().uploader.present
+        .get('tableData')
+        .values();
 
-          }, 50 * (rowdex*1.5));
-        })(i)
-           
-      })
-    });
+    // figure out the rules the cell needs to pass
+    let rules = validationFuncs.getGeneratedRules(dropTarget);
+
+    function validateSingleCell() {
+ 
+      let itr = iterables.next();
+      let row = itr.value;
+      const cell = row.get(header.get('rowIndex'));
+
+      // for each rule, validate the cell
+      _.each(rules, (rule,i) => {
+        let result = validationFuncs.checkPassRule(cell, rule);
+        if(result.valid) { 
+          dispatch(dispatchValidateCellPass(cell, rule));
+        } else {
+          dispatch(dispatchValidateCellFail(cell, rule));
+        }
+      });
+
+      if(!itr.done) {
+         setTimeout(function() {
+           validateSingleCell()
+          }, 0);
+      }
+    }
+
+    validateSingleCell();
 
     //dispatch(dispatchAttemptMappingFinish(header));
-  }
+    }    
 }
 
 function dispatchValidateCellBegin(cell) {

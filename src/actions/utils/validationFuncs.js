@@ -73,9 +73,10 @@ function getGeneratedRules(field, schemaType) {
 }
 
 function _validateOrConvertDataType(cell, dataType) {
+  
+  // TODO
   function validateString(value) {
-    // STUB
-    return {"valid":true};;
+    return {"valid":true};
   }
 
   function validateNumber(val) {
@@ -85,7 +86,7 @@ function _validateOrConvertDataType(cell, dataType) {
     
     if(!validator.isInt(value) && !validator.isFloat(value)) {
 
-      return {"valid":false, "message": `Field ${cell.column_name} is not in a proper number format`}
+      return {"valid":false, "message": `Field ${cell.get('column_name')} is not in a proper number format`}
     } else {
       return {"valid":true};
     }
@@ -97,19 +98,19 @@ function _validateOrConvertDataType(cell, dataType) {
                   .trim(val))
 
     if(!validator.isBoolean(value)) {
-      return {"valid":false, "message": `Field ${cell.column_name} is not in a proper boolean`}
+      return {"valid":false, "message": `Field ${cell.get('column_name')} is not in a proper boolean`}
     } else {
       return {"valid":true};
     }
   }
 
-  let value = '' + cell.value;
+  let value = '' + cell.get('value');
 
   switch(dataType.type) {
-    case STRING: 
-      return validateString(value);
     case NUMBER:
       return validateNumber(value);
+    case STRING: 
+      return validateString(value);
     case BOOLEAN:
       return validateBoolean(value);
     default:
@@ -118,7 +119,7 @@ function _validateOrConvertDataType(cell, dataType) {
 }
 
 function _validateRequired(cell) {
-  if(!cell.value || typeof(cell.value) === undefined || cell.value === null || validator.isEmpty('' + cell.value)) {
+  if(!cell.get('value') || typeof(cell.get('value')) === undefined || cell.get('value') === null || validator.isEmpty('' + cell.get('value'))) {
     return {"valid": false, "message": `Field ${cell.column_name} is required, please insert a value`};
   } else {
     return {"valid": true}
@@ -136,7 +137,6 @@ function checkPassRule(cell, rule) {
       return null;
   }
 }
-
 
 
 export default {

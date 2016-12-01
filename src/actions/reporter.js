@@ -1,3 +1,3 @@
 export function stub() {
-  console.log('stubbed reporter action')
+  console.log('stubbed reporter action');
 }
