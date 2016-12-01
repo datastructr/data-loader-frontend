@@ -47,7 +47,7 @@ class Uploader extends Component {
     return (
       <div className="Uploader">
         <div className="Uploader-table-container">
-        {fileLoaded && !fileLoading &&
+        {fileLoaded && !fileLoading && !fileLoadError &&
           <CSVTable
             tableData={tableData} 
             headerData={headerData}
@@ -60,6 +60,7 @@ class Uploader extends Component {
         {!fileLoaded &&
           <FileUploader
             beginLoadFileData={beginLoadFileData}
+            fileLoadError={fileLoadError}
           />  
         }
         </div>
@@ -70,7 +71,9 @@ class Uploader extends Component {
 }
 
 Uploader.propTypes = {
-  // TODO proptypes
+  fileLoaded: PropTypes.bool.isRequired,
+  fileLoading: PropTypes.bool.isRequired,
+  fileLoadError: PropTypes.bool.isRequired
 };
 
 function mapStateToProps(state) {

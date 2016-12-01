@@ -12,6 +12,13 @@ class InputField extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.value !== nextProps.value) {
+      return true;
+    }
+    return false;
+  }
+
   componentWillReceiveProps(props) {
     this.setState({
       cellData: props.cellData
@@ -28,14 +35,12 @@ class InputField extends Component {
 
   render() {
     const {
-      cellData,
-      value,
-      handleChangeAction
+      value
     } = this.props;
 
     return (
       <input 
-        value={value || ''} 
+        value={value} 
         onChange={this.handleChange.bind(this)} 
         onBlur={this.handleBlur.bind(this)}
       />
@@ -58,7 +63,6 @@ class CSVTableCellSmart extends Component {
     if (this.props.rulesFailed !== nextProps.rulesFailed) {
       return true;
     }
-
     return false;
   }
 

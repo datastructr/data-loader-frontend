@@ -22,16 +22,16 @@ function dispatchLoadDataSuccess(headerData, tableData) {
   };
 }
 
-function dispatchLoadDataFailed(message) {
-  return {
-    type: LOAD_DATA_FAILED,
-    errorMessage: message
-  };
-}
+// function dispatchLoadDataFailed(message) {
+//   return {
+//     type: LOAD_DATA_FAILED,
+//     errorMessage: message
+//   };
+// }
 
 
 // Sample tests
-import {testFileData} from '../tests/App.samples.js';
+//import {testFileData} from '../tests/App.samples.js';
 
 export function beginLoadFileData(file) {
   return dispatch => {
@@ -121,7 +121,7 @@ function dispatchAttemptMapping(headerCell, dropTarget) {
 }
 
 // TODO
-function dispatchAttemptMappingFinish(headerCell) {}
+//function dispatchAttemptMappingFinish(headerCell) {}
 
 function dispatchValidateCellPass(cell, rule) {
   return {
@@ -139,19 +139,6 @@ function dispatchValidateCellFail(cell, rule) {
   }
 }
 
-// TODO
-/**
- * called after a header has been mapped. When done so, each cell in that column needs
- * to be validated
- */
-function validateColumnCell(cell, dropTarget) {
-  // use drop target to validate the cell
-
-  // dispatch success 
-
-  // or dispatch failure
-}
-
 export function endHeaderDragDroppedMapped(header, dropTarget) {
   return (dispatch, getState) => {
     dispatch(dispatchAttemptMapping(header,dropTarget));
@@ -161,7 +148,6 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
         .get('tableData')
         .values();
 
-    let done = false;
     // figure out the rules the cell needs to pass
     let rules = validationFuncs.getGeneratedRules(dropTarget);
 

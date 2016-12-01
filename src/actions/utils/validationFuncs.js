@@ -73,9 +73,10 @@ function getGeneratedRules(field, schemaType) {
 }
 
 function _validateOrConvertDataType(cell, dataType) {
+  
+  // TODO
   function validateString(value) {
-    // STUB
-    return {"valid":true};;
+    return {"valid":true};
   }
 
   function validateNumber(val) {
@@ -106,10 +107,10 @@ function _validateOrConvertDataType(cell, dataType) {
   let value = '' + cell.get('value');
 
   switch(dataType.type) {
-    case STRING: 
-      return validateString(value);
     case NUMBER:
       return validateNumber(value);
+    case STRING: 
+      return validateString(value);
     case BOOLEAN:
       return validateBoolean(value);
     default:

@@ -29,7 +29,7 @@ class Schemas extends Component {
   render() {
     const {
       availableSchemas,
-      activeSchemaId,
+      //activeSchemaId,
       schemasLoaded
     } = this.props;
 

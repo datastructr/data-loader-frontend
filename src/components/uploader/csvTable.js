@@ -81,16 +81,16 @@ class CSVTable extends Component {
   }
 
   render() {
-    const {
-      tableData,
-      headerData,
+    // const {
+    //   tableData,
+    //   headerData,
 
-      // actions
-      beginHeaderDrag,
-      headerDroppedAction,
-      handleCellChangeAction,
-      handleCellBlurAction
-    } = this.props;
+    //   // actions
+    //   beginHeaderDrag,
+    //   headerDroppedAction,
+    //   handleCellChangeAction,
+    //   handleCellBlurAction
+    // } = this.props;
     
 
     return (

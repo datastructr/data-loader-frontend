@@ -9,7 +9,6 @@ class Reporter extends Component {
   render() {
     return (
       <div className="Reporter">
-
       </div>
     );
   }
@@ -18,14 +17,13 @@ class Reporter extends Component {
 function mapStateToProps(state) {
   let { reporter } = state;
 
-  const {
+  // const {
 
-  } = reporter || {
+  // } = reporter || {
 
-  };
-  return {
-    
-  };
+  // };
+  // return 
+  return reporter;
 }
 
 function mapDispatchToProps(dispatch) {

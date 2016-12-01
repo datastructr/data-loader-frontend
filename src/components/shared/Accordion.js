@@ -61,9 +61,9 @@ class Accordion extends Component {
     // deconstruct assignment from state
     const { 
       selfLevelObject, 
-      openLevelRow, 
+      //openLevelRow, 
       uniqueSelector,
-      childSelector,
+      //childSelector,
       rowClassName,
       rowIconClassName,
       rowOpenClassName,

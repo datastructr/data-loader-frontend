@@ -32,8 +32,13 @@ export function getSchemaData() {
   return dispatch => {
     dispatch(dispatchGetSchemas());
     // TODO
-    let psch = new ParseSchema(schemaSamples);
-    dispatch(dispatchGetSchemasSuccess(psch.shapeSchemasAndRetrieve()));
+    try {
+      let psch = new ParseSchema(schemaSamples);
+      dispatch(dispatchGetSchemasSuccess(psch.shapeSchemasAndRetrieve()));
+    } catch(e) {
+      dispatch(dispatchGetSchemasFailed(e));
+    }
+    
   };
 }
 

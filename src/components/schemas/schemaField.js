@@ -25,9 +25,11 @@ function collect(connect, monitor) {
 
 class SchemaField extends Component {
   
-  generateIconClass(isOver, validating) {
+  generateIconClass(isOver, canDrop, validating) {
     if(validating) {
       return "Schema-field-validating";
+    } else if(!canDrop) {
+      return "Schema-field-nodrop";
     } else if(isOver) {
       return "Schema-field-dropping"
     } else {
@@ -44,7 +46,7 @@ class SchemaField extends Component {
       canDrop
     } = this.props;
 
-    let fieldIconClassName = this.generateIconClass(isOver, field.fieldValidating)
+    let fieldIconClassName = this.generateIconClass(isOver, canDrop, field.fieldValidating)
 
     return connectDropTarget(
       <tr className={isOver ? 'Schema-field-isover' : 'Schema-field' }>
