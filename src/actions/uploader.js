@@ -33,17 +33,24 @@ function dispatchLoadDataSuccess(headerData, tableData) {
 // Sample tests
 //import {testFileData} from '../tests/App.samples.js';
 
-export function beginLoadFileData(file) {
+export function beginLoadFileData(file, encoding = "utf-8") {
   return dispatch => {
     dispatch(dispatchLoadData());
-
+    let finalResults = [];
     Papa.parse(file, {
         header:true,
-        complete: function(results) {
+        encoding: encoding,
+        // fired at every row
+        step: function(results, parser) {
+          // TODO error handle
+          //console.log("Row errors:", results.errors);
+          finalResults[finalResults.length] = results.data[0];
+        },
+        complete: function(results,file) {
           const {
             headerData, 
             tableData
-          } = (new ParseCsv(results.data)).shapeCsvAndRetrieve();
+          } = (new ParseCsv(finalResults)).shapeCsvAndRetrieve();
           dispatch(dispatchLoadDataSuccess(headerData, tableData));
         }
       });
