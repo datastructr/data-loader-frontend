@@ -50,7 +50,6 @@ const rowReducer = (state, action) => {
   }
 }
 
-
 const tableReducer = (state, action) => {
   switch (action.type) {
   case CELL_VALIDATE_BEGIN: 

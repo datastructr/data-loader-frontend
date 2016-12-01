@@ -5,8 +5,7 @@ import App from './containers/App';
 import { Provider } from 'react-redux';
 import configureStore from './store';
 
-// addins
-//import 'material-design-lite/dist/material.css';
+// styles
 import '@blueprintjs/core/dist/blueprint.css';
 import 'bootstrap/dist/css/bootstrap.css';
 

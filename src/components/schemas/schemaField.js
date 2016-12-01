@@ -2,11 +2,11 @@ import React, {Component, PropTypes} from 'react';
 
 import { DropTarget } from 'react-dnd';
 import { DndTypes } from '../shared/Constants';
+import _ from 'lodash';
 
 const schemaTarget = {
   canDrop(props) {
-    // STUB
-    return true;
+    return _.isEmpty(props.field.fieldMap);
   },
 
   drop(props) { 
@@ -26,12 +26,12 @@ function collect(connect, monitor) {
 class SchemaField extends Component {
   
   generateIconClass(isOver, canDrop, validating) {
-    if(validating) {
+    if(isOver && canDrop) {
+      return "Schema-field-dropping";
+    } else if(isOver && !canDrop) {
+      return "Schema-field-nodrop"
+    } else if(validating) {
       return "Schema-field-validating";
-    } else if(!canDrop) {
-      return "Schema-field-nodrop";
-    } else if(isOver) {
-      return "Schema-field-dropping"
     } else {
       return "Schema-field-neglet";
     }

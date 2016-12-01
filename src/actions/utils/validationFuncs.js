@@ -139,7 +139,6 @@ function checkPassRule(cell, rule) {
 }
 
 
-
 export default {
  getGeneratedRules,
  checkPassRule
