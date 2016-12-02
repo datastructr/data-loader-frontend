@@ -4,6 +4,7 @@ import CSVTableRow from './csvTableRow';
 
 
 class CSVTableHeaderSection extends Component {
+  
   shouldComponentUpdate(nextProps, nextState) {
     if (!this.props.headerData.equals(nextProps.headerData)) {
       return true;
@@ -34,11 +35,42 @@ class CSVTableHeaderSection extends Component {
 }
 
 class CSVTableBodySection extends Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    if (!this.props.tableData.equals(nextProps.tableData)) {
-      return true;
+  constructor(props) {
+    super(props);
+    this.state = {
+      rows: []
+    };
+  }
+
+  componentDidMount() {
+    this.iterateTableDataRender.call(this, this.props.tableData.values());
+  }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (!this.props.tableData.equals(nextProps.tableData)) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
+
+  iterateTableDataRender(td) {
+    let self = this;
+ 
+    function iterate() {
+      let itr = td.next();
+      self.setState(Object.assign({},self.state, {
+        rows: self.state.rows.concat(itr.value)
+      }), () => {
+         if(!itr.done) {
+          setTimeout(function() {
+            iterate()
+          }, 0);
+        }
+      });
+      
     }
-    return false;
+
+    iterate();
   }
 
   render() {
@@ -46,12 +78,13 @@ class CSVTableBodySection extends Component {
       tableData,
       // actions
       handleCellChangeAction,
-      handleCellBlurAction
+      handleCellBlurAction,
+      updateRenderProgress
     } = this.props;
-
+  
     return (
       <tbody>
-      {tableData.map((row,i) => 
+      {this.state.rows.map((row,i) => 
         <CSVTableRow 
           key={i.toString()} 
           count={i} 
@@ -59,6 +92,8 @@ class CSVTableBodySection extends Component {
           isHeader={false}
           handleCellChangeAction={handleCellChangeAction}
           handleCellBlurAction={handleCellBlurAction}
+          updateRenderProgress={updateRenderProgress}
+          currentProgress={i/tableData.size}
         />
       )}
       </tbody>

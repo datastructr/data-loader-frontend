@@ -4,25 +4,33 @@ import Papa from 'papaparse';
 import ParseCsv from './utils/parseCsv';
 import validationFuncs from './utils/validationFuncs';
 
-export const LOAD_DATA = 'LOAD_DATA';
-export const LOAD_DATA_SUCCESS = 'LOAD_DATA_SUCCESS';
-export const LOAD_DATA_FAILED = 'LOAD_DATA_FAILED';
+export const UPLOAD_FILE = 'LOAD_FILE';
+export const UPLOAD_FILE_SUCCESS = 'LOAD_FILE_SUCCESS';
+export const UPLOAD_FILE_PROGRESS = 'LOAD_FILE_PROGRESS';
+export const UPLOAD_FILE_FAILED = 'LOAD_FILE_FAILED';
 
-function dispatchLoadData() {
+function dispatchUploadFile() {
   return {
-    type: LOAD_DATA
+    type: UPLOAD_FILE
   };
 }
 
-function dispatchLoadDataSuccess(headerData, tableData) {
+function dispatchUpoadFileSuccess(headerData, tableData) {
   return {
-    type: LOAD_DATA_SUCCESS,
+    type: UPLOAD_FILE_SUCCESS,
     headerData: headerData,
     tableData: tableData
   };
 }
 
-// function dispatchLoadDataFailed(message) {
+export function dispatchUploadFileProgress(progress) {
+  return {
+    type: UPLOAD_FILE_PROGRESS,
+    progress: progress
+  };
+}
+
+// function dispatchUploadFileFailed(message) {
 //   return {
 //     type: LOAD_DATA_FAILED,
 //     errorMessage: message
@@ -35,7 +43,7 @@ function dispatchLoadDataSuccess(headerData, tableData) {
 
 export function beginLoadFileData(file, encoding = "utf-8") {
   return dispatch => {
-    dispatch(dispatchLoadData());
+    dispatch(dispatchUploadFile());
     let finalResults = [];
     Papa.parse(file, {
         header:true,
@@ -44,14 +52,16 @@ export function beginLoadFileData(file, encoding = "utf-8") {
         step: function(results, parser) {
           // TODO error handle
           //console.log("Row errors:", results.errors);
+
           finalResults[finalResults.length] = results.data[0];
         },
         complete: function(results,file) {
+          console.log('1')
           const {
             headerData, 
             tableData
           } = (new ParseCsv(finalResults)).shapeCsvAndRetrieve();
-          dispatch(dispatchLoadDataSuccess(headerData, tableData));
+          dispatch(dispatchUpoadFileSuccess(headerData, tableData));
         }
       });
 

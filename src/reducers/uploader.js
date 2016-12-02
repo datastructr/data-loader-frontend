@@ -1,7 +1,7 @@
 import Immutable, { Map, List, fromJS } from 'immutable';
 
 import { 
-  LOAD_DATA, LOAD_DATA_SUCCESS, LOAD_DATA_FAILED,
+  UPLOAD_FILE, UPLOAD_FILE_PROGRESS, UPLOAD_FILE_SUCCESS, UPLOAD_FILE_FAILED,
   HEADER_BEGIN_DRAG, HEADER_END_DRAG,HEADER_ATTEMPT_MAP,
   CELL_VALIDATE_BEGIN, CELL_VALIDATE_PASS, CELL_VALIDATE_FAIL, CELL_UPDATE_VALUE
 } from '../actions/uploader';
@@ -12,6 +12,7 @@ const initialState = Map({
   fileLoading: false,
   fileLoaded: false,
   fileLoadError: false,
+  fileUploadProgress: 0,
   fileErrorMessage: ''
 });
 
@@ -103,14 +104,14 @@ const headerReducer = (state, action) => {
 
 export default function uploader(state = initialState, action) {
   switch (action.type) {
-  case LOAD_DATA:
+  case UPLOAD_FILE:
     return state.withMutations(state => {
         state
           .set('fileLoading', true)
           .set('fileLoaded', false)
           .set('fileErrorMessage', '')
     });
-  case LOAD_DATA_SUCCESS:
+  case UPLOAD_FILE_SUCCESS:
     return state.withMutations(state => {
         state
           .set('fileLoading', false)
@@ -120,7 +121,10 @@ export default function uploader(state = initialState, action) {
           .set('tableData', fromJS(action.tableData))
           .set('headerData', fromJS(action.headerData))
     });
-  case LOAD_DATA_FAILED:
+  case UPLOAD_FILE_PROGRESS:
+    return state
+              .set('fileUploadProgress', action.progress)
+  case UPLOAD_FILE_FAILED:
     return state.withMutations(state => {
         state
           .set('fileLoading', false)

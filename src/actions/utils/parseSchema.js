@@ -15,17 +15,18 @@ export default class ParseSchema {
     let self = this;
 
     // use the first object to determine the headers
-    self.parsedData.availableSchemas = self.initialRead.availableSchemas
+    self.parsedData.availableSchemas = self.initialRead.data
       .reduce( (newList,schema) => {
           newList = newList || [];
+          schema = schema.table;
           newList.push({
-            name: schema.name,
-            properties: _.map(schema.properties, (prop) => {
+            name: schema.table_name,
+            properties: _.map(schema.table_properties, (prop) => {
               return Object.assign({}, prop, {
                 fieldValidating: false,
                 fieldMapped: false,
                 fieldMap: {},
-                belongsTo: schema.name
+                belongsTo: schema.table_name
               });
             }) 
           });

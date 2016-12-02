@@ -5,6 +5,12 @@ import CSVTableCell from './csvTableCell';
 import CSVTableCellSmart from './csvTableCellSmart';
 
 class CSVTableRow extends Component {
+  componentWillMount() {
+    if(this.props.updateRenderProgress) {
+       this.props.updateRenderProgress(this.props.currentProgress);
+    }
+  }
+  
   shouldComponentUpdate(nextProps, nextState) {
     if (!this.props.values.equals(nextProps.values)) {
       return true;
@@ -17,7 +23,7 @@ class CSVTableRow extends Component {
       isHeader,
       values,
       count,
-      
+
       // actions
       beginHeaderDrag,
       headerDroppedAction,
@@ -25,7 +31,6 @@ class CSVTableRow extends Component {
       handleCellBlurAction
     } = this.props;
 
-    
     return (
       <tr>
         <CSVTableCell isCount={true} value={isHeader ? null : count} />
