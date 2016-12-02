@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 
-import CSVTableRow from './csvTableRow';
-
+import CSVTableHeaderRow from './csvTableHeaderRow';
+import CSVTableCellRow from './csvTableCellRow';
 
 class CSVTableHeaderSection extends Component {
   
@@ -22,9 +22,8 @@ class CSVTableHeaderSection extends Component {
 
     return (
       <thead>
-        <CSVTableRow 
+        <CSVTableHeaderRow 
           values={headerData} 
-          isHeader={true}
           beginHeaderDrag={beginHeaderDrag}
           headerDroppedAction={headerDroppedAction}
         />
@@ -34,43 +33,13 @@ class CSVTableHeaderSection extends Component {
 
 }
 
+
 class CSVTableBodySection extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      rows: []
-    };
-  }
-
-  componentDidMount() {
-    this.iterateTableDataRender.call(this, this.props.tableData.values());
-  }
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   if (!this.props.tableData.equals(nextProps.tableData)) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
-
-  iterateTableDataRender(td) {
-    let self = this;
- 
-    function iterate() {
-      let itr = td.next();
-      self.setState(Object.assign({},self.state, {
-        rows: self.state.rows.concat(itr.value)
-      }), () => {
-         if(!itr.done) {
-          setTimeout(function() {
-            iterate()
-          }, 0);
-        }
-      });
-      
+  shouldComponentUpdate(nextProps, nextState) {
+    if (!this.props.tableData.equals(nextProps.tableData)) {
+      return true;
     }
-
-    iterate();
+    return false;
   }
 
   render() {
@@ -81,19 +50,17 @@ class CSVTableBodySection extends Component {
       handleCellBlurAction,
       updateRenderProgress
     } = this.props;
-  
+
     return (
-      <tbody>
-      {this.state.rows.map((row,i) => 
-        <CSVTableRow 
+      <tbody >
+      {tableData.map((row,i) => 
+        <CSVTableCellRow 
           key={i.toString()} 
           count={i} 
-          values={row} 
-          isHeader={false}
+          rowData={row} 
           handleCellChangeAction={handleCellChangeAction}
           handleCellBlurAction={handleCellBlurAction}
           updateRenderProgress={updateRenderProgress}
-          currentProgress={i/tableData.size}
         />
       )}
       </tbody>
@@ -116,22 +83,35 @@ class CSVTable extends Component {
   }
 
   render() {
-    // const {
-    //   tableData,
-    //   headerData,
+    const {
+      tableData,
+      headerData,
 
-    //   // actions
-    //   beginHeaderDrag,
-    //   headerDroppedAction,
-    //   handleCellChangeAction,
-    //   handleCellBlurAction
-    // } = this.props;
+      // actions
+      beginHeaderDrag,
+      headerDroppedAction,
+      handleCellChangeAction,
+      handleCellBlurAction,
+      updateRenderProgress
+    } = this.props;
     
 
     return (
       <table className="Uploader-csvtable pt-table pt-bordered">
-          <CSVTableHeaderSection {...this.props} />
-          <CSVTableBodySection {...this.props} />
+          
+          <CSVTableHeaderSection 
+            headerData={headerData}
+            beginHeaderDrag={beginHeaderDrag}
+            headerDroppedAction={headerDroppedAction}
+          />
+
+          <CSVTableBodySection 
+            tableData={tableData}
+            handleCellChangeAction={handleCellChangeAction}
+            handleCellBlurAction={handleCellBlurAction}
+            updateRenderProgress={updateRenderProgress}
+          />
+
       </table>
     );
   }

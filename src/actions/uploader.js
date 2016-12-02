@@ -159,22 +159,16 @@ function dispatchValidateCellFail(cell, rule) {
 export function endHeaderDragDroppedMapped(header, dropTarget) {
   return (dispatch, getState) => {
     dispatch(dispatchAttemptMapping(header,dropTarget));
-    // get the uploaded data
-    let iterables = 
+    // figure out the rules the cell needs to pass
+    let rules = validationFuncs.getGeneratedRules(dropTarget);
+    // get the uploaded data as iterable
+    let iterable = 
       getState().uploader.present
         .get('tableData')
         .values();
 
-    // figure out the rules the cell needs to pass
-    let rules = validationFuncs.getGeneratedRules(dropTarget);
-
-    function validateSingleCell() {
- 
-      let itr = iterables.next();
-      let row = itr.value;
-      const cell = row.get(header.get('rowIndex'));
-
-      // for each rule, validate the cell
+    function validateSingleCell(parentRow) {
+      const cell = parentRow.get(header.get('rowIndex'));
       _.each(rules, (rule,i) => {
         let result = validationFuncs.checkPassRule(cell, rule);
         if(result.valid) { 
@@ -184,17 +178,17 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
         }
       });
 
-      if(!itr.done) {
+      let next = iterable.next();      
+      if(!next.done) {
          setTimeout(function() {
-           validateSingleCell()
+           validateSingleCell(next.value)
           }, 0);
       }
     }
 
-    validateSingleCell();
-
+    validateSingleCell(iterable.next().value);
     //dispatch(dispatchAttemptMappingFinish(header));
-    }    
+  };  
 }
 
 function dispatchValidateCellBegin(cell) {

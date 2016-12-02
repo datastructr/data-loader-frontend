@@ -13,16 +13,23 @@ import * as ReporterActions from '../actions/reporter';
 
 
 class Reporter extends Component {
-  componentDidMount() {
-    //this.props.beginLoadFileData();
-     this.setState({
-       toasterKey: this.refs.uploadProgressToaster.show(this.renderUploadProgress(0)),
-     });
+  constructor(props){
+    super(props);
+    this.state = {
+    
+    };
   }
-
   componentWillReceiveProps(props) {
     if(props.fileUploadProgress) {
-      this.refs.uploadProgressToaster.update(this.state.toasterKey, this.renderUploadProgress(props.fileUploadProgress*100));
+      if(!this.state.toasterKey) {
+         this.setState({
+          toasterKey: this.refs.uploadProgressToaster.show(this.renderUploadProgress(0)),
+        }, () => {
+          this.refs.uploadProgressToaster.update(this.state.toasterKey, this.renderUploadProgress(props.fileUploadProgress*100));
+        });
+      } else {
+        this.refs.uploadProgressToaster.update(this.state.toasterKey, this.renderUploadProgress(props.fileUploadProgress*100));
+      }
     }
   }
 
