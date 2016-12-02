@@ -9,11 +9,7 @@ import FileUploader from '../components/uploader/fileUploader';
 import CSVTable from '../components/uploader/csvTable';
 
 class Uploader extends Component {
-  componentDidMount() {
-    //this.props.beginLoadFileData();
-  }
 
-  
   evaluateDraggedHeader(header, dropTarget) {
     this.props.endHeaderDragDropped(header);
     if(dropTarget) {
@@ -41,7 +37,8 @@ class Uploader extends Component {
 
       // actions
       beginHeaderDrag,
-      beginLoadFileData
+      beginLoadFileData,
+      dispatchUploadFileProgress
     } = this.props;
 
     return (
@@ -55,6 +52,7 @@ class Uploader extends Component {
             headerDroppedAction={this.evaluateDraggedHeader.bind(this)}
             handleCellChangeAction={this.cellValueChange.bind(this)}
             handleCellBlurAction={this.cellValueBlur.bind(this)}
+            updateRenderProgress={dispatchUploadFileProgress}
           />
         }
         {!fileLoaded &&

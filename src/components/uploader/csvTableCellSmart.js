@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 
-
-
+import Immutable, { Map } from 'immutable';
 
 class InputField extends Component {
   constructor(props) {
@@ -11,6 +10,8 @@ class InputField extends Component {
       cellData: props.cellData
     }
   }
+
+
 
   shouldComponentUpdate(nextProps, nextState) {
     if (this.props.value !== nextProps.value) {
@@ -34,13 +35,9 @@ class InputField extends Component {
   }
 
   render() {
-    const {
-      value
-    } = this.props;
-
     return (
       <input 
-        value={value} 
+        value={this.props.cellData.get('value')} 
         onChange={this.handleChange.bind(this)} 
         onBlur={this.handleBlur.bind(this)}
       />
@@ -54,13 +51,7 @@ class InputField extends Component {
  */
 class CSVTableCellSmart extends Component {
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.value !== nextProps.value) {
-      return true;
-    }
-    if (this.props.rulesPassed !== nextProps.rulesPassed) {
-      return true;
-    }
-    if (this.props.rulesFailed !== nextProps.rulesFailed) {
+    if (!this.props.cellData.equals(nextProps.cellData)) {
       return true;
     }
     return false;
@@ -76,21 +67,17 @@ class CSVTableCellSmart extends Component {
     }
   }
 
-
   render() {
     const {
-      rulesPassed,
-      rulesFailed,
-      cellData,
-      value
+      cellData
     } = this.props;
-
-    let passedRulesCount = rulesPassed.size;
-    let failedRulesCount = rulesFailed.size;
+    
+    let passedRulesCount = cellData.get('rulesPassed').size;
+    let failedRulesCount = cellData.get('rulesFailed').size;
 
     let colorClass = this.generateCellColor(passedRulesCount, failedRulesCount);
     
-    let innerHtml = failedRulesCount > 0 
+    let innerJSX = failedRulesCount > 0 
       ? (
         <InputField 
           cellData={cellData}
@@ -98,25 +85,19 @@ class CSVTableCellSmart extends Component {
           handleBlurAction={this.props.handleBlurAction} 
         />
       )
-      : (value)
+      : (cellData.get('value'))
 
 
     return (
         <td className={`Uploader-table-cell ${colorClass}`}>
-          {innerHtml}
+          {innerJSX}
         </td>
     );
   }
 }
 
 CSVTableCellSmart.propTypes = {
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.bool
-  ]),
-  rulesPassed: PropTypes.object.isRequired,
-  rulesFailed: PropTypes.object.isRequired,
+  cellData: PropTypes.object.isRequired,
   handleCellChangeAction: PropTypes.func.isRequired
 };
 

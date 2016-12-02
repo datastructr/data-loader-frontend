@@ -4,25 +4,33 @@ import Papa from 'papaparse';
 import ParseCsv from './utils/parseCsv';
 import validationFuncs from './utils/validationFuncs';
 
-export const LOAD_DATA = 'LOAD_DATA';
-export const LOAD_DATA_SUCCESS = 'LOAD_DATA_SUCCESS';
-export const LOAD_DATA_FAILED = 'LOAD_DATA_FAILED';
+export const UPLOAD_FILE = 'LOAD_FILE';
+export const UPLOAD_FILE_SUCCESS = 'LOAD_FILE_SUCCESS';
+export const UPLOAD_FILE_PROGRESS = 'LOAD_FILE_PROGRESS';
+export const UPLOAD_FILE_FAILED = 'LOAD_FILE_FAILED';
 
-function dispatchLoadData() {
+function dispatchUploadFile() {
   return {
-    type: LOAD_DATA
+    type: UPLOAD_FILE
   };
 }
 
-function dispatchLoadDataSuccess(headerData, tableData) {
+function dispatchUpoadFileSuccess(headerData, tableData) {
   return {
-    type: LOAD_DATA_SUCCESS,
+    type: UPLOAD_FILE_SUCCESS,
     headerData: headerData,
     tableData: tableData
   };
 }
 
-// function dispatchLoadDataFailed(message) {
+export function dispatchUploadFileProgress(progress) {
+  return {
+    type: UPLOAD_FILE_PROGRESS,
+    progress: progress
+  };
+}
+
+// function dispatchUploadFileFailed(message) {
 //   return {
 //     type: LOAD_DATA_FAILED,
 //     errorMessage: message
@@ -33,18 +41,27 @@ function dispatchLoadDataSuccess(headerData, tableData) {
 // Sample tests
 //import {testFileData} from '../tests/App.samples.js';
 
-export function beginLoadFileData(file) {
+export function beginLoadFileData(file, encoding = "utf-8") {
   return dispatch => {
-    dispatch(dispatchLoadData());
-
+    dispatch(dispatchUploadFile());
+    let finalResults = [];
     Papa.parse(file, {
         header:true,
-        complete: function(results) {
+        encoding: encoding,
+        // fired at every row
+        step: function(results, parser) {
+          // TODO error handle
+          //console.log("Row errors:", results.errors);
+
+          finalResults[finalResults.length] = results.data[0];
+        },
+        complete: function(results,file) {
+          console.log('1')
           const {
             headerData, 
             tableData
-          } = (new ParseCsv(results.data)).shapeCsvAndRetrieve();
-          dispatch(dispatchLoadDataSuccess(headerData, tableData));
+          } = (new ParseCsv(finalResults)).shapeCsvAndRetrieve();
+          dispatch(dispatchUpoadFileSuccess(headerData, tableData));
         }
       });
 
@@ -142,22 +159,16 @@ function dispatchValidateCellFail(cell, rule) {
 export function endHeaderDragDroppedMapped(header, dropTarget) {
   return (dispatch, getState) => {
     dispatch(dispatchAttemptMapping(header,dropTarget));
-    // get the uploaded data
-    let iterables = 
+    // figure out the rules the cell needs to pass
+    let rules = validationFuncs.getGeneratedRules(dropTarget);
+    // get the uploaded data as iterable
+    let iterable = 
       getState().uploader.present
         .get('tableData')
         .values();
 
-    // figure out the rules the cell needs to pass
-    let rules = validationFuncs.getGeneratedRules(dropTarget);
-
-    function validateSingleCell() {
- 
-      let itr = iterables.next();
-      let row = itr.value;
-      const cell = row.get(header.get('rowIndex'));
-
-      // for each rule, validate the cell
+    function validateSingleCell(parentRow) {
+      const cell = parentRow.get(header.get('rowIndex'));
       _.each(rules, (rule,i) => {
         let result = validationFuncs.checkPassRule(cell, rule);
         if(result.valid) { 
@@ -167,17 +178,17 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
         }
       });
 
-      if(!itr.done) {
+      let next = iterable.next();      
+      if(!next.done) {
          setTimeout(function() {
-           validateSingleCell()
+           validateSingleCell(next.value)
           }, 0);
       }
     }
 
-    validateSingleCell();
-
+    validateSingleCell(iterable.next().value);
     //dispatch(dispatchAttemptMappingFinish(header));
-    }    
+  };  
 }
 
 function dispatchValidateCellBegin(cell) {

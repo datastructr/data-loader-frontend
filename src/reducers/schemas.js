@@ -16,7 +16,7 @@ const initialState = {
 const property = (state = {id:null}, action) => {
   switch (action.type) {
   case FIELD_ATTEMPT_MAP:
-    if (state.column_name !== action.dropTarget.column_name) {
+    if (state.column !== action.dropTarget.column) {
       return state;
     }
     return Object.assign({}, state,{

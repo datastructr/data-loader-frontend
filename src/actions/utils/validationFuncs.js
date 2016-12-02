@@ -86,7 +86,7 @@ function _validateOrConvertDataType(cell, dataType) {
     
     if(!validator.isInt(value) && !validator.isFloat(value)) {
 
-      return {"valid":false, "message": `Field ${cell.get('column_name')} is not in a proper number format`}
+      return {"valid":false, "message": `Field ${cell.get('column')} is not in a proper number format`}
     } else {
       return {"valid":true};
     }
@@ -98,7 +98,7 @@ function _validateOrConvertDataType(cell, dataType) {
                   .trim(val))
 
     if(!validator.isBoolean(value)) {
-      return {"valid":false, "message": `Field ${cell.get('column_name')} is not in a proper boolean`}
+      return {"valid":false, "message": `Field ${cell.get('column')} is not in a proper boolean`}
     } else {
       return {"valid":true};
     }
@@ -120,7 +120,7 @@ function _validateOrConvertDataType(cell, dataType) {
 
 function _validateRequired(cell) {
   if(!cell.get('value') || typeof(cell.get('value')) === undefined || cell.get('value') === null || validator.isEmpty('' + cell.get('value'))) {
-    return {"valid": false, "message": `Field ${cell.column_name} is required, please insert a value`};
+    return {"valid": false, "message": `Field ${cell.column} is required, please insert a value`};
   } else {
     return {"valid": true}
   }

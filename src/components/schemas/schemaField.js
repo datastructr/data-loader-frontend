@@ -33,7 +33,7 @@ class SchemaField extends Component {
     } else if(validating) {
       return "Schema-field-validating";
     } else {
-      return "Schema-field-neglet";
+      return "Schema-field-negleted";
     }
   }
   
@@ -50,7 +50,7 @@ class SchemaField extends Component {
 
     return connectDropTarget(
       <tr className={isOver ? 'Schema-field-isover' : 'Schema-field' }>
-        <td><span className={`${fieldIconClassName} pt-icon-standard pt-icon-ungroup-objects`}></span>{' ' + field.column_name}</td>
+        <td><span className={`${fieldIconClassName} pt-icon-standard pt-icon-ungroup-objects`}></span>{' ' + field.column}</td>
         <td>{field.type}</td>
         <td><b>{field.nullable === "False" ? 'Required' : ''}</b></td>
       </tr>

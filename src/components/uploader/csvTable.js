@@ -1,9 +1,10 @@
 import React, {Component, PropTypes} from 'react';
 
-import CSVTableRow from './csvTableRow';
-
+import CSVTableHeaderRow from './csvTableHeaderRow';
+import CSVTableCellRow from './csvTableCellRow';
 
 class CSVTableHeaderSection extends Component {
+  
   shouldComponentUpdate(nextProps, nextState) {
     if (!this.props.headerData.equals(nextProps.headerData)) {
       return true;
@@ -21,9 +22,8 @@ class CSVTableHeaderSection extends Component {
 
     return (
       <thead>
-        <CSVTableRow 
+        <CSVTableHeaderRow 
           values={headerData} 
-          isHeader={true}
           beginHeaderDrag={beginHeaderDrag}
           headerDroppedAction={headerDroppedAction}
         />
@@ -32,6 +32,7 @@ class CSVTableHeaderSection extends Component {
   }
 
 }
+
 
 class CSVTableBodySection extends Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -46,19 +47,20 @@ class CSVTableBodySection extends Component {
       tableData,
       // actions
       handleCellChangeAction,
-      handleCellBlurAction
+      handleCellBlurAction,
+      updateRenderProgress
     } = this.props;
 
     return (
-      <tbody>
+      <tbody >
       {tableData.map((row,i) => 
-        <CSVTableRow 
+        <CSVTableCellRow 
           key={i.toString()} 
           count={i} 
-          values={row} 
-          isHeader={false}
+          rowData={row} 
           handleCellChangeAction={handleCellChangeAction}
           handleCellBlurAction={handleCellBlurAction}
+          updateRenderProgress={updateRenderProgress}
         />
       )}
       </tbody>
@@ -81,22 +83,35 @@ class CSVTable extends Component {
   }
 
   render() {
-    // const {
-    //   tableData,
-    //   headerData,
+    const {
+      tableData,
+      headerData,
 
-    //   // actions
-    //   beginHeaderDrag,
-    //   headerDroppedAction,
-    //   handleCellChangeAction,
-    //   handleCellBlurAction
-    // } = this.props;
+      // actions
+      beginHeaderDrag,
+      headerDroppedAction,
+      handleCellChangeAction,
+      handleCellBlurAction,
+      updateRenderProgress
+    } = this.props;
     
 
     return (
       <table className="Uploader-csvtable pt-table pt-bordered">
-          <CSVTableHeaderSection {...this.props} />
-          <CSVTableBodySection {...this.props} />
+          
+          <CSVTableHeaderSection 
+            headerData={headerData}
+            beginHeaderDrag={beginHeaderDrag}
+            headerDroppedAction={headerDroppedAction}
+          />
+
+          <CSVTableBodySection 
+            tableData={tableData}
+            handleCellChangeAction={handleCellChangeAction}
+            handleCellBlurAction={handleCellBlurAction}
+            updateRenderProgress={updateRenderProgress}
+          />
+
       </table>
     );
   }
