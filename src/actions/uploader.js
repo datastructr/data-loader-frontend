@@ -200,14 +200,15 @@ function dispatchValidateCellBegin(cell) {
 
 export function revalidateSingleCell(cell) {
   return (dispatch, getState) => {
-    let headers = getState().uploader.present.fileData.headerData;
-    let col = 
-      _.findIndex( 
-        headers,
-        (c) => {return c.id === cell.column;}
-      );
+    let headerMap = getState().uploader.present
+      .getIn(['headerData', cell.get('columnIndex'), 'headerMap']);
+
+      console.log(headerMap)
+
+
+
     dispatch(dispatchValidateCellBegin(cell));
-    let rules = validationFuncs.getGeneratedRules(headers[col].headerMap);
+    let rules = validationFuncs.getGeneratedRules(headerMap);
     _.each(rules, (rule,i) => {
       // for each rule, validate the cell
       let result = validationFuncs.checkPassRule(cell, rule);

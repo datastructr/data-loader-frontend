@@ -31,8 +31,9 @@ const cell = (state, action) => {
     return state
             .set('rulesFailed', state.get('rulesFailed').push(action.rule))
   case CELL_UPDATE_VALUE:
+  console.log(state.get('value'))
     return state
-            .set('value', action.newVal)
+            .set('value', state.get('value') + action.newVal)
   default:
     return state; 
   }

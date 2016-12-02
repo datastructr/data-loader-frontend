@@ -27,13 +27,13 @@ class SchemaField extends Component {
   
   generateIconClass(isOver, canDrop, validating) {
     if(isOver && canDrop) {
-      return "Schema-field-dropping";
+      return "Schema-field-icon-dropping";
     } else if(isOver && !canDrop) {
-      return "Schema-field-nodrop"
+      return "Schema-field-icon-nodrop"
     } else if(validating) {
-      return "Schema-field-validating";
+      return "Schema-field-icon-validating";
     } else {
-      return "Schema-field-negleted";
+      return "Schema-field-icon-neglet";
     }
   }
   

@@ -37,7 +37,7 @@
 .Uploader-table-header {
   background-color: $secondaryFillColor;
   cursor: pointer;
-  min-width: 100px;
+  white-space: nowrap;
 }
 
 .Uploader-table-header-dragging,
