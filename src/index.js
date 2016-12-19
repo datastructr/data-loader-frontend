@@ -7,6 +7,7 @@ import configureStore from './store';
 
 // styles
 import '@blueprintjs/core/dist/blueprint.css';
+import 'antd/dist/antd.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
 const store = configureStore({});

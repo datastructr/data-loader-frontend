@@ -31,6 +31,7 @@ export default class ParseCSV {
         valueDefinedType: '',
         headerDragging: false,
         headerMapped: false,
+        allRulesFailed: [],
         headerMap: {},
       };
     });

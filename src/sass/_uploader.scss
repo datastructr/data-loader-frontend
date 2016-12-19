@@ -81,3 +81,19 @@
 .Uploader-table-cell-invalid {
     background-color: $intentFailureLight;
 }
+
+.Uploader-header-mappings {
+  margin: 20px;
+}
+
+.Header-map-pointer {
+  // font-size: 25px;
+  // display: inline-block;
+  margin-left: 10px;
+  margin-right: 10px;
+  -webkit-transform:scale(3,1); /* Safari and Chrome */
+    -moz-transform:scale(3,1); /* Firefox */
+    -ms-transform:scale(3,1); /* IE 9 */
+    -o-transform:scale(3,1); /* Opera */
+    transform:scale(3,1); /* W3C */
+}
