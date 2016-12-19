@@ -41,9 +41,9 @@ class CSVTableHeader extends Component {
     if(dragging) {
       return "Uploader-table-header-dragging";
     } else if(validating) {
-      return "Uploader-table-header-validating"
+      return "Uploader-table-header-icon-validating"
     } else {
-      return "Uploader-table-header-neglet";
+      return "Uploader-table-header-icon-neglet";
     }
   }
 

@@ -40,21 +40,21 @@
   white-space: nowrap;
 }
 
-.Uploader-table-header-dragging,
-.Uploader-table-header-validating,
-.Uploader-table-header-neglet {
+.Uploader-table-header-icon-dragging,
+.Uploader-table-header-icon-validating,
+.Uploader-table-header-icon-neglet {
   margin-left: 10px;
 }
 
-.Uploader-table-header-neglet {
+.Uploader-table-header-icon-neglet {
   color: white !important;
 }
 
-.Uploader-table-header-dragging {
+.Uploader-table-header-icon-dragging {
   color: $dragMapColor !important;
 }
 
-.Uploader-table-header-validating{
+.Uploader-table-header-icon-validating{
   color: orange !important;
 }
 
