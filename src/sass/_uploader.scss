@@ -14,9 +14,9 @@
 
 .Uploader-dropzone {
     height: 600px;
-    background: $tertiaryAppColor;
+    background-color: $tertiaryFillColor;
     border-width: 2px;
-    border-color: black;
+    border-color: primaryAppColor;
     border-style: dashed;
     border-radius: 4px;
     margin: 10px;

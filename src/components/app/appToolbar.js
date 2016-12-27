@@ -35,7 +35,7 @@ class TableToolbar extends Component {
 
     return (
       <div className="App-toolbar">
-        <Tabs animated={false} type="card" defaultActiveKey="1" onChange={this.callback}>
+        <Tabs animated={false} type="card" defaultActiveKey="0" onChange={this.callback}>
             {toolbarItems.map((item,i) => 
               <TabPane tab={item.text} key={i}>
                 {item.subMenu.map((sub,i) => 

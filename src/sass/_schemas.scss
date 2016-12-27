@@ -30,6 +30,10 @@
   height: 12px;
 }
 
+.Schema-field-isover {
+  border: 1px solid $dragMapColor;
+}
+
 .Schema-field-icon-nodrop,
 .Schema-field-icon-dropping,
 .Schema-field-icon-validating,
