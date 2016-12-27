@@ -25,17 +25,17 @@ body {
 
 
 .App-right-view {
-  height: 100vh;
-  max-height: 100vh !important;
+  height: 90vh;
+  max-height: 90vh !important;
   border-left: 1px solid $primaryFillColor;
 }
 
 .App-left-view {
-  height: 100vh;
-  max-height: 100vh !important;
+  height: 90vh;
+  max-height: 90vh !important;
   position: absolute;
+  overflow: scroll;
 }
-
 
 .App-toolbar {
   width:100%;

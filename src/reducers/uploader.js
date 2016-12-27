@@ -28,6 +28,7 @@ const cell = (state, action) => {
     return state
             .set('rulesPassed', state.get('rulesPassed').push(action.rule))
   case CELL_VALIDATE_FAIL:
+    action.rule.cell = action.cell;
     return state
             .set('rulesFailed', state.get('rulesFailed').push(action.rule))
   case CELL_UPDATE_VALUE:

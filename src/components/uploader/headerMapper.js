@@ -26,7 +26,7 @@ class HeaderMapper extends Component {
       return <p>All Checks Passed</p>
     }
     return rulesFailed.map(rule => {
-      return <p>Cell Error: {rule.check}</p>
+      return <p onClick={() => {this.props.showTableFocusCell(rule.cell.get('id'))}} >Cell Error: {rule.check}</p>
     })
   }
 
@@ -35,7 +35,6 @@ class HeaderMapper extends Component {
       headerData
     } = this.props;
 
-    console.log(headerData.toJS());
     let mappedHeaders = headerData.filter(header => header.get('headerMapped'));
      
     return (
@@ -43,7 +42,7 @@ class HeaderMapper extends Component {
           <Row gutter={16}>
           {mappedHeaders.map(header => 
             <Col span={8}>
-              <Card title={this.generateCardTitle(header)}>
+              <Card title={this.generateCardTitle.bind(this,header)}>
                 {this.generateCardBody(header.get('allRulesFailed'))}
               </Card>
             </Col>
