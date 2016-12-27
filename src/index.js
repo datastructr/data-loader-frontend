@@ -5,9 +5,8 @@ import App from './containers/App';
 import { Provider } from 'react-redux';
 import configureStore from './store';
 
-// styles
+// vendor styles
 import 'antd/dist/antd.css';
-import 'bootstrap/dist/css/bootstrap.css';
 
 const store = configureStore({});
 

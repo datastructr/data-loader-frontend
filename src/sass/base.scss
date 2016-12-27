@@ -1,8 +1,8 @@
 /* global variables */
 @import './utils/variables';
 
-/* ant overrides and additions */
-@import './utils/ant';
+/* overrides and additions */
+@import './utils/overrides';
 
 /* main */
 @import 'app';

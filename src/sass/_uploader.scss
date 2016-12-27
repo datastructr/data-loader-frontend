@@ -13,18 +13,21 @@
 }
 
 .Uploader-dropzone {
-    height: 600px;
-    background-color: $tertiaryFillColor;
-    border-width: 2px;
-    border-color: primaryAppColor;
-    border-style: dashed;
-    border-radius: 4px;
-    margin: 10px;
+  height: 600px;
+  background-color: $tertiaryFillColor;
+  border-width: 2px;
+  border-color: primaryAppColor;
+  border-style: dashed;
+  border-radius: 4px;
+  margin: 10px;
 }
-
 
 .Uploader-datatable {
   display: table;
+  border-collapse: collapse;
+  overflow: scroll;
+  border-spacing: 0;
+  font-size: .75em;
 
   th {
     border-top: none;
@@ -49,8 +52,10 @@
     background-color: $secondaryBackground;
   }
 
-  td,th {
-    height: 50px;
+  td:not(:first-child),th {
+    padding: 15px;
+    height: 30px;
+    min-width: 100px;
   }
 
   td:first-child {
@@ -74,6 +79,7 @@
 .Uploader-table-header-icon-neglet {
   margin-left: 10px;
   margin-right: 10px;
+  font-size: 1.5em;
 }
 
 .Uploader-table-header-icon-neglet {
@@ -89,22 +95,17 @@
   color: orange !important;
 }
 
-/*.Uploader-table-cell {
-  cursor: pointer;
-  width: 100px;
-}*/
-
 .Uploader-table-cell:hover{
   background-color: $tertiaryFillColor;
   color: $secondaryAppColor;
 }
 
 .Uploader-table-cell-valid {
-    background-color: $intentSuccessLight;
+  background-color: $intentSuccessLight;
 }
 
 .Uploader-table-cell-invalid {
-    background-color: $intentFailureLight;
+  background-color: $intentFailureLight;
 }
 
 .Uploader-header-mappings {
@@ -112,13 +113,11 @@
 }
 
 .Header-map-pointer {
-  // font-size: 25px;
-  // display: inline-block;
   margin-left: 10px;
   margin-right: 10px;
   -webkit-transform:scale(3,1); /* Safari and Chrome */
-    -moz-transform:scale(3,1); /* Firefox */
-    -ms-transform:scale(3,1); /* IE 9 */
-    -o-transform:scale(3,1); /* Opera */
-    transform:scale(3,1); /* W3C */
+  -moz-transform:scale(3,1); /* Firefox */
+  -ms-transform:scale(3,1); /* IE 9 */
+  -o-transform:scale(3,1); /* Opera */
+  transform:scale(3,1); /* W3C */
 }

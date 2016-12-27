@@ -1,5 +1,4 @@
 /** Ant overrides **/
-
 .ant-card {
   margin-bottom: 20px;
 }
@@ -9,4 +8,9 @@
   .ant-tabs-nav-scroll {
     background-color: $primaryFillColor;
   }
+}
+
+/* other */
+table {
+  border-collapse: collapse;
 }
