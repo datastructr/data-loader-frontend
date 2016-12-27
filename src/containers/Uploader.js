@@ -13,6 +13,12 @@ import CSVTable from '../components/uploader/csvTable';
 import HeaderMapper from '../components/uploader/headerMapper';
 
 class Uploader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeKey: "1"
+    }
+  }
 
   evaluateDraggedHeader(header, dropTarget) {
     this.props.endHeaderDragDropped(header);
@@ -30,8 +36,18 @@ class Uploader extends Component {
     this.props.revalidateSingleCell(cell)
   }
 
-  callback(key) {
-    console.log(key);
+  showTableFocusCell(cellID) {
+    this.setState({
+      activeKey: "1"
+    }, () => {
+      console.log(cellID)
+      document.getElementById(cellID).focus();
+    })
+  }
+
+
+  tabOnChange(activeKey) {
+    this.setState({ activeKey });
   }
 
   render() {
@@ -53,7 +69,7 @@ class Uploader extends Component {
 
     return (
       <div className="Uploader">
-        <Tabs defaultActiveKey="1" onChange={this.callback}>
+        <Tabs defaultActiveKey="1" activeKey={this.state.activeKey} onChange={this.tabOnChange.bind(this)}>
           <TabPane tab="Upload Table" key="1">
             <div className="Uploader-table-container">
         
@@ -82,6 +98,7 @@ class Uploader extends Component {
             {display &&
               <HeaderMapper
                 headerData={headerData}
+                showTableFocusCell={this.showTableFocusCell.bind(this)}
               />
             }
           

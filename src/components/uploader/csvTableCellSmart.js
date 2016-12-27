@@ -34,6 +34,7 @@ class InputField extends Component {
   render() {
     return (
       <input 
+        id={this.props.cellData.get('id')}
         value={this.props.cellData.get('value')} 
         onChange={this.handleChange.bind(this)} 
         onBlur={this.handleBlur.bind(this)}
