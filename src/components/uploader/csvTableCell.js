@@ -7,7 +7,7 @@ class CSVTableCell extends Component {
     } = this.props
 
     return (
-        <td className={isCount ? 'Uploader-table-cell-count' : 'Uploader-table-cell'}>
+        <td className={isCount ? '' : 'Uploader-table-cell'}>
           {this.props.value}
         </td>
     );

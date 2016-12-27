@@ -97,7 +97,7 @@ class CSVTable extends Component {
     
 
     return (
-      <table className="Uploader-csvtable pt-table pt-bordered">
+      <table className="Uploader-datatable datatable-bordered">
           
           <CSVTableHeaderSection 
             headerData={headerData}

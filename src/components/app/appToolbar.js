@@ -1,27 +1,53 @@
 import React, {Component, PropTypes} from 'react';
 
+import { Tabs, Icon } from 'antd';
+const TabPane = Tabs.TabPane;
+
 class TableToolbar extends Component {
 
   render() {
+
     let toolbarItems = [
-      {"text": 'Cancel', "icon": 'pt-icon-trash App-failure-text'},
-      {"text": 'Reset All', "icon": 'pt-icon-refresh App-warning-text'},
-      {"text": 'Undo', "icon": 'pt-icon-undo'},
-      {"text": 'Redo', "icon": 'pt-icon-redo'},
-      {"text": 'History', "icon": 'pt-icon-history'},
-      {"text": 'Compare', "icon": 'pt-icon-comparison'},
-      {"text": 'Search File', "icon": 'pt-icon-search-template'},
-      {"text": 'Submit', "icon": 'pt-icon-changes App-success-text'}
+      {
+        "text": "File", 
+        "subMenu": [
+          {"name": 'Upload', "iconType": 'cloud-upload-o' },
+          {"name": 'Reset All', "iconType": 'reload' },
+          {"name": 'Cancel', "iconType": 'close-circle-o' },
+          {"name": 'Submit', "iconType": 'save'}
+        ]
+      },
+      {
+        "text": "Edit", 
+        "subMenu": [
+          {"name": 'Undo', "iconType": 'rollback' },
+          {"name": 'Redo', "iconType": 'rollback', "classExt": 'flip-horizontal' },
+        ]
+      },
+      {
+        "text": "Tools", 
+        "subMenu": [
+          {"name": 'History', "iconType": 'bars' },
+          {"name": 'Search File', "iconType": 'search' }
+        ]
+      }
     ];
 
     return (
       <div className="App-toolbar">
+        <Tabs animated={false} type="card" defaultActiveKey="1" onChange={this.callback}>
             {toolbarItems.map((item,i) => 
-              <div  key={i} className="App-toolbar-item text-center">
-                <span className={`pt-icon App-toolbar-item-icon ${item.icon}`}></span>
-                <p className="App-toolbar-item-text">{item.text}</p>
-              </div>
+              <TabPane tab={item.text} key={i}>
+                {item.subMenu.map((sub,i) => 
+                  <div  key={i} className="App-toolbar-item text-center">
+                    <Icon className={`App-toolbar-item-icon ${sub.classExt}`} type={sub.iconType} />
+                    <p className="App-toolbar-item-text">{sub.name}</p>
+                  </div>
+                )}
+          
+              </TabPane>
             )}
+        </Tabs>  
       </div>
     );
   }

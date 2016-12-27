@@ -1,3 +1,12 @@
+/** Ant overrides **/
+
 .ant-card {
   margin-bottom: 20px;
+}
+
+.App-toolbar {
+
+  .ant-tabs-nav-scroll {
+    background-color: $secondaryAppColor;
+  }
 }
