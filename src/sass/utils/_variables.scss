@@ -20,11 +20,11 @@ $intentFailureLight: #d77c7c;
 
 @-webkit-keyframes pulse {
   50% {
-    box-shadow: 0 0 0 2px $tertiaryAppColor;
+    box-shadow: 0 0 0 1.5px $tertiaryAppColor;
   }
 }
 @-moz-keyframes pulse {
   50% {
-    box-shadow: 0 0 0 2px $tertiaryAppColor;
+    box-shadow: 0 0 0 1.5px $tertiaryAppColor;
   }
 }
