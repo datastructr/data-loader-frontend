@@ -8,6 +8,11 @@ import Uploader from '../containers/Uploader';
 
 import AppToolbar from '../components/app/appToolbar';
 
+import { 
+  Row,
+  Col
+} from 'antd';
+
 import '../styles/index.css';
 
 class App extends Component {
@@ -18,21 +23,18 @@ class App extends Component {
       
       <AppToolbar />
 
-        <div className="container-fluid">
-          <div className="row App-main-view">
-            <div className="App-left-view col-md-7 col-sm-6">
+        <Row className="App-main-view">
 
+            <Col span={14} className="App-left-view">
               <Uploader />
+            </Col>
 
-            </div>
-            <div className="App-right-view col-md-5 col-sm-6">
-
+            <Col span={10} className="App-right-view">
               <Schemas />
               <Reporter />
+            </Col>
 
-            </div>
-          </div>
-        </div>
+        </Row>
       </div>
     );
   }

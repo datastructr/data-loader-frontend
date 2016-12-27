@@ -13,18 +13,18 @@
 }
 
 .Uploader-dropzone {
-    height: 600px;
-    background-color: $tertiaryFillColor;
-    border-width: 2px;
-    border-color: primaryAppColor;
-    border-style: dashed;
-    border-radius: 4px;
-    margin: 10px;
+  height: 600px;
+  background-color: $tertiaryFillColor;
+  border-width: 2px;
+  border-color: primaryAppColor;
+  border-style: dashed;
+  border-radius: 4px;
+  margin: 10px;
 }
-
 
 .Uploader-datatable {
   display: table;
+  overflow: scroll;
 
   th {
     border-top: none;
@@ -49,8 +49,10 @@
     background-color: $secondaryBackground;
   }
 
-  td,th {
+  td:not(:first-child),th {
+    padding: 15px;
     height: 50px;
+    min-width: 150px;
   }
 
   td:first-child {
@@ -89,22 +91,17 @@
   color: orange !important;
 }
 
-/*.Uploader-table-cell {
-  cursor: pointer;
-  width: 100px;
-}*/
-
 .Uploader-table-cell:hover{
   background-color: $tertiaryFillColor;
   color: $secondaryAppColor;
 }
 
 .Uploader-table-cell-valid {
-    background-color: $intentSuccessLight;
+  background-color: $intentSuccessLight;
 }
 
 .Uploader-table-cell-invalid {
-    background-color: $intentFailureLight;
+  background-color: $intentFailureLight;
 }
 
 .Uploader-header-mappings {
@@ -112,13 +109,11 @@
 }
 
 .Header-map-pointer {
-  // font-size: 25px;
-  // display: inline-block;
   margin-left: 10px;
   margin-right: 10px;
   -webkit-transform:scale(3,1); /* Safari and Chrome */
-    -moz-transform:scale(3,1); /* Firefox */
-    -ms-transform:scale(3,1); /* IE 9 */
-    -o-transform:scale(3,1); /* Opera */
-    transform:scale(3,1); /* W3C */
+  -moz-transform:scale(3,1); /* Firefox */
+  -ms-transform:scale(3,1); /* IE 9 */
+  -o-transform:scale(3,1); /* Opera */
+  transform:scale(3,1); /* W3C */
 }
