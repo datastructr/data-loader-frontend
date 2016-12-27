@@ -40,7 +40,6 @@ class Uploader extends Component {
     this.setState({
       activeKey: "1"
     }, () => {
-      console.log(cellID)
       document.getElementById(cellID).focus();
     })
   }
