@@ -6,6 +6,7 @@ import {
   Collapse,
   Icon
 } from 'antd';
+
 const Panel = Collapse.Panel;
 
 import * as SchemaActions from '../actions/schemas';

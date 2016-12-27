@@ -30,8 +30,12 @@
   height: 12px;
 }
 
+.Schema-field {
+  outline: 1px solid transparent;
+}
+
 .Schema-field-isover {
-  border: 1px solid $dragMapColor;
+  outline: 1px solid $dragMapColor;
 }
 
 .Schema-field-icon-nodrop,

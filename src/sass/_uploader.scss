@@ -24,7 +24,10 @@
 
 .Uploader-datatable {
   display: table;
+  border-collapse: collapse;
   overflow: scroll;
+  border-spacing: 0;
+  font-size: .75em;
 
   th {
     border-top: none;
@@ -51,8 +54,8 @@
 
   td:not(:first-child),th {
     padding: 15px;
-    height: 50px;
-    min-width: 150px;
+    height: 30px;
+    min-width: 100px;
   }
 
   td:first-child {
@@ -76,6 +79,7 @@
 .Uploader-table-header-icon-neglet {
   margin-left: 10px;
   margin-right: 10px;
+  font-size: 1.5em;
 }
 
 .Uploader-table-header-icon-neglet {
