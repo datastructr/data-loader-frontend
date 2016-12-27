@@ -30,21 +30,26 @@
   height: 12px;
 }
 
-.Schema-field-nodrop,
-.Schema-field-dropping,
-.Schema-field-validating,
-.Schema-field-negleted {
+.Schema-field-isover {
+  border: 1px solid $dragMapColor;
+}
+
+.Schema-field-icon-nodrop,
+.Schema-field-icon-dropping,
+.Schema-field-icon-validating,
+.Schema-field-icon-neglet {
   margin-right: 10px;
 }
 
-.Schema-field-negleted {
-  color: white !important;
+.Schema-field-icon-neglet {
+  color: $tertiaryAppColor !important;
+  -webkit-animation: pulse 2s infinite;
 }
 
-.Schema-field-validating {
+.Schema-field-icon-validating {
   color: orange !important;
 }
-.Schema-field-dropping {
+.Schema-field-icon-dropping {
   color: $dragMapColor !important;
 }
 

@@ -32,7 +32,7 @@ const cell = (state, action) => {
             .set('rulesFailed', state.get('rulesFailed').push(action.rule))
   case CELL_UPDATE_VALUE:
     return state
-            .set('value', action.newVal)
+            .set('value', state.get('value') + action.newVal)
   default:
     return state; 
   }
@@ -83,7 +83,19 @@ const header = (state, action) => {
           .set('validateMessage', '')
           .set('rowsPassedCount', 0)
           .set('rowsPassedFailed', 0)
+          .set('headerMapped', true)
           .set('headerMap', action.dropTarget)
+    });
+  case CELL_VALIDATE_PASS: 
+    return state.withMutations(state => {
+        state
+            .set('rowsPassedCount', state.get('rowsPassedCount') + 1)
+    });
+  case CELL_VALIDATE_FAIL: 
+    return state.withMutations(state => {
+        state
+            .set('rowsPassedFailed', state.get('rowsPassedFailed') + 1)
+            .set('allRulesFailed', state.get('allRulesFailed').push(action.rule))            
     });
   default:
     return state;
@@ -92,6 +104,8 @@ const header = (state, action) => {
 
 const headerReducer = (state, action) => {
   switch (action.type) {
+  case CELL_VALIDATE_PASS: 
+  case CELL_VALIDATE_FAIL: 
   case HEADER_BEGIN_DRAG:
   case HEADER_END_DRAG:
   case HEADER_ATTEMPT_MAP:
@@ -141,8 +155,12 @@ export default function uploader(state = initialState, action) {
   case CELL_VALIDATE_FAIL: 
   case CELL_UPDATE_VALUE: 
   case CELL_VALIDATE_BEGIN: 
-    return state
-            .set('tableData', tableReducer(state.get('tableData'), action))
+    return state.withMutations(state => {
+        state
+          .set('tableData', tableReducer(state.get('tableData'), action))
+          .set('headerData', headerReducer(state.get('headerData'), action))
+    });
+            
   default:
     return state;
   }

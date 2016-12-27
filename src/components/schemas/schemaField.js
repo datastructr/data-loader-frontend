@@ -4,6 +4,10 @@ import { DropTarget } from 'react-dnd';
 import { DndTypes } from '../shared/Constants';
 import _ from 'lodash';
 
+import { 
+  Icon
+} from 'antd';
+
 const schemaTarget = {
   canDrop(props) {
     return _.isEmpty(props.field.fieldMap);
@@ -27,13 +31,13 @@ class SchemaField extends Component {
   
   generateIconClass(isOver, canDrop, validating) {
     if(isOver && canDrop) {
-      return "Schema-field-dropping";
+      return "Schema-field-icon-dropping";
     } else if(isOver && !canDrop) {
-      return "Schema-field-nodrop"
+      return "Schema-field-icon-nodrop"
     } else if(validating) {
-      return "Schema-field-validating";
+      return "Schema-field-icon-validating";
     } else {
-      return "Schema-field-negleted";
+      return "Schema-field-icon-neglet";
     }
   }
   
@@ -50,7 +54,7 @@ class SchemaField extends Component {
 
     return connectDropTarget(
       <tr className={isOver ? 'Schema-field-isover' : 'Schema-field' }>
-        <td><span className={`${fieldIconClassName} pt-icon-standard pt-icon-ungroup-objects`}></span>{' ' + field.column}</td>
+        <td><span><Icon type="link" className={fieldIconClassName} /> </span>{' ' + field.column}</td>
         <td>{field.type}</td>
         <td><b>{field.nullable === "False" ? 'Required' : ''}</b></td>
       </tr>

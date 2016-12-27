@@ -5,16 +5,13 @@ import Immutable, { Map } from 'immutable';
 class InputField extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       cellData: props.cellData
     }
   }
 
-
-
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.value !== nextProps.value) {
+    if (!this.props.cellData.equals(nextProps.cellData)) {
       return true;
     }
     return false;

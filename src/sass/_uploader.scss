@@ -8,53 +8,84 @@
   width: 99%;
   max-height: 95%;
   margin: .5%;
+  margin-bottom: 30px;
   overflow: scroll;
 }
 
 .Uploader-dropzone {
     height: 600px;
-    background: $tertiaryAppColor;
+    background-color: $tertiaryFillColor;
     border-width: 2px;
-    border-color: black;
+    border-color: primaryAppColor;
     border-style: dashed;
     border-radius: 4px;
     margin: 10px;
 }
 
-.Uploader-csvtable {
-  width: 100%;
-  height: 100%;
-  display: table;
-}
 
-/*
-.Uploader-csvtable > thead,
-.Uploader-csvtable > tbody {
-  width: 100%;
+.Uploader-datatable {
+  display: table;
+
+  th {
+    border-top: none;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), to(lightgrey));
+    background-image: -webkit-linear-gradient(transparent, lightgrey);
+    background-image:
+        -moz-linear-gradient(transparent, lightgrey),
+        -moz-linear-gradient(transparent, lightgrey)
+    ;
+    background-image:
+        -o-linear-gradient(transparent, lightgrey),
+        -o-linear-gradient(transparent, lightgrey)
+    ;
+    background-image: 
+        linear-gradient(transparent, lightgrey),
+        linear-gradient(transparent, lightgrey)
+    ;
+    -moz-background-size: 1px 100%;
+    background-size: 1px 100%;
+    background-position:0 0, 100% 0;
+    background-repeat:no-repeat;
+    background-color: $secondaryBackground;
+  }
+
+  td,th {
+    height: 50px;
+  }
+
+  td:first-child {
+    font-size: .7em;
+    font-weight: bold;
+    background-color: $secondaryBackground;
+  }
+
+  td:not(:first-child){
+    border: 2px solid lightgrey;
+  }
 }
-*/
 
 .Uploader-table-header {
-  background-color: $secondaryFillColor;
   cursor: pointer;
-  min-width: 100px;
+  white-space: nowrap;
 }
 
-.Uploader-table-header-dragging,
-.Uploader-table-header-validating,
-.Uploader-table-header-neglet {
+.Uploader-table-header-icon-dragging,
+.Uploader-table-header-icon-validating,
+.Uploader-table-header-icon-neglet {
   margin-left: 10px;
+  margin-right: 10px;
 }
 
-.Uploader-table-header-neglet {
-  color: white !important;
+.Uploader-table-header-icon-neglet {
+  color: $tertiaryAppColor !important;
+  -webkit-animation: pulse 2s infinite;
 }
 
-.Uploader-table-header-dragging {
+.Uploader-table-header-icon-dragging {
   color: $dragMapColor !important;
 }
 
-.Uploader-table-header-validating{
+.Uploader-table-header-icon-validating{
   color: orange !important;
 }
 
@@ -68,16 +99,26 @@
   color: $secondaryAppColor;
 }
 
-.Uploader-table-cell-count {
-  font-size: .7em;
-  font-weight: bold;
-  background-color: $secondaryFillColor;
-}
-
 .Uploader-table-cell-valid {
     background-color: $intentSuccessLight;
 }
 
 .Uploader-table-cell-invalid {
     background-color: $intentFailureLight;
+}
+
+.Uploader-header-mappings {
+  margin: 20px;
+}
+
+.Header-map-pointer {
+  // font-size: 25px;
+  // display: inline-block;
+  margin-left: 10px;
+  margin-right: 10px;
+  -webkit-transform:scale(3,1); /* Safari and Chrome */
+    -moz-transform:scale(3,1); /* Firefox */
+    -ms-transform:scale(3,1); /* IE 9 */
+    -o-transform:scale(3,1); /* Opera */
+    transform:scale(3,1); /* W3C */
 }

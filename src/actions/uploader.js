@@ -140,18 +140,20 @@ function dispatchAttemptMapping(headerCell, dropTarget) {
 // TODO
 //function dispatchAttemptMappingFinish(headerCell) {}
 
-function dispatchValidateCellPass(cell, rule) {
+function dispatchValidateCellPass(cell, rule, headerCell) {
   return {
     type: CELL_VALIDATE_PASS,
     cell: cell,
+    headerCell: headerCell,
     rule: rule
   }
 }
 
-function dispatchValidateCellFail(cell, rule) {
+function dispatchValidateCellFail(cell, rule, headerCell) {
   return {
     type: CELL_VALIDATE_FAIL,
     cell: cell,
+    headerCell: headerCell,
     rule: rule
   }
 }
@@ -172,9 +174,9 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
       _.each(rules, (rule,i) => {
         let result = validationFuncs.checkPassRule(cell, rule);
         if(result.valid) { 
-          dispatch(dispatchValidateCellPass(cell, rule));
+          dispatch(dispatchValidateCellPass(cell, rule, header));
         } else {
-          dispatch(dispatchValidateCellFail(cell, rule));
+          dispatch(dispatchValidateCellFail(cell, rule, header));
         }
       });
 
@@ -200,14 +202,15 @@ function dispatchValidateCellBegin(cell) {
 
 export function revalidateSingleCell(cell) {
   return (dispatch, getState) => {
-    let headers = getState().uploader.present.fileData.headerData;
-    let col = 
-      _.findIndex( 
-        headers,
-        (c) => {return c.id === cell.column;}
-      );
+    let headerMap = getState().uploader.present
+      .getIn(['headerData', cell.get('columnIndex'), 'headerMap']);
+
+      console.log(headerMap)
+
+
+
     dispatch(dispatchValidateCellBegin(cell));
-    let rules = validationFuncs.getGeneratedRules(headers[col].headerMap);
+    let rules = validationFuncs.getGeneratedRules(headerMap);
     _.each(rules, (rule,i) => {
       // for each rule, validate the cell
       let result = validationFuncs.checkPassRule(cell, rule);

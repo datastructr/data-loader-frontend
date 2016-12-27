@@ -2,16 +2,21 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { 
+  Collapse,
+  Icon
+} from 'antd';
+const Panel = Collapse.Panel;
+
 import * as SchemaActions from '../actions/schemas';
 
-import Accordion from '../components/shared/Accordion';
 import SchemaField from '../components/schemas/schemaField';
 
 
-const SchemaFieldBase = ({base}) => (
+const SchemaFieldBase = ({properties}) => (
   <table className="Schema-choices">
   <tbody>
-    {base.properties.map((field,i) =>
+    {properties.map((field,i) =>
       <SchemaField
         key={i}
         field={field}
@@ -19,6 +24,7 @@ const SchemaFieldBase = ({base}) => (
     )}
     </tbody>
   </table>
+  
 );
 
 class Schemas extends Component {
@@ -36,19 +42,15 @@ class Schemas extends Component {
     return (
       <div className="Schemas">
         <div className="Schemas-view">
-
           {schemasLoaded && 
-          <Accordion 
-            newLevel={availableSchemas}
-            uniqueSelector={"name"}
-            rowClassName={"Schema-list-row"}
-            rowIconClassName={"pt-icon-standard pt-icon-database"}
-            rowOpenClassName={"pt-tree-node-caret pt-tree-node-caret-open pt-icon-standard"}
-            rowCloseClassName={"pt-tree-node-caret pt-icon-standard"}
-            childrenSelector={null}
-            BaseComponent={SchemaFieldBase}
-          />}
-          
+            <Collapse accordion>
+              {availableSchemas.map((schema,i) => 
+                <Panel header={(<span><Icon type="hdd" /> {schema.name}</span>)} key={i}>
+                  <SchemaFieldBase properties={schema.properties} />
+                </Panel>
+              )}
+            </Collapse>
+          }
         </div>
       </div>
     );

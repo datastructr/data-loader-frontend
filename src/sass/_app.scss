@@ -23,15 +23,6 @@ body {
   color: $intentFailure !important;
 }
 
-.canvas-container { 
-  height: 100vh !important; 
-  width: 100vw !important; 
-  z-index: 9999;
-  display: block;
-  position: fixed !important;
-}
-
-
 
 .App-right-view {
   height: 100vh;
@@ -48,22 +39,31 @@ body {
 
 .App-toolbar {
   width:100%;
-  background: $tertiaryAppColor;
+  background: white;
   border-bottom: 1px solid $primaryFillColor;
 }
 
 .App-toolbar-item {
   display: inline-block;
-  margin: 20px 10px 5px 10px;
+  margin: 0px 10px 5px 10px;
   cursor: pointer;
 } 
 
 .App-toolbar-item-text {
-  font-size: .9em;
+  font-size: .8em;
   margin-top: 5px;
   margin-bottom: 0;
+  color: $primaryFillColor;
 }
 
 .App-toolbar-item-icon {
   font-size: 24px !important;
+}
+
+.flip-horizontal {
+  -moz-transform: scale(-1, 1);
+  -webkit-transform: scale(-1, 1);
+  -o-transform: scale(-1, 1);
+  -ms-transform: scale(-1, 1);
+  transform: scale(-1, 1);
 }

@@ -2,11 +2,15 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { Tabs } from 'antd';
+const TabPane = Tabs.TabPane;
+
 import * as  UploaderActions from '../actions/uploader';
 import * as  SchemaActions from '../actions/schemas';
 
 import FileUploader from '../components/uploader/fileUploader';
 import CSVTable from '../components/uploader/csvTable';
+import HeaderMapper from '../components/uploader/headerMapper';
 
 class Uploader extends Component {
 
@@ -26,6 +30,10 @@ class Uploader extends Component {
     this.props.revalidateSingleCell(cell)
   }
 
+  callback(key) {
+    console.log(key);
+  }
+
   render() {
     
     const {
@@ -41,28 +49,44 @@ class Uploader extends Component {
       dispatchUploadFileProgress
     } = this.props;
 
+    let display = fileLoaded && !fileLoading && !fileLoadError;
+
     return (
       <div className="Uploader">
-        <div className="Uploader-table-container">
-        {fileLoaded && !fileLoading && !fileLoadError &&
-          <CSVTable
-            tableData={tableData} 
-            headerData={headerData}
-            beginHeaderDrag={beginHeaderDrag}
-            headerDroppedAction={this.evaluateDraggedHeader.bind(this)}
-            handleCellChangeAction={this.cellValueChange.bind(this)}
-            handleCellBlurAction={this.cellValueBlur.bind(this)}
-            updateRenderProgress={dispatchUploadFileProgress}
-          />
-        }
-        {!fileLoaded &&
-          <FileUploader
-            beginLoadFileData={beginLoadFileData}
-            fileLoadError={fileLoadError}
-          />  
-        }
-        </div>
-      
+        <Tabs defaultActiveKey="1" onChange={this.callback}>
+          <TabPane tab="Upload Table" key="1">
+            <div className="Uploader-table-container">
+        
+              {display &&
+                <CSVTable
+                  tableData={tableData} 
+                  headerData={headerData}
+                  beginHeaderDrag={beginHeaderDrag}
+                  headerDroppedAction={this.evaluateDraggedHeader.bind(this)}
+                  handleCellChangeAction={this.cellValueChange.bind(this)}
+                  handleCellBlurAction={this.cellValueBlur.bind(this)}
+                  updateRenderProgress={dispatchUploadFileProgress}
+                />
+              }
+              {!fileLoaded &&
+                <FileUploader
+                  beginLoadFileData={beginLoadFileData}
+                  fileLoadError={fileLoadError}
+                />  
+              }
+              </div>
+          
+          </TabPane>
+          <TabPane tab="Map Headers" key="2">
+          
+            {display &&
+              <HeaderMapper
+                headerData={headerData}
+              />
+            }
+          
+          </TabPane>
+        </Tabs>      
       </div>
     );
   }

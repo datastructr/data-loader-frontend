@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@blueprintjs/core": "^1.0.1",
+    "antd": "^2.5.2",
     "bootstrap": "^3.3.7",
     "immutable": "^3.8.1",
     "lodash": "^4.16.6",

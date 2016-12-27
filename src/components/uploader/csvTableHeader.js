@@ -3,6 +3,10 @@ import { DragSource } from 'react-dnd';
 
 import { DndTypes } from '../shared/Constants';
 
+import { 
+  Icon
+} from 'antd';
+
 /**
  * Implements the drag source contract.
  */
@@ -39,11 +43,11 @@ class CSVTableHeader extends Component {
   
   generateIconClass(dragging, validating) {
     if(dragging) {
-      return "Uploader-table-header-dragging";
+      return "Uploader-table-header-icon-dragging";
     } else if(validating) {
-      return "Uploader-table-header-validating"
+      return "Uploader-table-header-icon-validating"
     } else {
-      return "Uploader-table-header-neglet";
+      return "Uploader-table-header-icon-neglet";
     }
   }
 
@@ -54,10 +58,10 @@ class CSVTableHeader extends Component {
     } = this.props;
 
     let headerIconClassName = this.generateIconClass(cell.get('headerDragging'), cell.get('validating'));
-
+    console.log(headerIconClassName)
     return connectDragSource(
         <th className={`Uploader-table-header`}>
-          {cell.get('id')} <span className={`${headerIconClassName} pt-icon-standard pt-icon-ungroup-objects`}></span>
+          {cell.get('id')} <Icon type="link" className={headerIconClassName} />
         </th>
     );
   }
