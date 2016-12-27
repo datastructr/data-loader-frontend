@@ -42,7 +42,7 @@ class HeaderMapper extends Component {
           <Row gutter={16}>
           {mappedHeaders.map(header => 
             <Col span={8}>
-              <Card title={this.generateCardTitle.bind(this,header)}>
+              <Card title={this.generateCardTitle(header)}>
                 {this.generateCardBody(header.get('allRulesFailed'))}
               </Card>
             </Col>
