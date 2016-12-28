@@ -58,7 +58,7 @@ class CSVTableHeader extends Component {
     } = this.props;
 
     let headerIconClassName = this.generateIconClass(cell.get('headerDragging'), cell.get('validating'));
-    console.log(headerIconClassName)
+    
     return connectDragSource(
         <th className={`Uploader-table-header`}>
           {cell.get('id')} <Icon type="link" className={headerIconClassName} />

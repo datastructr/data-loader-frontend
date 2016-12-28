@@ -11,7 +11,6 @@ import {
 class HeaderMapper extends Component {
 
   generateCardTitle(header) {
-    console.log(header.toJS())
     let status = header.get('rowsPassedFailed') === 0 
       ? "success"
       : "error";

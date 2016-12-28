@@ -33,7 +33,7 @@ const cell = (state, action) => {
             .set('rulesFailed', state.get('rulesFailed').push(action.rule))
   case CELL_UPDATE_VALUE:
     return state
-            .set('value', state.get('value') + action.newVal)
+            .set('value', action.newVal)
   default:
     return state; 
   }

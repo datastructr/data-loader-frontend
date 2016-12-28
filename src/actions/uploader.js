@@ -56,7 +56,6 @@ export function beginLoadFileData(file, encoding = "utf-8") {
           finalResults[finalResults.length] = results.data[0];
         },
         complete: function(results,file) {
-          console.log('1')
           const {
             headerData, 
             tableData
@@ -202,12 +201,10 @@ function dispatchValidateCellBegin(cell) {
 
 export function revalidateSingleCell(cell) {
   return (dispatch, getState) => {
-    let headerMap = getState().uploader.present
-      .getIn(['headerData', cell.get('columnIndex'), 'headerMap']);
+    let header = getState().uploader.present
+      .getIn(['headerData', cell.get('columnIndex')]);
 
-      console.log(headerMap)
-
-
+    let headerMap = header.get('headerMap')
 
     dispatch(dispatchValidateCellBegin(cell));
     let rules = validationFuncs.getGeneratedRules(headerMap);
@@ -215,9 +212,9 @@ export function revalidateSingleCell(cell) {
       // for each rule, validate the cell
       let result = validationFuncs.checkPassRule(cell, rule);
       if(result.valid) { 
-        dispatch(dispatchValidateCellPass(cell, rule));
+        dispatch(dispatchValidateCellPass(cell, rule, header));
       } else {
-        dispatch(dispatchValidateCellFail(cell, rule));
+        dispatch(dispatchValidateCellFail(cell, rule, header));
       }
     });
   };
