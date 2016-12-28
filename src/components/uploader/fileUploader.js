@@ -2,6 +2,10 @@ import React, {Component, PropTypes} from 'react';
 
 import Dropzone from 'react-dropzone';
 
+import {
+   Icon 
+} from 'antd';
+
 class FileUploader extends Component {
 
   onDrop(acceptedFiles, rejectedFiles) {
@@ -14,16 +18,31 @@ class FileUploader extends Component {
     }
   }
 
+  onDropComplete(dropped) {
+    this.props.beginLoadFileData(dropped.file);
+    return true;
+  }
+
   render() {
     return (
-        <Dropzone 
+      <Dropzone 
           onDrop={this.onDrop.bind(this)}
           accept=".csv"
           disableClick={false}
           className="Uploader-dropzone"
           >
-          <div>Try dropping some files here, or click to select files to upload.</div>
-        </Dropzone>
+          <div className="ant-upload ant-upload-drag">
+          <span tabindex="0" class="ant-upload ant-upload-btn" role="button">
+            <div className="ant-upload-drag-container">
+            <p className="ant-upload-drag-icon">
+              <Icon type="inbox" />
+            </p>
+            <p className="ant-upload-text">Click or drag file to this area to upload</p>
+            <p className="ant-upload-hint">Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files</p>
+            </div>
+          </span>
+          </div>
+      </Dropzone>
     );
   }
 }

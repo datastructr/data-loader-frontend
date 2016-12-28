@@ -41,7 +41,6 @@ class HeaderMapper extends Component {
   }
 
   generateCardBody(rulesFailed){
-    console.log(rulesFailed.toJS())
     if(rulesFailed.size === 0) {
       return <p>All Checks Passed</p>
     }
