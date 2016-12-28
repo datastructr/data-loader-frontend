@@ -122,7 +122,7 @@ export function dispatchUpdateCellValue(newVal,cell) {
  * 
  */
 export const HEADER_ATTEMPT_MAP = 'HEADER_ATTEMPT_MAP';
-export const HEADER_ATTEMPT_FINISH = 'HEADER_ATTEMPT_MAP';
+export const HEADER_ATTEMPT_MAP_FINISH = 'HEADER_ATTEMPT_MAP_FINISH';
 export const CELL_VALIDATE_BEGIN = 'CELL_VALIDATE_BEGIN';
 export const CELL_VALIDATE_PASS = 'CELL_VALIDATE_PASS';
 export const CELL_VALIDATE_FAIL = 'CELL_VALIDATE_FAIL';
@@ -136,8 +136,13 @@ function dispatchAttemptMapping(headerCell, dropTarget) {
   }
 }
 
-// TODO
-//function dispatchAttemptMappingFinish(headerCell) {}
+
+function dispatchAttemptMappingFinish(headerCell) {
+  return {
+    type: HEADER_ATTEMPT_MAP_FINISH,
+    headerCell: headerCell
+  }
+}
 
 function dispatchValidateCellPass(cell, rule, headerCell) {
   return {
@@ -184,11 +189,13 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
          setTimeout(function() {
            validateSingleCell(next.value)
           }, 0);
+      } else {
+        dispatch(dispatchAttemptMappingFinish(header));
       }
     }
-
+    
+    // recursive/iterative validating because it's' non-blocking 
     validateSingleCell(iterable.next().value);
-    //dispatch(dispatchAttemptMappingFinish(header));
   };  
 }
 
