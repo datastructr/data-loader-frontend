@@ -4,14 +4,11 @@
 }
 
 .Uploader-dropzone {
-  height: 600px;
-  background-color: $tertiaryFillColor;
-  border-width: 2px;
-  border-color: primaryAppColor;
-  border-style: dashed;
-  border-radius: 4px;
   margin: 10px;
+  height: 70vh;
+  background-color: $secondaryBackground;
 }
+
 .Uploader-table-container {
   overflow:scroll;
 }
