@@ -10,22 +10,43 @@ import {
 
 class HeaderMapper extends Component {
 
-  generateCardTitle(header) {
+  generateUnmappedCardTitle(header) {
+    return (
+      <span>
+      <Icon type="link" className="Uploader-table-header-icon-neglet" />{' ' + header.get('id')}
+      <br/>
+      <Icon type="arrow-right Header-map-pointer" />{'   '}
+        <select>
+          <option value="volvo">Volvodsvd</option>
+          <option value="saab">Saasdvb</option>
+          <option value="vw">V__asfgW</option>
+          <option value="audi" selected>Audid sdfg</option>
+        </select>
+       </span>
+    )
+  }
+
+  generateMappedCardTitle(header) {
     let status = header.get('rowsPassedFailed') === 0 
       ? "success"
       : "error";
 
     return (
-      <span><Badge status={status} /> {header.get('id')} <Icon type="arrow-right Header-map-pointer" /> {header.get('headerMap').column}</span>
+      <span>
+        <Badge status={status} /> {header.get('id')}
+        <br/> 
+        <Icon type="arrow-right Header-map-pointer" /> {header.get('headerMap').column}
+      </span>
     )
   }
 
   generateCardBody(rulesFailed){
+    console.log(rulesFailed.toJS())
     if(rulesFailed.size === 0) {
       return <p>All Checks Passed</p>
     }
-    return rulesFailed.map(rule => {
-      return <p onClick={() => {this.props.showTableFocusCell(rule.cell.get('id'))}} >Cell Error: {rule.check}</p>
+    return rulesFailed.map(body => {
+      return <p className="Header-map-error-link" onClick={() => {this.props.showTableFocusCell(body.cell)}} >Cell Error: {body.rule.check}</p>
     })
   }
 
@@ -35,14 +56,38 @@ class HeaderMapper extends Component {
     } = this.props;
 
     let mappedHeaders = headerData.filter(header => header.get('headerMapped'));
+    let unmappedHeaders = headerData.filter(header => !header.get('headerMapped'));
      
     return (
         <div className="Uploader-header-mappings">
+          {mappedHeaders.size > 0 && 
+            <span>
+              <h2> Mapped </h2>
+              <hr/>
+              <br/>
+            </span>
+          }
           <Row gutter={16}>
-          {mappedHeaders.map(header => 
-            <Col span={8}>
-              <Card title={this.generateCardTitle(header)}>
+          {mappedHeaders.map((header,i) => 
+            <Col key={i} span={8}>
+              <Card title={this.generateMappedCardTitle(header)}>
                 {this.generateCardBody(header.get('allRulesFailed'))}
+              </Card>
+            </Col>
+          )}
+          </Row>
+          <Row gutter={16}>
+          {unmappedHeaders.size > 0 && 
+            <span>
+              <h2> Unmapped </h2>
+              <hr/>
+              <br/>
+            </span>
+          }
+          {unmappedHeaders.map((header,i) => 
+            <Col key={i} span={8}>
+              <Card title={this.generateUnmappedCardTitle(header)}>
+                
               </Card>
             </Col>
           )}

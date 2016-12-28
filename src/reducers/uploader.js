@@ -2,7 +2,7 @@ import Immutable, { Map, List, fromJS } from 'immutable';
 
 import { 
   UPLOAD_FILE, UPLOAD_FILE_PROGRESS, UPLOAD_FILE_SUCCESS, UPLOAD_FILE_FAILED,
-  HEADER_BEGIN_DRAG, HEADER_END_DRAG,HEADER_ATTEMPT_MAP,
+  HEADER_BEGIN_DRAG, HEADER_END_DRAG,HEADER_ATTEMPT_MAP, HEADER_ATTEMPT_MAP_FINISH,
   CELL_VALIDATE_BEGIN, CELL_VALIDATE_PASS, CELL_VALIDATE_FAIL, CELL_UPDATE_VALUE
 } from '../actions/uploader';
 
@@ -28,7 +28,6 @@ const cell = (state, action) => {
     return state
             .set('rulesPassed', state.get('rulesPassed').push(action.rule))
   case CELL_VALIDATE_FAIL:
-    action.rule.cell = action.cell;
     return state
             .set('rulesFailed', state.get('rulesFailed').push(action.rule))
   case CELL_UPDATE_VALUE:
@@ -87,6 +86,12 @@ const header = (state, action) => {
           .set('headerMapped', true)
           .set('headerMap', action.dropTarget)
     });
+  case HEADER_ATTEMPT_MAP_FINISH:
+    return state.withMutations(state => {
+        state
+          .set('validated', true)
+          .set('validating', false)
+    });
   case CELL_VALIDATE_PASS: 
     return state.withMutations(state => {
         state
@@ -96,7 +101,10 @@ const header = (state, action) => {
     return state.withMutations(state => {
         state
             .set('rowsPassedFailed', state.get('rowsPassedFailed') + 1)
-            .set('allRulesFailed', state.get('allRulesFailed').push(action.rule))            
+            .set('allRulesFailed', state.get('allRulesFailed').push({
+              "rule":action.rule,
+              "cell":action.cell.toJS()['id']
+            }))
     });
   default:
     return state;
@@ -110,6 +118,7 @@ const headerReducer = (state, action) => {
   case HEADER_BEGIN_DRAG:
   case HEADER_END_DRAG:
   case HEADER_ATTEMPT_MAP:
+  case HEADER_ATTEMPT_MAP_FINISH:
     return state
             .set(action.headerCell.get('rowIndex'), header(state.get(action.headerCell.get('rowIndex')), action));
   default:
@@ -149,7 +158,8 @@ export default function uploader(state = initialState, action) {
     });
   case HEADER_BEGIN_DRAG:
   case HEADER_END_DRAG:
-  case HEADER_ATTEMPT_MAP: 
+  case HEADER_ATTEMPT_MAP:
+  case HEADER_ATTEMPT_MAP_FINISH:
     return state
             .set('headerData', headerReducer(state.get('headerData'), action))
   case CELL_VALIDATE_PASS: 

@@ -68,10 +68,22 @@
 
 .Uploader-table-header-icon-dragging,
 .Uploader-table-header-icon-validating,
-.Uploader-table-header-icon-neglet {
+.Uploader-table-header-icon-neglet,
+.Uploader-table-header-icon-validColumn,
+.Uploader-table-header-icon-nonValidColumn {
   margin-left: 10px;
   margin-right: 10px;
   font-size: 1.5em;
+}
+
+.Uploader-table-header-icon-validColumn {
+  color: $intentSuccess !important;
+  -webkit-animation: pulsePass 2s 1;
+}
+
+.Uploader-table-header-icon-nonValidColumn { 
+  color: $intentFailure !important;
+  -webkit-animation: pulseFail 2s 1;
 }
 
 .Uploader-table-header-icon-neglet {
@@ -112,4 +124,13 @@
   -ms-transform:scale(3,1); /* IE 9 */
   -o-transform:scale(3,1); /* Opera */
   transform:scale(3,1); /* W3C */
+}
+
+.Header-map-error-link {
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+    color: $intentFailure;
+  }
 }

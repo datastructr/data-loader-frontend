@@ -28,3 +28,25 @@ $intentFailureLight: #d77c7c;
     box-shadow: 0 0 0 1.5px $tertiaryAppColor;
   }
 }
+
+@-webkit-keyframes pulsePass {
+  50% {
+    box-shadow: 0 0 0 1.5px $intentSuccess;
+  }
+}
+@-moz-keyframes pulsePass {
+  50% {
+    box-shadow: 0 0 0 1.5px $intentSuccess;
+  }
+}
+
+@-webkit-keyframes pulseFail {
+  50% {
+    box-shadow: 0 0 0 1.5px $intentFailureLight;
+  }
+}
+@-moz-keyframes pulseFail {
+  50% {
+    box-shadow: 0 0 0 1.5px $intentFailureLight;
+  }
+}

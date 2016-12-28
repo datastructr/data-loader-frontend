@@ -41,12 +41,22 @@ class CSVTableHeader extends Component {
     return false;
   }
   
-  generateIconClass(dragging, validating) {
-    if(dragging) {
+  generateIconClass(cell) {
+    let 
+      dragging = cell.get('headerDragging'),
+      validating = cell.get('validating'),
+      validated = cell.get('validated'),
+      validColumn = cell.get('rowsPassedFailed') === 0;
+
+    if (dragging) {
       return "Uploader-table-header-icon-dragging";
-    } else if(validating) {
+    } else if (validating) {
       return "Uploader-table-header-icon-validating"
-    } else {
+    } else if (validated && validColumn) {
+      return "Uploader-table-header-icon-validColumn"
+    }  else if (validated && !validColumn) {
+      return "Uploader-table-header-icon-nonValidColumn"
+    } else { 
       return "Uploader-table-header-icon-neglet";
     }
   }
@@ -57,7 +67,7 @@ class CSVTableHeader extends Component {
       cell
     } = this.props;
 
-    let headerIconClassName = this.generateIconClass(cell.get('headerDragging'), cell.get('validating'));
+    let headerIconClassName = this.generateIconClass(cell)//.get('headerDragging'), cell.get('validating'));
     
     return connectDragSource(
         <th className={`Uploader-table-header`}>
