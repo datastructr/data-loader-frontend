@@ -10,7 +10,13 @@ import {
 
 class HeaderMapper extends Component {
 
-  generateCardTitle(header) {
+  generateUnmappedCardTitle(header) {
+    return (
+      <span><Icon type="link" className="Uploader-table-header-icon-neglet" />{header.get('id')} <Icon type="arrow-right Header-map-pointer" /> </span>
+    )
+  }
+
+  generateMappedCardTitle(header) {
     let status = header.get('rowsPassedFailed') === 0 
       ? "success"
       : "error";
@@ -35,14 +41,36 @@ class HeaderMapper extends Component {
     } = this.props;
 
     let mappedHeaders = headerData.filter(header => header.get('headerMapped'));
+    let unmappedHeaders = headerData.filter(header => !header.get('headerMapped'));
      
     return (
         <div className="Uploader-header-mappings">
+          {mappedHeaders.size > 0 && 
+            <span>
+              <h2> Mapped </h2>
+              <hr/>
+              <br/>
+            </span>
+          }
           <Row gutter={16}>
           {mappedHeaders.map(header => 
             <Col span={8}>
-              <Card title={this.generateCardTitle(header)}>
+              <Card title={this.generateMappedCardTitle(header)}>
                 {this.generateCardBody(header.get('allRulesFailed'))}
+              </Card>
+            </Col>
+          )}
+          {unmappedHeaders.size > 0 && 
+            <span>
+              <h2> Unmapped </h2>
+              <hr/>
+              <br/>
+            </span>
+          }
+          {unmappedHeaders.map(header => 
+            <Col span={8}>
+              <Card title={this.generateUnmappedCardTitle(header)}>
+                
               </Card>
             </Col>
           )}
