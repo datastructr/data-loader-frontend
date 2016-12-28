@@ -125,3 +125,12 @@
   -o-transform:scale(3,1); /* Opera */
   transform:scale(3,1); /* W3C */
 }
+
+.Header-map-error-link {
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+    color: $intentFailure;
+  }
+}

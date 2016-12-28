@@ -193,7 +193,7 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
         dispatch(dispatchAttemptMappingFinish(header));
       }
     }
-    
+
     // recursive/iterative validating because it's' non-blocking 
     validateSingleCell(iterable.next().value);
   };  

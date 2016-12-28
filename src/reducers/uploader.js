@@ -28,7 +28,6 @@ const cell = (state, action) => {
     return state
             .set('rulesPassed', state.get('rulesPassed').push(action.rule))
   case CELL_VALIDATE_FAIL:
-    action.rule.cell = action.cell;
     return state
             .set('rulesFailed', state.get('rulesFailed').push(action.rule))
   case CELL_UPDATE_VALUE:
@@ -102,7 +101,10 @@ const header = (state, action) => {
     return state.withMutations(state => {
         state
             .set('rowsPassedFailed', state.get('rowsPassedFailed') + 1)
-            .set('allRulesFailed', state.get('allRulesFailed').push(action.rule))            
+            .set('allRulesFailed', state.get('allRulesFailed').push({
+              "rule":action.rule,
+              "cell":action.cell.toJS()['id']
+            }))
     });
   default:
     return state;
