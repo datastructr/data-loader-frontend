@@ -60,7 +60,11 @@ export function beginLoadFileData(file, encoding = "utf-8") {
             headerData, 
             tableData
           } = (new ParseCsv(finalResults)).shapeCsvAndRetrieve();
-          dispatch(dispatchUpoadFileSuccess(headerData, tableData));
+          
+          // TODO decide if worth having the loading screen
+          setTimeout(function() {
+           dispatch(dispatchUpoadFileSuccess(headerData, tableData));
+          }, 1000);  
         }
       });
 
