@@ -3,17 +3,26 @@ import Immutable, { Map, List, fromJS } from 'immutable';
 import { 
   UPLOAD_FILE, UPLOAD_FILE_PROGRESS, UPLOAD_FILE_SUCCESS, UPLOAD_FILE_FAILED,
   HEADER_BEGIN_DRAG, HEADER_END_DRAG,HEADER_ATTEMPT_MAP, HEADER_ATTEMPT_MAP_FINISH,
+  HEADER_ATTEMPT_MAP_SUCCESS, HEADER_ATTEMPT_MAP_FAILURE,
   CELL_VALIDATE_BEGIN, CELL_VALIDATE_PASS, CELL_VALIDATE_FAIL, CELL_UPDATE_VALUE
 } from '../actions/uploader';
 
 const initialState = Map({
-  tableData: Immutable.List(),
-  headerData: Immutable.List(),
+  tableData: List(),
+  headerData: List(),
   fileLoading: false,
   fileLoaded: false,
   fileLoadError: false,
   fileUploadProgress: 0,
-  fileErrorMessage: ''
+  fileErrorMessage: '',
+  reporting: Map({
+    totalHeadersCount: 0,
+    mappedHeadersCount: 0,
+    nonValidHeaderMappings: 0,
+    validHeaderMappings: 0,
+    nonValidCellsToCorrect: 0,
+    messageLog: List()
+  })
 });
 
 const cell = (state, action) => {
@@ -126,6 +135,26 @@ const headerReducer = (state, action) => {
   }
 }
 
+const reportingReducer = (state, action) => {
+  switch (action.type) {
+  case UPLOAD_FILE_SUCCESS:
+    return state.withMutations(state => {
+        state
+          .set('totalHeadersCount', action.headerData.length)
+          .set('mappedHeadersCount', 0);
+    });
+  case HEADER_ATTEMPT_MAP_FINISH:
+    return state
+              .set('mappedHeadersCount', state.get('mappedHeadersCount') + 1 );
+  case HEADER_ATTEMPT_MAP_SUCCESS:
+  case HEADER_ATTEMPT_MAP_FAILURE:
+    return state
+              .set('messageLog', state.get('messageLog').push(action.messageBody))
+  default:
+    return state;
+  }
+}
+
 export default function uploader(state = initialState, action) {
   switch (action.type) {
   case UPLOAD_FILE:
@@ -144,6 +173,7 @@ export default function uploader(state = initialState, action) {
           .set('fileErrorMessage', '')
           .set('tableData', fromJS(action.tableData))
           .set('headerData', fromJS(action.headerData))
+          .set('reporting', reportingReducer(state.get('reporting'), action))
     });
   case UPLOAD_FILE_PROGRESS:
     return state
@@ -160,8 +190,13 @@ export default function uploader(state = initialState, action) {
   case HEADER_END_DRAG:
   case HEADER_ATTEMPT_MAP:
   case HEADER_ATTEMPT_MAP_FINISH:
-    return state
-            .set('headerData', headerReducer(state.get('headerData'), action))
+  case HEADER_ATTEMPT_MAP_SUCCESS:
+  case HEADER_ATTEMPT_MAP_FAILURE:
+    return state.withMutations(state => {
+        state
+          .set('headerData', headerReducer(state.get('headerData'), action))
+          .set('reporting', reportingReducer(state.get('reporting'), action))
+    });
   case CELL_VALIDATE_PASS: 
   case CELL_VALIDATE_FAIL: 
   case CELL_UPDATE_VALUE: 

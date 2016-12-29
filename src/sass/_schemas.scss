@@ -43,6 +43,8 @@
 .Schema-field-icon-nodrop,
 .Schema-field-icon-dropping,
 .Schema-field-icon-validating,
+.Schema-field-icon-validMapping,
+.Schema-field-icon-nonValidMapping,
 .Schema-field-icon-neglet {
   margin-right: 10px;
 }
@@ -55,6 +57,15 @@
 .Schema-field-icon-validating {
   color: orange !important;
 }
+.Schema-field-icon-validMapping {
+  color: $intentSuccess !important;
+  -webkit-animation: pulsePass 2s 1;
+}
+.Schema-field-icon-nonValidMapping {
+  color: $intentFailure !important;
+  -webkit-animation: pulseFail 2s 1;
+}
+
 .Schema-field-icon-dropping {
   color: $dragMapColor !important;
 }
