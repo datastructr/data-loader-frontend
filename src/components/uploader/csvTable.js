@@ -53,6 +53,7 @@ class CSVTableBodySection extends Component {
 
     return (
       <tbody >
+      
       {tableData.map((row,i) => 
         <CSVTableCellRow 
           key={i.toString()} 
@@ -95,10 +96,11 @@ class CSVTable extends Component {
       updateRenderProgress
     } = this.props;
     
-
     return (
+      <div>
+       
       <table className="Uploader-datatable datatable-bordered">
-          
+         
           <CSVTableHeaderSection 
             headerData={headerData}
             beginHeaderDrag={beginHeaderDrag}
@@ -113,6 +115,7 @@ class CSVTable extends Component {
           />
 
       </table>
+      </div>
     );
   }
 }

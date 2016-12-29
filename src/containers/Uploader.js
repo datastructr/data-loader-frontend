@@ -9,6 +9,7 @@ import * as  UploaderActions from '../actions/uploader';
 import * as  SchemaActions from '../actions/schemas';
 
 import FileUploader from '../components/uploader/fileUploader';
+import TableLoading from '../components/uploader/tableLoading';
 import CSVTable from '../components/uploader/csvTable';
 import HeaderMapper from '../components/uploader/headerMapper';
 
@@ -71,8 +72,7 @@ class Uploader extends Component {
         <Tabs defaultActiveKey="1" activeKey={this.state.activeKey} onChange={this.tabOnChange.bind(this)}>
           <TabPane tab="Upload Table" key="1">
             <div className="Uploader-table-container">
-        
-              {display &&
+              {display && 
                 <CSVTable
                   tableData={tableData} 
                   headerData={headerData}
@@ -83,11 +83,14 @@ class Uploader extends Component {
                   updateRenderProgress={dispatchUploadFileProgress}
                 />
               }
-              {!fileLoaded &&
+              {!fileLoaded && !fileLoading && 
                 <FileUploader
                   beginLoadFileData={beginLoadFileData}
                   fileLoadError={fileLoadError}
                 />  
+              }
+              {!fileLoaded && fileLoading &&
+                <TableLoading />
               }
               </div>
           
