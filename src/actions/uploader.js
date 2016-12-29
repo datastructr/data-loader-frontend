@@ -75,7 +75,7 @@ export function beginLoadFileData(file, encoding = "utf-8") {
           // TODO decide if worth having the loading screen
           setTimeout(function() {
            dispatch(dispatchUpoadFileSuccess(headerData, tableData));
-          }, 1000);  
+          }, 500);  
         }
       });
 
@@ -138,6 +138,8 @@ export function dispatchUpdateCellValue(newVal,cell) {
  */
 export const HEADER_ATTEMPT_MAP = 'HEADER_ATTEMPT_MAP';
 export const HEADER_ATTEMPT_MAP_FINISH = 'HEADER_ATTEMPT_MAP_FINISH';
+export const HEADER_ATTEMPT_MAP_SUCCESS = 'HEADER_ATTEMPT_MAP_SUCCESS';
+export const HEADER_ATTEMPT_MAP_FAILURE = 'HEADER_ATTEMPT_MAP_FAILURE';
 export const CELL_VALIDATE_BEGIN = 'CELL_VALIDATE_BEGIN';
 export const CELL_VALIDATE_PASS = 'CELL_VALIDATE_PASS';
 export const CELL_VALIDATE_FAIL = 'CELL_VALIDATE_FAIL';
@@ -157,6 +159,25 @@ function dispatchAttemptMappingFinish(headerCell) {
     type: HEADER_ATTEMPT_MAP_FINISH,
     headerCell: headerCell
   }
+}
+
+function dispatchAttemptMappingReport(headerCell, success) {
+  if(success) {
+    return {
+      type: HEADER_ATTEMPT_MAP_SUCCESS,
+      messageBody: {
+        color: 'green',
+        text: `${headerCell.get('id')}all cells valid - mapping complete`
+      } 
+    }
+  }
+  return {
+      type: HEADER_ATTEMPT_MAP_FAILURE,
+      messageBody: {
+        color: 'red',
+        text: `${headerCell.get('id')} has invalid cells -  mapping incomplete`
+      } 
+    }
 }
 
 function dispatchValidateCellPass(cell, rule, headerCell) {
@@ -210,6 +231,7 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
       } else {
         dispatch(dispatchAttemptMappingFinish(header));
         dispatch(dispatchAttemptFieldMappingFinish(dropTarget, failCount === 0));
+        dispatch(dispatchAttemptMappingReport(header, failCount === 0));
       }
     }
 
