@@ -23,9 +23,12 @@ export default class ParseSchema {
             name: schema.table_name,
             properties: _.map(schema.table_properties, (prop) => {
               return Object.assign({}, prop, {
-                fieldValidating: false,
                 fieldMapped: false,
                 fieldMap: {},
+                validating: false,
+                validateFail: false,
+                validatePass: false,
+                validated: false,
                 belongsTo: schema.table_name
               });
             }) 

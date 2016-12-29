@@ -1,6 +1,6 @@
 import { 
   GET_SCHEMAS, GET_SCHEMAS_SUCCESS, GET_SCHEMAS_FAILED,
-  FIELD_ATTEMPT_MAP
+  FIELD_ATTEMPT_MAP, FIELD_ATTEMPT_MAP_SUCCESS, FIELD_ATTEMPT_MAP_FAILURE
 } from '../actions/schemas';
 
 const initialState = {
@@ -20,18 +20,39 @@ const property = (state = {id:null}, action) => {
       return state;
     }
     return Object.assign({}, state,{
-      fieldValidating: true,
+      validating: true,
       fieldMap: action.dropTarget
     });
+  case FIELD_ATTEMPT_MAP_SUCCESS:
+   if (state.column !== action.dropTarget.column) {
+      return state;
+    }
+    return Object.assign({}, state,{
+      validating: false,
+      validated: true,
+      validatePass: true
+    });
+  case FIELD_ATTEMPT_MAP_FAILURE:
+   if (state.column !== action.dropTarget.column) {
+      return state;
+    }
+    return Object.assign({}, state,{
+      validating: false,
+      validated: true,
+      validateFail: true
+    });
   default:
-    return state;
-    
+    return state; 
   }
 }
+
+
 
 const propertyReducer = (state = [], action) => {
   switch (action.type) {
   case FIELD_ATTEMPT_MAP:
+  case FIELD_ATTEMPT_MAP_SUCCESS:
+  case FIELD_ATTEMPT_MAP_FAILURE:
     return state.map(h =>
       property(h, action)
     );
@@ -44,6 +65,8 @@ const propertyReducer = (state = [], action) => {
 const schema = (state = {name:null}, action) => {
   switch (action.type) {
   case FIELD_ATTEMPT_MAP:
+  case FIELD_ATTEMPT_MAP_SUCCESS:
+  case FIELD_ATTEMPT_MAP_FAILURE:
     if (state.name !== action.dropTarget.belongsTo) {
       return state;
     }
@@ -59,6 +82,8 @@ const schema = (state = {name:null}, action) => {
 const schemaReducer = (state = [], action) => {
   switch (action.type) {
   case FIELD_ATTEMPT_MAP:
+  case FIELD_ATTEMPT_MAP_SUCCESS:
+  case FIELD_ATTEMPT_MAP_FAILURE:
     return state.map(s =>
       schema(s, action)
     );
@@ -94,6 +119,8 @@ export default function schemas(state = initialState, action) {
       schemasErrorMessage: action.errorMessage
     });
   case FIELD_ATTEMPT_MAP: 
+  case FIELD_ATTEMPT_MAP_SUCCESS:
+  case FIELD_ATTEMPT_MAP_FAILURE:
     return Object.assign({}, state, {
       availableSchemas: schemaReducer(state.availableSchemas, action)
     });

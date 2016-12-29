@@ -9,6 +9,17 @@ export const UPLOAD_FILE_SUCCESS = 'LOAD_FILE_SUCCESS';
 export const UPLOAD_FILE_PROGRESS = 'LOAD_FILE_PROGRESS';
 export const UPLOAD_FILE_FAILED = 'LOAD_FILE_FAILED';
 
+/**
+ * CROSS ACTIONS
+ * 
+ * dispatchAttemptMappingSuccess:
+ *    validation is done in user container, the schema container needs to know when validated as well
+ *
+ */
+import { dispatchAttemptFieldMappingFinish } from './schemas';
+/* */
+
+
 function dispatchUploadFile() {
   return {
     type: UPLOAD_FILE
@@ -177,6 +188,8 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
         .get('tableData')
         .values();
 
+    let failCount = 0;
+
     function validateSingleCell(parentRow) {
       const cell = parentRow.get(header.get('rowIndex'));
       _.each(rules, (rule,i) => {
@@ -184,6 +197,7 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
         if(result.valid) { 
           dispatch(dispatchValidateCellPass(cell, rule, header));
         } else {
+          failCount++;
           dispatch(dispatchValidateCellFail(cell, rule, header));
         }
       });
@@ -195,6 +209,7 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
           }, 0);
       } else {
         dispatch(dispatchAttemptMappingFinish(header));
+        dispatch(dispatchAttemptFieldMappingFinish(dropTarget, failCount === 0));
       }
     }
 

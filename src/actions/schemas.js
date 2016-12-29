@@ -44,12 +44,27 @@ export function getSchemaData() {
 
 
 export const FIELD_ATTEMPT_MAP = 'FIELD_ATTEMPT_MAP';
+export const FIELD_ATTEMPT_MAP_SUCCESS = 'FIELD_ATTEMPT_MAP_SUCCESS';
+export const FIELD_ATTEMPT_MAP_FAILURE = 'FIELD_ATTEMPT_MAP_FAILURE';
 
 function dispatchAttemptMapping(dropTarget, headerCell) {
   return {
     type: FIELD_ATTEMPT_MAP,
     headerCell: headerCell,
     dropTarget: dropTarget
+  }
+}
+
+export function dispatchAttemptFieldMappingFinish(dropTarget, success) {
+  if(success) {
+    return {
+      type: FIELD_ATTEMPT_MAP_SUCCESS,
+      dropTarget: dropTarget
+    }
+  }
+  return {
+      type: FIELD_ATTEMPT_MAP_FAILURE,
+      dropTarget: dropTarget
   }
 }
 
