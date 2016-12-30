@@ -64,8 +64,6 @@ class Reporter extends Component {
         </Col>
         </Row>
 
-        <Icon type="close-circle-o" />
-
         <h5>Mapping Information</h5>
         <hr/>
         <br/>
@@ -75,8 +73,8 @@ class Reporter extends Component {
               <p>Headers Mapped</p>
             </Col>
             <Col className="Reporter-chart-dash-box" span={8}>
-              <Progress type="circle" percent={0} width={80} />
-              <p>Other Stat</p>
+              <p className="Reporter-chart-dash-number">{nonValidCellsToCorrect}</p>
+              <p>Cells Need Correction</p>
             </Col>
             <Col className="Reporter-chart-dash-box" span={8}>
               <Progress type="circle" percent={0} width={80} />
