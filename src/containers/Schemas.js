@@ -32,7 +32,15 @@ class Schemas extends Component {
   componentDidMount() {
     this.props.getSchemaData();
   }
-  
+
+  openCloseSchema(key) {
+    if(key) {
+      this.props.dispatchOpenSchema(key)
+    } else {
+      this.props.dispatchCloseSchema()
+    }
+  }
+
   render() {
     const {
       availableSchemas,
@@ -44,7 +52,10 @@ class Schemas extends Component {
       <div className="Schemas">
         <div className="Schemas-view">
           {schemasLoaded && 
-            <Collapse accordion>
+            <Collapse 
+              accordion
+              onChange={this.openCloseSchema.bind(this)}
+            >
               {availableSchemas.map((schema,i) => 
                 <Panel header={(<span><Icon type="hdd" /> {schema.name}</span>)} key={i}>
                   <SchemaFieldBase properties={schema.properties} />

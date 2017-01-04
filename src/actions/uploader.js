@@ -161,21 +161,26 @@ function dispatchAttemptMappingFinish(headerCell) {
   }
 }
 
-function dispatchAttemptMappingReport(headerCell, success) {
+function dispatchAttemptMappingReport(headerCell, dropTarget, success) {
+  console.log(dropTarget)
   if(success) {
     return {
       type: HEADER_ATTEMPT_MAP_SUCCESS,
       messageBody: {
-        color: 'green',
-        text: `${headerCell.get('id')}all cells valid - mapping complete`
+        valid: true,
+        contextOf: headerCell.get('id'),
+        contextTo: dropTarget.column,
+        text: 'all cells valid - mapping complete'
       } 
     }
   }
   return {
       type: HEADER_ATTEMPT_MAP_FAILURE,
       messageBody: {
-        color: 'red',
-        text: `${headerCell.get('id')} has invalid cells -  mapping incomplete`
+        valid: false,
+        contextOf: headerCell.get('id'),
+        contextTo: dropTarget.column,
+        text: 'has invalid cells -  mapping incomplete'
       } 
     }
 }
@@ -231,7 +236,7 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
       } else {
         dispatch(dispatchAttemptMappingFinish(header));
         dispatch(dispatchAttemptFieldMappingFinish(dropTarget, failCount === 0));
-        dispatch(dispatchAttemptMappingReport(header, failCount === 0));
+        dispatch(dispatchAttemptMappingReport(header, dropTarget, failCount === 0));
       }
     }
 

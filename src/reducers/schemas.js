@@ -1,10 +1,12 @@
 import { 
   GET_SCHEMAS, GET_SCHEMAS_SUCCESS, GET_SCHEMAS_FAILED,
-  FIELD_ATTEMPT_MAP, FIELD_ATTEMPT_MAP_SUCCESS, FIELD_ATTEMPT_MAP_FAILURE
+  FIELD_ATTEMPT_MAP, FIELD_ATTEMPT_MAP_SUCCESS, FIELD_ATTEMPT_MAP_FAILURE,
+  OPEN_SCHEMA, CLOSE_SCHEMA
 } from '../actions/schemas';
 
 const initialState = {
   availableSchemas: [],
+  openSchemaIndex: null,
   schemasLoading: false,
   schemasLoaded: false,
   schemasLoadError: false,
@@ -123,6 +125,14 @@ export default function schemas(state = initialState, action) {
   case FIELD_ATTEMPT_MAP_FAILURE:
     return Object.assign({}, state, {
       availableSchemas: schemaReducer(state.availableSchemas, action)
+    });
+  case OPEN_SCHEMA:
+    return Object.assign({}, state, {
+        openSchemaIndex: action.key
+    });
+  case CLOSE_SCHEMA:
+    return Object.assign({}, state, {
+      openSchemaIndex: null
     });
   default:
     return state;

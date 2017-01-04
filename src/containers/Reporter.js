@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import {
   Timeline,
   Progress,
+  Icon,
   Row,
   Col
 } from 'antd';
@@ -41,10 +42,23 @@ class Reporter extends Component {
         <div className="Reporter-container">
         
         <Row className="Reporter-logger-row">
-        <Col className="Reporter-logger-timeline" span={12}>
+        <Col className="Reporter-logger-timeline" span={24}>
           <Timeline>
             {messageLog.map((message, i) => 
-              <Timeline.Item color={message.color}><p className="Reporter-logger-row-text">{message.text}</p></Timeline.Item>
+              <span>
+              {message.valid && 
+                <Timeline.Item color="green"><p className="Reporter-logger-row-text">{`${message.contextOf} -> ${message.contextTo} | ${message.text}`}</p></Timeline.Item>
+              }
+              {!message.valid &&
+                <Timeline.Item 
+                  dot={<Icon type="close-circle-o"/>} 
+                  color="red">
+                    <p className="Reporter-logger-row-text">
+                      {`${message.contextOf} -> ${message.contextTo} | ${message.text}`}
+                    </p>
+                </Timeline.Item>
+              }
+              </span>
             )}
           </Timeline>
         </Col>
@@ -59,8 +73,8 @@ class Reporter extends Component {
               <p>Headers Mapped</p>
             </Col>
             <Col className="Reporter-chart-dash-box" span={8}>
-              <Progress type="circle" percent={0} width={80} />
-              <p>Other Stat</p>
+              <p className="Reporter-chart-dash-number">{nonValidCellsToCorrect}</p>
+              <p>Cells Need Correction</p>
             </Col>
             <Col className="Reporter-chart-dash-box" span={8}>
               <Progress type="circle" percent={0} width={80} />

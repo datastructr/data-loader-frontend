@@ -150,6 +150,9 @@ const reportingReducer = (state, action) => {
   case HEADER_ATTEMPT_MAP_FAILURE:
     return state
               .set('messageLog', state.get('messageLog').push(action.messageBody))
+  case CELL_VALIDATE_FAIL:
+    return state
+              .set('nonValidCellsToCorrect', state.get('nonValidCellsToCorrect') + 1 );
   default:
     return state;
   }
@@ -205,6 +208,7 @@ export default function uploader(state = initialState, action) {
         state
           .set('tableData', tableReducer(state.get('tableData'), action))
           .set('headerData', headerReducer(state.get('headerData'), action))
+          .set('reporting', reportingReducer(state.get('reporting'), action))
     });
             
   default:
