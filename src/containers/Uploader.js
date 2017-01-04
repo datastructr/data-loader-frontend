@@ -29,6 +29,12 @@ class Uploader extends Component {
     }  
   }
 
+  headerMappedFromDropDown(e, targetList, header) {
+    let dropTarget = targetList.properties[parseInt(e.target.value,10)];
+    this.props.dropTargetRecieveHeader(dropTarget,header);
+    this.props.endHeaderDragDroppedMapped(header,dropTarget);
+  }
+
   cellValueChange(newVal, cell) {
     this.props.dispatchUpdateCellValue(newVal, cell)
   }
@@ -58,12 +64,13 @@ class Uploader extends Component {
       fileLoading,
       fileLoaded,
       fileLoadError,
-      availibleSchemaOptions,
+      availableSchemaOptions,
 
       // actions
       beginHeaderDrag,
       beginLoadFileData,
-      dispatchUploadFileProgress
+      dispatchUploadFileProgress,
+      endHeaderDragDroppedMapped
     } = this.props;
 
     let display = fileLoaded && !fileLoading && !fileLoadError;
@@ -102,7 +109,8 @@ class Uploader extends Component {
               <HeaderMapper
                 headerData={headerData}
                 showTableFocusCell={this.showTableFocusCell.bind(this)}
-                schemaOptions={availibleSchemaOptions}
+                schemaOptions={availableSchemaOptions}
+                headerMappedFromDropDown={this.headerMappedFromDropDown.bind(this)}
               />
             }
           
@@ -141,7 +149,7 @@ function mapStateToProps(state) {
       openSchemaIndex: 0
     };
 
-    let availibleSchemaOptions = availableSchemas[openSchemaIndex];
+    let availableSchemaOptions = availableSchemas[openSchemaIndex];
 
   return {
     tableData,
@@ -150,7 +158,7 @@ function mapStateToProps(state) {
     fileLoaded,
     fileLoadError,
     fileErrorMessage,
-    availibleSchemaOptions
+    availableSchemaOptions
   };
 }
 
