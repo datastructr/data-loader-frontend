@@ -51,9 +51,12 @@ class HeaderMapper extends Component {
 
   render() {
     const {
-      headerData
+      headerData,
+      schemaOptions
     } = this.props;
 
+    console.log(schemaOptions)
+    
     let mappedHeaders = headerData.filter(header => header.get('headerMapped'));
     let unmappedHeaders = headerData.filter(header => !header.get('headerMapped'));
      

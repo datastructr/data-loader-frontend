@@ -24,6 +24,22 @@ function dispatchGetSchemasFailed(message) {
   };
 }
 
+export const OPEN_SCHEMA = 'OPEN_SCHEMA';
+export const CLOSE_SCHEMA = 'CLOSE_SCHEMA';
+
+export function dispatchOpenSchema(key) {
+  return {
+    type: OPEN_SCHEMA,
+    key: key
+  };
+}
+
+export function dispatchCloseSchema(key) {
+  return {
+    type: CLOSE_SCHEMA
+  };
+}
+
 
 // Sample tests
 import {schemaSamples} from '../tests/App.samples.js';

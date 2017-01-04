@@ -58,6 +58,7 @@ class Uploader extends Component {
       fileLoading,
       fileLoaded,
       fileLoadError,
+      availibleSchemaOptions,
 
       // actions
       beginHeaderDrag,
@@ -101,6 +102,7 @@ class Uploader extends Component {
               <HeaderMapper
                 headerData={headerData}
                 showTableFocusCell={this.showTableFocusCell.bind(this)}
+                schemaOptions={availibleSchemaOptions}
               />
             }
           
@@ -118,7 +120,10 @@ Uploader.propTypes = {
 };
 
 function mapStateToProps(state) {
-  let { uploader: {present} } = state;
+  let { 
+    uploader: {present},
+    schemas
+  } = state;
   
   const 
     tableData = present.get('tableData'),
@@ -128,13 +133,24 @@ function mapStateToProps(state) {
     fileLoadError = present.get('fileLoadError'),
     fileErrorMessage = present.get('fileErrorMessage');
 
+    const {
+      availableSchemas,
+      openSchemaIndex 
+    } = schemas || {
+      availableSchemas: [],
+      openSchemaIndex: 0
+    };
+
+    let availibleSchemaOptions = availableSchemas[openSchemaIndex];
+
   return {
     tableData,
     headerData,
     fileLoading,
     fileLoaded,
     fileLoadError,
-    fileErrorMessage
+    fileErrorMessage,
+    availibleSchemaOptions
   };
 }
 
