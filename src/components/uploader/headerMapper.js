@@ -11,14 +11,15 @@ import {
 class HeaderMapper extends Component {
 
   generateUnmappedCardTitle(header, schemaOptions, onChangeEvent) {
-    
+    let fieldOptions = schemaOptions.properties.filter((field) => {return !field.validated;})
+
     return (
       <span>
       <Icon type="link" className="Uploader-table-header-icon-neglet" />{' ' + header.get('id')}
       <br/>
       <Icon type="arrow-right Header-map-pointer" />{'   '}
-        <select onChange={(e) => { onChangeEvent(e,schemaOptions, header) } }>
-          {schemaOptions && schemaOptions.properties.map((col,i) => 
+        <select onChange={(e) => { onChangeEvent(e,fieldOptions, header) } }>
+          {schemaOptions && fieldOptions.map((col,i) => 
             <option key={i} value={i}>{col.column}</option>
           )}
         </select>

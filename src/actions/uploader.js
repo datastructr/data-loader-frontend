@@ -162,7 +162,6 @@ function dispatchAttemptMappingFinish(headerCell) {
 }
 
 function dispatchAttemptMappingReport(headerCell, dropTarget, success) {
-  console.log(dropTarget)
   if(success) {
     return {
       type: HEADER_ATTEMPT_MAP_SUCCESS,

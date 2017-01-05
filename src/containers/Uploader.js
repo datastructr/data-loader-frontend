@@ -30,7 +30,7 @@ class Uploader extends Component {
   }
 
   headerMappedFromDropDown(e, targetList, header) {
-    let dropTarget = targetList.properties[parseInt(e.target.value,10)];
+    let dropTarget = targetList[parseInt(e.target.value,10)];
     this.props.dropTargetRecieveHeader(dropTarget,header);
     this.props.endHeaderDragDroppedMapped(header,dropTarget);
   }
