@@ -67,7 +67,8 @@ export default class DataSmartCell extends Component {
 
   render() {
     const {
-      cellData
+      cellData,
+      style
     } = this.props;
     
     let passedRulesCount = cellData.get('rulesPassed').size;
@@ -87,7 +88,7 @@ export default class DataSmartCell extends Component {
 
 
     return (
-        <div className={`Uploader-table-cell ${colorClass}`}>
+        <div style={style} className={`DataGrid-cell-container ${colorClass}`}>
           {innerJSX}
         </div>
     );

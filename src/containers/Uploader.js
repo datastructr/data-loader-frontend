@@ -12,7 +12,7 @@ import FileUploader from '../components/uploader/fileUploader';
 import TableLoading from '../components/uploader/tableLoading';
 import HeaderMapper from '../components/uploader/headerMapper';
 
-import DataTable from '../components/uploader/DataTable/DataTable';
+import DataGrid from '../components/uploader/DataGrid/DataGrid';
 
 class Uploader extends Component {
   constructor(props) {
@@ -80,9 +80,9 @@ class Uploader extends Component {
       <div className="Uploader">
         <Tabs defaultActiveKey="1" activeKey={this.state.activeKey} onChange={this.tabOnChange.bind(this)}>
           <TabPane tab="Upload Table" key="1">
-            <div className="Uploader-table-container">
+            <div className="Datatable-container">
               {display && 
-                <DataTable
+                <DataGrid
                   tableData={tableData} 
                   headerData={headerData}
                   beginHeaderDrag={beginHeaderDrag}

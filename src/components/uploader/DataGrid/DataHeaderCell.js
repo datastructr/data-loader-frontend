@@ -64,15 +64,16 @@ class DataHeaderCell extends Component {
   render() {
     const {
       connectDragSource,
-      cell
+      cell,
+      style
     } = this.props;
 
     let headerIconClassName = this.generateIconClass(cell)//.get('headerDragging'), cell.get('validating'));
     
     return connectDragSource(
-        <th className={`Uploader-table-header`}>
+        <div style={style} className="DataGrid-header-container">
           {cell.get('id')} <Icon type="link" className={headerIconClassName} />
-        </th>
+        </div>
     );
   }
 }
