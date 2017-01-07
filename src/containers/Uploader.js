@@ -10,8 +10,9 @@ import * as  SchemaActions from '../actions/schemas';
 
 import FileUploader from '../components/uploader/fileUploader';
 import TableLoading from '../components/uploader/tableLoading';
-import CSVTable from '../components/uploader/csvTable';
 import HeaderMapper from '../components/uploader/headerMapper';
+
+import DataTable from '../components/uploader/DataTable/DataTable';
 
 class Uploader extends Component {
   constructor(props) {
@@ -81,7 +82,7 @@ class Uploader extends Component {
           <TabPane tab="Upload Table" key="1">
             <div className="Uploader-table-container">
               {display && 
-                <CSVTable
+                <DataTable
                   tableData={tableData} 
                   headerData={headerData}
                   beginHeaderDrag={beginHeaderDrag}
