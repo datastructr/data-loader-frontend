@@ -24,11 +24,11 @@ class InputField extends Component {
   }
 
   handleChange(e) {
-    this.props.handleChangeAction(e.target.value,this.state.cellData);
+    this.props.handleCellChangeAction(e.target.value,this.state.cellData);
   }
 
   handleBlur(e) {
-    this.props.handleBlurAction(this.state.cellData);
+    this.props.handleCellBlurAction(this.state.cellData);
   }
 
   render() {
@@ -57,9 +57,9 @@ export default class DataSmartCell extends Component {
 
   generateCellColor(passCount, failCount) {
     if(failCount > 0) {
-      return 'Uploader-table-cell-invalid';
+      return 'DataGrid-table-cell-invalid';
     } else if (passCount > 0){
-      return 'Uploader-table-cell-valid';
+      return 'DataGrid-table-cell-valid';
     } else {
       return '';
     }
@@ -68,7 +68,9 @@ export default class DataSmartCell extends Component {
   render() {
     const {
       cellData,
-      style
+      style,
+      handleCellChangeAction,
+      handleCellBlurAction
     } = this.props;
     
     let passedRulesCount = cellData.get('rulesPassed').size;
@@ -80,8 +82,8 @@ export default class DataSmartCell extends Component {
       ? (
         <InputField 
           cellData={cellData}
-          handleChangeAction={this.props.handleCellChangeAction}
-          handleBlurAction={this.props.handleBlurAction} 
+          handleCellChangeAction={handleCellChangeAction}
+          handleCellBlurAction={handleCellBlurAction} 
         />
       )
       : (cellData.get('value'))

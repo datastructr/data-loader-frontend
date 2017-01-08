@@ -214,8 +214,10 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
         .values();
 
     let failCount = 0;
-
+    // this function needs to be changed
     function validateSingleCell(parentRow) {
+      console.log(parentRow)
+      debugger
       const cell = parentRow.get(header.get('rowIndex'));
       _.each(rules, (rule,i) => {
         let result = validationFuncs.checkPassRule(cell, rule);

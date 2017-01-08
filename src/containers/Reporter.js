@@ -45,7 +45,7 @@ class Reporter extends Component {
         <Col className="Reporter-logger-timeline" span={24}>
           <Timeline>
             {messageLog.map((message, i) => 
-              <span>
+              <span key={i}>
               {message.valid && 
                 <Timeline.Item color="green"><p className="Reporter-logger-row-text">{`${message.contextOf} -> ${message.contextTo} | ${message.text}`}</p></Timeline.Item>
               }

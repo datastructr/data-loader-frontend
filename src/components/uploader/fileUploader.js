@@ -32,7 +32,7 @@ class FileUploader extends Component {
           className="Uploader-dropzone"
           >
           <div className="ant-upload ant-upload-drag">
-          <span tabindex="0" class="ant-upload ant-upload-btn" role="button">
+          <span tabIndex="0" className="ant-upload ant-upload-btn" role="button">
             <div className="ant-upload-drag-container">
             <p className="ant-upload-drag-icon">
               <Icon type="inbox" />

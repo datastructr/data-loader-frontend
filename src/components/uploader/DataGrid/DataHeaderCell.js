@@ -49,15 +49,15 @@ class DataHeaderCell extends Component {
       validColumn = cell.get('rowsPassedFailed') === 0;
 
     if (dragging) {
-      return "Uploader-table-header-icon-dragging";
+      return "DataGrid-table-header-icon-dragging";
     } else if (validating) {
-      return "Uploader-table-header-icon-validating"
+      return "DataGrid-table-header-icon-validating"
     } else if (validated && validColumn) {
-      return "Uploader-table-header-icon-validColumn"
+      return "DataGrid-table-header-icon-validColumn"
     }  else if (validated && !validColumn) {
-      return "Uploader-table-header-icon-nonValidColumn"
+      return "DataGrid-table-header-icon-nonValidColumn"
     } else { 
-      return "Uploader-table-header-icon-neglet";
+      return "DataGrid-table-header-icon-neglet";
     }
   }
 

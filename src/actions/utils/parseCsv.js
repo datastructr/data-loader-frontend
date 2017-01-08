@@ -15,13 +15,12 @@ export default class ParseCSV {
   _parseDataFromLoadedCsv() {
     let self = this;
     let rowIndex = 0;
-    
+
     // use the first object to determine the headers
     _.forIn(self.initialRead[0], (value,column) => {
       // create a header object
       self.parsedData.headerData[self.parsedData.headerData.length] = {
         id: column,
-        index: rowIndex++,
         rowIndex: rowIndex++,
         validated: false,
         validating: false,
@@ -49,7 +48,6 @@ export default class ParseCSV {
         self.parsedData.tableData[i][self.parsedData.tableData[i].length] = {
           id: `c:${column}-r:${i}`,
           column: column,
-          index: columnIndex++,
           columnIndex: columnIndex++,
           row: i,
           value: value,

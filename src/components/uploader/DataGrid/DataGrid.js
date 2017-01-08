@@ -7,7 +7,8 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   AutoSizer,
-  Grid
+  Grid,
+  ScrollSync
 } from 'react-virtualized';
 
 import shallowCompare from 'react-addons-shallow-compare'
@@ -18,18 +19,16 @@ export default class DataTable extends Component {
 
   constructor(props) {
     super(props);
-    this.state={
-      headerData: props.headerData,
-      tableData: props.tableData
-    }
   }
 
   _headerCellRenderer({ columnIndex, key, rowIndex, style }) {
     return (
       <DataHeaderCell 
-        cell={this.state.headerData.get(columnIndex)} 
+        cell={this.props.headerData.get(columnIndex)} 
         key={key}
         style={style}
+        beginHeaderDrag={this.props.beginHeaderDrag}
+        headerDroppedAction={this.props.headerDroppedAction}
       />
     )  
   }
@@ -39,14 +38,17 @@ export default class DataTable extends Component {
       <DataSmartCell
         key={key}
         style={style}
-        cellData={this.state.tableData.get(rowIndex).get(columnIndex)} 
+        cellData={this.props.tableData.get(rowIndex).get(columnIndex)}
+        handleCellChangeAction={this.props.handleCellChangeAction}
+        handleCellBlurAction={this.props.handleCellBlurAction}
+        updateRenderProgress={this.props.updateRenderProgress}
       />
     )  
   }
 
   cellRenderer({ columnIndex, key, rowIndex, style }) {
     return rowIndex === 0 
-      ? this._headerCellRenderer.call(this,{ columnIndex, key, rowIndex, style })
+      ? this._headerCellRenderer.call(this, { columnIndex, key, rowIndex, style })
       : this._bodyCellRenderer.call(this,{ columnIndex, key, rowIndex, style })
   }
 
@@ -54,7 +56,11 @@ export default class DataTable extends Component {
     let {
       headerData,
       tableData
-    } = this.state;
+    } = this.props;
+    // console.log("+==============================")
+    // console.log(headerData.size)
+    // console.log(tableData)
+    // console.log("+==============================")
 
     return (
         <AutoSizer disableHeight>
