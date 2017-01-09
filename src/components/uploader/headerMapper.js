@@ -10,20 +10,21 @@ import {
 
 class HeaderMapper extends Component {
 
-  generateUnmappedCardTitle(header) {
+  generateUnmappedCardTitle(header, schemaOptions, onChangeEvent) {
+    let fieldOptions = schemaOptions.properties.filter((field) => {return !field.validated;})
+
     return (
       <span>
       <Icon type="link" className="Uploader-table-header-icon-neglet" />{' ' + header.get('id')}
       <br/>
       <Icon type="arrow-right Header-map-pointer" />{'   '}
-        <select>
-          <option value="volvo">Volvodsvd</option>
-          <option value="saab">Saasdvb</option>
-          <option value="vw">V__asfgW</option>
-          <option value="audi" selected>Audid sdfg</option>
+        <select onChange={(e) => { onChangeEvent(e,fieldOptions, header) } }>
+          {schemaOptions && fieldOptions.map((col,i) => 
+            <option key={i} value={i}>{col.column}</option>
+          )}
         </select>
        </span>
-    )
+    ) 
   }
 
   generateMappedCardTitle(header) {
@@ -52,11 +53,10 @@ class HeaderMapper extends Component {
   render() {
     const {
       headerData,
-      schemaOptions
+      schemaOptions,
+      headerMappedFromDropDown
     } = this.props;
 
-    console.log(schemaOptions)
-    
     let mappedHeaders = headerData.filter(header => header.get('headerMapped'));
     let unmappedHeaders = headerData.filter(header => !header.get('headerMapped'));
      
@@ -88,7 +88,7 @@ class HeaderMapper extends Component {
           }
           {unmappedHeaders.map((header,i) => 
             <Col key={i} span={8}>
-              <Card title={this.generateUnmappedCardTitle(header)}>
+              <Card title={this.generateUnmappedCardTitle(header,schemaOptions,headerMappedFromDropDown)}>
                 
               </Card>
             </Col>

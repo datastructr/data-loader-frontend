@@ -17,97 +17,45 @@
   display: table;
   border-collapse: collapse;
   border-spacing: 0;
-  font-size: .75em;
-
-  th {
-    border-top: none;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), to(lightgrey));
-    background-image: -webkit-linear-gradient(transparent, lightgrey);
-    background-image:
-        -moz-linear-gradient(transparent, lightgrey),
-        -moz-linear-gradient(transparent, lightgrey)
-    ;
-    background-image:
-        -o-linear-gradient(transparent, lightgrey),
-        -o-linear-gradient(transparent, lightgrey)
-    ;
-    background-image: 
-        linear-gradient(transparent, lightgrey),
-        linear-gradient(transparent, lightgrey)
-    ;
-    -moz-background-size: 1px 100%;
-    background-size: 1px 100%;
-    background-position:0 0, 100% 0;
-    background-repeat:no-repeat;
-    background-color: $secondaryBackground;
-  }
-
-  td:not(:first-child),th {
-    padding: 15px;
-    height: 30px;
-    min-width: 100px;
-  }
 
   td:first-child {
     font-size: .7em;
     font-weight: bold;
     background-color: $secondaryBackground;
   }
-
-  td:not(:first-child){
-    border: 2px solid lightgrey;
-  }
 }
 
-.Uploader-table-header {
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.Uploader-table-header-icon-dragging,
-.Uploader-table-header-icon-validating,
-.Uploader-table-header-icon-neglet,
-.Uploader-table-header-icon-validColumn,
-.Uploader-table-header-icon-nonValidColumn {
+.DataGrid-table-header-icon-dragging,
+.DataGrid-table-header-icon-validating,
+.DataGrid-table-header-icon-neglet,
+.DataGrid-table-header-icon-validColumn,
+.DataGrid-table-header-icon-nonValidColumn {
   margin-left: 10px;
   margin-right: 10px;
   font-size: 1.5em;
 }
 
-.Uploader-table-header-icon-validColumn {
+.DataGrid-table-header-icon-validColumn {
   color: $intentSuccess !important;
   -webkit-animation: pulsePass 2s 1;
 }
 
-.Uploader-table-header-icon-nonValidColumn { 
+.DataGrid-table-header-icon-nonValidColumn { 
   color: $intentFailure !important;
   -webkit-animation: pulseFail 2s 1;
 }
 
-.Uploader-table-header-icon-neglet {
+.DataGrid-table-header-icon-neglet {
   color: $tertiaryAppColor !important;
   -webkit-animation: pulse 2s infinite;
 }
 
-.Uploader-table-header-icon-dragging {
+.DataGrid-table-header-icon-dragging {
   color: $dragMapColor !important;
 }
 
-.Uploader-table-header-icon-validating{
+.DataGrid-table--header-icon-validating{
   color: orange !important;
-}
-
-.Uploader-table-cell:hover{
-  background-color: $tertiaryFillColor;
-  color: $secondaryAppColor;
-}
-
-.Uploader-table-cell-valid {
-  background-color: $intentSuccessLight;
-}
-
-.Uploader-table-cell-invalid {
-  background-color: $intentFailureLight;
 }
 
 .Uploader-header-mappings {
@@ -131,4 +79,53 @@
     text-decoration: underline;
     color: $intentFailure;
   }
+}
+
+.DataGrid-container{
+  height: 100%;
+  width: inherit;
+  font-size: .75em;
+}
+
+.DataGrid-header-container {
+  cursor: pointer;
+  white-space: nowrap;
+  border-top: none;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), to(lightgrey));
+  background-image: -webkit-linear-gradient(transparent, lightgrey);
+  background-image:
+      -moz-linear-gradient(transparent, lightgrey),
+      -moz-linear-gradient(transparent, lightgrey)
+  ;
+  background-image:
+      -o-linear-gradient(transparent, lightgrey),
+      -o-linear-gradient(transparent, lightgrey)
+  ;
+  background-image: 
+      linear-gradient(transparent, lightgrey),
+      linear-gradient(transparent, lightgrey)
+  ;
+  -moz-background-size: 1px 100%;
+  background-size: 1px 100%;
+  background-position:0 0, 100% 0;
+  background-repeat:no-repeat;
+  background-color: $secondaryBackground;
+}
+
+.DataGrid-cell-container {
+  overflow: hidden;
+  border: 1px solid lightgrey;
+}
+
+.DataGrid-cell-container:hover{
+  background-color: $tertiaryFillColor;
+  color: $secondaryAppColor;
+}
+
+.DataGrid-table-cell-valid {
+  background-color: $intentSuccessLight;
+}
+
+.DataGrid-table-cell-invalid {
+  background-color: $intentFailureLight;
 }

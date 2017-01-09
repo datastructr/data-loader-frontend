@@ -162,7 +162,6 @@ function dispatchAttemptMappingFinish(headerCell) {
 }
 
 function dispatchAttemptMappingReport(headerCell, dropTarget, success) {
-  console.log(dropTarget)
   if(success) {
     return {
       type: HEADER_ATTEMPT_MAP_SUCCESS,
@@ -215,6 +214,7 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
         .values();
 
     let failCount = 0;
+    let i = 0;
 
     function validateSingleCell(parentRow) {
       const cell = parentRow.get(header.get('rowIndex'));
@@ -230,9 +230,15 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
 
       let next = iterable.next();      
       if(!next.done) {
-         setTimeout(function() {
+        // non-blocking
+        if(i++ % 4 !== 0) {
+          validateSingleCell(next.value)
+        } else {
+          setTimeout(function() {
            validateSingleCell(next.value)
           }, 0);
+        }
+         
       } else {
         dispatch(dispatchAttemptMappingFinish(header));
         dispatch(dispatchAttemptFieldMappingFinish(dropTarget, failCount === 0));

@@ -3,6 +3,8 @@ import React, {Component, PropTypes} from 'react';
 import CSVTableHeaderRow from './csvTableHeaderRow';
 import CSVTableCellRow from './csvTableCellRow';
 
+import Table from './DataTable/Table';
+
 class CSVTableHeaderSection extends Component {
   
   shouldComponentUpdate(nextProps, nextState) {
@@ -98,27 +100,33 @@ class CSVTable extends Component {
     
     return (
       <div>
-       
-      <table className="Uploader-datatable datatable-bordered">
-         
-          <CSVTableHeaderSection 
-            headerData={headerData}
-            beginHeaderDrag={beginHeaderDrag}
-            headerDroppedAction={headerDroppedAction}
-          />
-
-          <CSVTableBodySection 
-            tableData={tableData}
-            handleCellChangeAction={handleCellChangeAction}
-            handleCellBlurAction={handleCellBlurAction}
-            updateRenderProgress={updateRenderProgress}
-          />
-
-      </table>
+      
+        <Table 
+          tableData={tableData}
+          headerData={headerData}
+        />
+      
       </div>
     );
   }
 }
+
+// <table className="Uploader-datatable datatable-bordered">
+         
+//           <CSVTableHeaderSection 
+//             headerData={headerData}
+//             beginHeaderDrag={beginHeaderDrag}
+//             headerDroppedAction={headerDroppedAction}
+//           />
+
+//           <CSVTableBodySection 
+//             tableData={tableData}
+//             handleCellChangeAction={handleCellChangeAction}
+//             handleCellBlurAction={handleCellBlurAction}
+//             updateRenderProgress={updateRenderProgress}
+//           />
+
+//       </table>
 
 CSVTable.propTypes = {
   tableData: PropTypes.object.isRequired,

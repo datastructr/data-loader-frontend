@@ -10,8 +10,9 @@ import * as  SchemaActions from '../actions/schemas';
 
 import FileUploader from '../components/uploader/fileUploader';
 import TableLoading from '../components/uploader/tableLoading';
-import CSVTable from '../components/uploader/csvTable';
 import HeaderMapper from '../components/uploader/headerMapper';
+
+import DataGrid from '../components/uploader/DataGrid/DataGrid';
 
 class Uploader extends Component {
   constructor(props) {
@@ -27,6 +28,12 @@ class Uploader extends Component {
       this.props.dropTargetRecieveHeader(dropTarget,header);
       this.props.endHeaderDragDroppedMapped(header,dropTarget);
     }  
+  }
+
+  headerMappedFromDropDown(e, targetList, header) {
+    let dropTarget = targetList[parseInt(e.target.value,10)];
+    this.props.dropTargetRecieveHeader(dropTarget,header);
+    this.props.endHeaderDragDroppedMapped(header,dropTarget);
   }
 
   cellValueChange(newVal, cell) {
@@ -58,12 +65,13 @@ class Uploader extends Component {
       fileLoading,
       fileLoaded,
       fileLoadError,
-      availibleSchemaOptions,
+      availableSchemaOptions,
 
       // actions
       beginHeaderDrag,
       beginLoadFileData,
-      dispatchUploadFileProgress
+      dispatchUploadFileProgress,
+      endHeaderDragDroppedMapped
     } = this.props;
 
     let display = fileLoaded && !fileLoading && !fileLoadError;
@@ -72,9 +80,9 @@ class Uploader extends Component {
       <div className="Uploader">
         <Tabs defaultActiveKey="1" activeKey={this.state.activeKey} onChange={this.tabOnChange.bind(this)}>
           <TabPane tab="Upload Table" key="1">
-            <div className="Uploader-table-container">
+            <div className="Datatable-container">
               {display && 
-                <CSVTable
+                <DataGrid
                   tableData={tableData} 
                   headerData={headerData}
                   beginHeaderDrag={beginHeaderDrag}
@@ -102,7 +110,8 @@ class Uploader extends Component {
               <HeaderMapper
                 headerData={headerData}
                 showTableFocusCell={this.showTableFocusCell.bind(this)}
-                schemaOptions={availibleSchemaOptions}
+                schemaOptions={availableSchemaOptions}
+                headerMappedFromDropDown={this.headerMappedFromDropDown.bind(this)}
               />
             }
           
@@ -141,7 +150,7 @@ function mapStateToProps(state) {
       openSchemaIndex: 0
     };
 
-    let availibleSchemaOptions = availableSchemas[openSchemaIndex];
+    let availableSchemaOptions = availableSchemas[openSchemaIndex];
 
   return {
     tableData,
@@ -150,7 +159,7 @@ function mapStateToProps(state) {
     fileLoaded,
     fileLoadError,
     fileErrorMessage,
-    availibleSchemaOptions
+    availableSchemaOptions
   };
 }
 

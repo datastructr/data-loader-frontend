@@ -15,6 +15,7 @@ export default class ParseCSV {
   _parseDataFromLoadedCsv() {
     let self = this;
     let rowIndex = 0;
+
     // use the first object to determine the headers
     _.forIn(self.initialRead[0], (value,column) => {
       // create a header object
