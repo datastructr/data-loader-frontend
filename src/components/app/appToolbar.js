@@ -6,15 +6,20 @@ const TabPane = Tabs.TabPane;
 class TableToolbar extends Component {
 
   render() {
+    let {
+      disableSubmit,
+      disableCancel,
+      disableReset
+    } = this.props;
 
     let toolbarItems = [
       {
         "text": "File", 
         "subMenu": [
-          {"name": 'Upload', "iconType": 'cloud-upload-o' },
-          {"name": 'Reset All', "iconType": 'reload' },
-          {"name": 'Cancel', "iconType": 'close-circle-o' },
-          {"name": 'Submit', "iconType": 'save'}
+          {"name": 'Upload', "iconType": 'cloud-upload-o', "classAppend": 'App-toolbar-enabled' },
+          {"name": 'Reset All', "iconType": 'reload', "classAppend": disableReset ? 'App-toolbar-disabled' : 'App-toolbar-enabled' },
+          {"name": 'Cancel', "iconType": 'close-circle-o', "classAppend": disableCancel ? 'App-toolbar-disabled' : 'App-toolbar-enabled'  },
+          {"name": 'Submit', "iconType": 'save', "classAppend": disableSubmit ? 'App-toolbar-disabled' : 'App-toolbar-enabled' }
         ]
       },
       {
@@ -39,8 +44,8 @@ class TableToolbar extends Component {
             {toolbarItems.map((item,i) => 
               <TabPane tab={item.text} key={i}>
                 {item.subMenu.map((sub,i) => 
-                  <div  key={i} className="App-toolbar-item text-center">
-                    <Icon className={`App-toolbar-item-icon ${sub.classExt}`} type={sub.iconType} />
+                  <div  key={i} className={`App-toolbar-item text-center ${sub.classAppend}`}>
+                    <Icon className={`App-toolbar-item-icon`} type={sub.iconType} />
                     <p className="App-toolbar-item-text">{sub.name}</p>
                   </div>
                 )}

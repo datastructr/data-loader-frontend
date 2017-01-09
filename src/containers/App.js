@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import * as  AppActions from '../actions/app';
 
 import Reporter from '../containers/Reporter';
 import Schemas from '../containers/Schemas';
@@ -17,11 +21,36 @@ import '../styles/index.css';
 
 class App extends Component {
 
+  submitFileForUpload() {
+
+  }
+
+  cancelUploadedFile() {
+
+  }
+
+  resetAllChangesMade() {
+
+  }
+
   render() {
+    let {
+      fileLoading,
+      fileLoaded,
+      fileLoadError
+    } = this.props;
+
     return (
       <div className="App">
       
-      <AppToolbar />
+        <AppToolbar 
+          disableSubmit={!fileLoaded}
+          disableCancel={!fileLoaded}
+          disableReset={!fileLoaded}
+          submitFileForUpload={this.submitFileForUpload.bind(this)}
+          cancelUploadedFile={this.cancelUploadedFile.bind(this)}
+          resetAllChangesMade={this.resetAllChangesMade.bind(this)}
+        />
 
         <Row className="App-main-view">
 
@@ -40,4 +69,25 @@ class App extends Component {
   }
 }
 
-export default DragDropContext(HTML5Backend)(App);
+function mapStateToProps(state) {
+  let { 
+    uploader: {present}
+  } = state;
+  
+  const 
+    fileLoading  = present.get('fileLoading'),
+    fileLoaded  = present.get('fileLoaded'),
+    fileLoadError = present.get('fileLoadError');
+
+  return {
+    fileLoading,
+    fileLoaded,
+    fileLoadError
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(AppActions, dispatch);
+}
+
+export default DragDropContext(HTML5Backend)(connect(mapStateToProps,mapDispatchToProps)(App));
