@@ -214,10 +214,9 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
         .values();
 
     let failCount = 0;
-    // this function needs to be changed
+    let i = 0;
+
     function validateSingleCell(parentRow) {
-      console.log(parentRow)
-      debugger
       const cell = parentRow.get(header.get('rowIndex'));
       _.each(rules, (rule,i) => {
         let result = validationFuncs.checkPassRule(cell, rule);
@@ -231,9 +230,15 @@ export function endHeaderDragDroppedMapped(header, dropTarget) {
 
       let next = iterable.next();      
       if(!next.done) {
-         setTimeout(function() {
+        // non-blocking
+        if(i++ % 4 !== 0) {
+          validateSingleCell(next.value)
+        } else {
+          setTimeout(function() {
            validateSingleCell(next.value)
           }, 0);
+        }
+         
       } else {
         dispatch(dispatchAttemptMappingFinish(header));
         dispatch(dispatchAttemptFieldMappingFinish(dropTarget, failCount === 0));

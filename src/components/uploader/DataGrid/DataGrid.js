@@ -17,10 +17,6 @@ import DataHeaderCell from './DataHeaderCell'
 
 export default class DataTable extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   _headerCellRenderer({ columnIndex, key, rowIndex, style }) {
     return (
       <DataHeaderCell 
