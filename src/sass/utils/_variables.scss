@@ -50,3 +50,11 @@ $intentFailureLight: #d77c7c;
     box-shadow: 0 0 0 1.5px $intentFailureLight;
   }
 }
+
+.background-success {
+  background-color: $intentSuccessLight;
+}
+
+.background-failure {
+  background-color: $intentFailureLight;
+}

@@ -80,11 +80,12 @@ export default class DataSmartCell extends Component {
     
     let innerJSX = failedRulesCount > 0 
       ? (
-        <InputField 
-          cellData={cellData}
-          handleCellChangeAction={handleCellChangeAction}
-          handleCellBlurAction={handleCellBlurAction} 
-        />
+        (cellData.get('value'))
+        // <InputField 
+        //   cellData={cellData}
+        //   handleCellChangeAction={handleCellChangeAction}
+        //   handleCellBlurAction={handleCellBlurAction} 
+        // />
       )
       : (cellData.get('value'))
 

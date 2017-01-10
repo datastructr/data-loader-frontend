@@ -51,6 +51,32 @@ class SchemaField extends Component {
       return "Schema-field-icon-neglet";
     }
   }
+
+  generateRowName(isOver, field) {
+    let {
+      validating,
+      validated,
+      validateFail,
+      validatePass
+    } = field;
+
+    let name = '';
+    if(isOver) {
+      name += 'Schema-field-isover '
+    } else {
+      name += 'Schema-field '
+    }
+
+    if(validated && validatePass) {
+      name += "background-success";
+    } else if(validated && validateFail) { 
+      name += "background-failure";
+    } else {
+      
+    }
+
+    return name;
+  }
   
   render() {
     const {
@@ -61,10 +87,11 @@ class SchemaField extends Component {
       canDrop
     } = this.props;
 
-    let fieldIconClassName = this.generateIconClass(isOver, canDrop, field)
+    let fieldIconClassName = this.generateIconClass(isOver, canDrop, field);
+    let rowClassName = this.generateRowName(isOver, field);
 
     return connectDropTarget(
-      <tr className={isOver ? 'Schema-field-isover' : 'Schema-field' }>
+      <tr className={rowClassName}>
         <td><span><Icon type="link" className={fieldIconClassName} /> </span>{' ' + field.column}</td>
         <td>{field.type}</td>
         <td><b>{field.nullable === "False" ? 'Required' : ''}</b></td>
