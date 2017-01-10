@@ -52,6 +52,9 @@ export default class DataSmartCell extends Component {
     if (!this.props.cellData.equals(nextProps.cellData)) {
       return true;
     }
+    if (!this.props.rowColHover !== nextProps.rowColHover) {
+      return true;
+    }
     return false;
   }
 
@@ -69,10 +72,12 @@ export default class DataSmartCell extends Component {
     const {
       cellData,
       style,
+      rowColHover,
       handleCellChangeAction,
-      handleCellBlurAction
+      handleCellBlurAction,
+      hoverAction
     } = this.props;
-    
+
     let passedRulesCount = cellData.get('rulesPassed').size;
     let failedRulesCount = cellData.get('rulesFailed').size;
 
@@ -89,9 +94,11 @@ export default class DataSmartCell extends Component {
       )
       : (cellData.get('value'))
 
-
     return (
-        <div style={style} className={`DataGrid-cell-container ${colorClass}`}>
+        <div 
+          style={style} 
+          className={`DataGrid-cell-container ${colorClass} ${rowColHover ? 'Datagrid-highlight' : ''}`} 
+          onMouseOver={()=>{hoverAction(cellData.get('rowIndex'), cellData.get('columnIndex'))}}>
           {innerJSX}
         </div>
     );
