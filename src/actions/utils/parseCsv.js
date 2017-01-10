@@ -50,6 +50,7 @@ export default class ParseCSV {
           column: column,
           columnIndex: columnIndex++,
           row: i,
+          rowIndex: i,
           value: value,
           validated: false,
           validating: false,

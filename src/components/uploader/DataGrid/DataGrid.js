@@ -16,6 +16,19 @@ import DataSmartCell from './DataSmartCell'
 import DataHeaderCell from './DataHeaderCell'
 
 export default class DataTable extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  _updateHighlightRowCol(rowIndex, columnIndex) {
+    this.setState({
+      hoveredColumnIndex: columnIndex,
+      hoveredRowIndex: rowIndex
+    }, () => {
+      this.forceUpdate()
+    })
+  }
 
   _headerCellRenderer({ columnIndex, key, rowIndex, style }) {
     return (
@@ -30,14 +43,17 @@ export default class DataTable extends Component {
   }
 
   _bodyCellRenderer({ columnIndex, key, rowIndex, style }) {
+    let cell = this.props.tableData.get(rowIndex).get(columnIndex);
     return (
       <DataSmartCell
         key={key}
         style={style}
-        cellData={this.props.tableData.get(rowIndex).get(columnIndex)}
+        cellData={cell}
         handleCellChangeAction={this.props.handleCellChangeAction}
         handleCellBlurAction={this.props.handleCellBlurAction}
         updateRenderProgress={this.props.updateRenderProgress}
+        rowColHover={rowIndex === this.state.hoveredRowIndex || columnIndex === this.state.hoveredColumnIndex}
+        hoverAction={this._updateHighlightRowCol.bind(this)}
       />
     )  
   }

@@ -119,7 +119,7 @@
 }
 
 .DataGrid-cell-container:hover{
-  background-color: $tertiaryFillColor;
+  background-color: $secondaryFillColor;
   color: $secondaryAppColor;
 }
 
@@ -129,4 +129,8 @@
 
 .DataGrid-table-cell-invalid {
   background-color: $intentFailureLight;
+}
+
+.Datagrid-highlight{
+  background-color: $tertiaryFillColor;
 }
