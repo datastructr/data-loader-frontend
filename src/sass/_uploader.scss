@@ -124,11 +124,19 @@
 }
 
 .DataGrid-table-cell-valid {
-  background-color: $intentSuccessLight;
+  background-color: $intentSuccessLight !important;
 }
 
 .DataGrid-table-cell-invalid {
-  background-color: $intentFailureLight;
+  background-color: $intentFailureLight !important;
+}
+
+.DataGrid-table-cell-valid:hover {
+  background-color: $intentSuccess !important;
+}
+
+.DataGrid-table-cell-invalid:hover {
+  background-color: $intentFailure !important;
 }
 
 .Datagrid-highlight{
