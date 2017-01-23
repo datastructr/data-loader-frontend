@@ -11,6 +11,7 @@ import {
 class HeaderMapper extends Component {
 
   generateUnmappedCardTitle(header, schemaOptions, onChangeEvent) {
+    console.log(schemaOptions)
     let fieldOptions = schemaOptions.properties.filter((field) => {return !field.validated;})
 
     return (
@@ -62,38 +63,44 @@ class HeaderMapper extends Component {
      
     return (
         <div className="Uploader-header-mappings">
-          {mappedHeaders.size > 0 && 
-            <span>
-              <h2> Mapped </h2>
-              <hr/>
-              <br/>
-            </span>
+        {!schemaOptions && <h1>Choose a schema from right </h1>}
+          
+          {schemaOptions && mappedHeaders.size > 0 && 
+              <span>
+                <h2> Mapped </h2>
+                <hr/>
+                <br/>
+                <Row gutter={16}>
+                {mappedHeaders.map((header,i) => 
+                  <Col key={i} span={8}>
+                    <Card title={this.generateMappedCardTitle(header)}>
+                      {this.generateCardBody(header.get('allRulesFailed'))}
+                    </Card>
+                  </Col>
+                  
+                )}
+                </Row>
+              </span>
           }
-          <Row gutter={16}>
-          {mappedHeaders.map((header,i) => 
-            <Col key={i} span={8}>
-              <Card title={this.generateMappedCardTitle(header)}>
-                {this.generateCardBody(header.get('allRulesFailed'))}
-              </Card>
-            </Col>
-          )}
-          </Row>
-          <Row gutter={16}>
-          {unmappedHeaders.size > 0 && 
-            <span>
-              <h2> Unmapped </h2>
-              <hr/>
-              <br/>
-            </span>
-          }
-          {unmappedHeaders.map((header,i) => 
-            <Col key={i} span={8}>
-              <Card title={this.generateUnmappedCardTitle(header,schemaOptions,headerMappedFromDropDown)}>
-                
-              </Card>
-            </Col>
-          )}
-          </Row>
+            
+            
+            {schemaOptions && unmappedHeaders.size > 0 && 
+              <span>
+                <h2> Unmapped </h2>
+                <hr/>
+                <br/>
+                <Row gutter={16}>
+                {unmappedHeaders.map((header,i) => 
+                  <Col key={i} span={8}>
+                    <Card title={this.generateUnmappedCardTitle(header,schemaOptions,headerMappedFromDropDown)}>
+                      
+                    </Card>
+                  </Col>
+                )}
+                </Row>
+              </span>
+            }
+          
         </div>
     );
   }

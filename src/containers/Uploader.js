@@ -74,6 +74,7 @@ class Uploader extends Component {
       endHeaderDragDroppedMapped
     } = this.props;
 
+
     let display = fileLoaded && !fileLoading && !fileLoadError;
 
     return (
@@ -149,7 +150,7 @@ function mapStateToProps(state) {
       availableSchemas: [],
       openSchemaIndex: 0
     };
-
+    
     let availableSchemaOptions = availableSchemas[openSchemaIndex];
 
   return {
