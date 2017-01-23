@@ -12,13 +12,11 @@ const middlewareBuilder = () => {
   
   if(process.browser){
     if(process.env.NODE_ENV === 'production'){
-      // production 
       middleware = applyMiddleware(...universalMiddleware);
       allComposeElements = [
         middleware
       ];
     }else{
-      // development
       console.log('====> 📃 React Logger Enabled - expect browser memory issues');
       middleware = applyMiddleware(...universalMiddleware,createLogger());
       allComposeElements = [
@@ -33,7 +31,6 @@ const middlewareBuilder = () => {
   }
 
   return allComposeElements;
-
 };
 
 const finalCreateStore = compose(...middlewareBuilder())(createStore);
@@ -47,6 +44,5 @@ export default function configureStore(initialState) {
       store.replaceReducer(nextRootReducer);
     });
   }
-
   return store;
 }

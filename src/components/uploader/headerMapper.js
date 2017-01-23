@@ -81,7 +81,7 @@ class HeaderMapper extends Component {
                 )}
                 </Row>
               </span>
-          }
+            }
             
             
             {schemaOptions && unmappedHeaders.size > 0 && 

@@ -44,9 +44,6 @@ class InputField extends Component {
 }
 
 
-/**
- * 
- */
 export default class DataSmartCell extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     if (!this.props.cellData.equals(nextProps.cellData)) {

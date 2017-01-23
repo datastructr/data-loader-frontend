@@ -1,10 +1,6 @@
 import Immutable, {List} from 'immutable';
 import React, { Component, PropTypes } from 'react';
 
-// import styles from './Table.css';
-// import TableHeader from './TableHeader';
-// import TableCell from './TableCell';
-
 import {
   AutoSizer,
   Grid,
@@ -69,10 +65,6 @@ export default class DataTable extends Component {
       headerData,
       tableData
     } = this.props;
-    // console.log("+==============================")
-    // console.log(headerData.size)
-    // console.log(tableData)
-    // console.log("+==============================")
 
     return (
         <AutoSizer disableHeight>
@@ -91,13 +83,3 @@ export default class DataTable extends Component {
     );
   }
 }
-
-// <Grid
-//                 cellRenderer={this.cellRenderer.bind(this)}
-//                 columnCount={headerData.size}
-//                 columnWidth={100}
-//                 rowCount={tableData.size}
-//                 rowHeight={30}
-//                 height={height}
-//                 width={width}
-//               />

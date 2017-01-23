@@ -68,7 +68,7 @@ class DataHeaderCell extends Component {
       style
     } = this.props;
 
-    let headerIconClassName = this.generateIconClass(cell)//.get('headerDragging'), cell.get('validating'));
+    let headerIconClassName = this.generateIconClass(cell);
     
     return connectDragSource(
         <div style={style} className="DataGrid-header-container">
